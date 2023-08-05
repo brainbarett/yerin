@@ -81,4 +81,17 @@ class AdminTest extends ApiTestCase
         $admin = Admin::findOrFail($response['data']['id']);
         $this->assertModelAttributes($admin, $payload);
     }
+
+	/** @test */
+    public function can_update_an_admin()
+    {
+        $admin = Admin::factory()->create();
+
+        $payload = $this->payload();
+
+        $this->put($this->getRoute('update', $admin->id), $payload)
+            ->assertOk();
+			
+        $this->assertModelAttributes($admin->refresh(), $payload);
+    }
 }
