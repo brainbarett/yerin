@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+	public function index()
+    {
+        return AdminResource::collection(Admin::all());
+    }
+
     public function store(StoreRequest $request)
     {
 		$admin = Admin::create($request->validated());

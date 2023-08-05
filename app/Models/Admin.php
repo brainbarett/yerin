@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -26,4 +27,11 @@ class Admin extends Authenticatable
 			set: fn(string $password) => Hash::make($password)
 		);
 	}
+
+	protected static function booted()
+    {
+        static::addGlobalScope('order', function(Builder $builder) {
+            $builder->orderBy('name');
+        });
+    }
 }

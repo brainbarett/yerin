@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api\Admin;
 
+use App\Http\Resources\Api\Admin\AdminResource;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\Sanctum;
@@ -40,6 +41,22 @@ class AdminTest extends ApiTestCase
                     break;
             }
         }
+    }
+
+	/** @test */
+    public function can_get_admin_index()
+    {
+        $admin = Admin::factory(5)->create();
+        $admin->prepend($this->admin);
+
+        $response = $this->get($this->getRoute('index'))
+            ->assertOk()
+            ->json();
+
+        $this->assertEquals(
+            AdminResource::collection($admin->sortBy('name'))->resolve(),
+            $response['data']
+        );
     }
 
 	/** @test */
