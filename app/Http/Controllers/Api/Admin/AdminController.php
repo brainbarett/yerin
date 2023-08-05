@@ -15,6 +15,11 @@ class AdminController extends Controller
         return AdminResource::collection(Admin::all());
     }
 
+	public function show(Admin $admin)
+    {
+        return AdminResource::make($admin);
+    }
+
     public function store(StoreRequest $request)
     {
 		$admin = Admin::create($request->validated());

@@ -60,6 +60,16 @@ class AdminTest extends ApiTestCase
     }
 
 	/** @test */
+    public function can_get_specific_admin()
+    {
+        $response = $this->get($this->getRoute('show', $this->admin->id))
+            ->assertOk()
+            ->json();
+
+        $this->assertEquals(AdminResource::make($this->admin)->resolve(), $response['data']);
+    }
+
+	/** @test */
     public function can_create_a_new_admin()
     {
         $payload = $this->payload();
