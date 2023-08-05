@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::prefix('admin')
+	->name('admin.')
+	->middleware('auth:admin')
+	->namespace('Admin')
+	->group(function() {
+		Route::apiResource('admin', 'AdminController')->only('store');
+	});
