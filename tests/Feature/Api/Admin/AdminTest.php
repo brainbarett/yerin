@@ -94,4 +94,15 @@ class AdminTest extends ApiTestCase
 			
         $this->assertModelAttributes($admin->refresh(), $payload);
     }
+
+	/** @test */
+    public function can_destroy_an_admin()
+    {
+        $adminId = Admin::factory()->create()->id;
+
+        $this->delete($this->getRoute('destroy', $adminId))
+            ->assertStatus(204);
+
+        $this->assertNull(Admin::find($adminId));
+    }
 }

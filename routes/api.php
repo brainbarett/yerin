@@ -19,5 +19,5 @@ Route::prefix('admin')
 	->middleware('auth:admin')
 	->namespace('Admin')
 	->group(function() {
-		Route::apiResource('admin', 'AdminController')->only(['store', 'index', 'show', 'update']);
+		Route::apiResource('admin', 'AdminController');
 	});

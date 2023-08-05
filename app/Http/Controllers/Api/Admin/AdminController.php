@@ -34,4 +34,11 @@ class AdminController extends Controller
 
         return AdminResource::make($admin->refresh());
     }
+
+	public function destroy(Admin $admin)
+    {
+        $admin->delete();
+
+        return response()->json([], 204);
+    }
 }
