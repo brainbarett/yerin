@@ -31,7 +31,12 @@ return [
     |
     */
 
-    'guard' => ['web'],
+	/**
+	 * please leave this empty.
+	 * reason: instead of throwing an 'unauthenticated' error, it causes Allowed memory exhausted error
+	 * this only happens when a guard that is using the sanctum driver and also shows up here
+	 */
+    'guard' => [],
 
     /*
     |--------------------------------------------------------------------------
