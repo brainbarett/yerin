@@ -44,5 +44,16 @@ class AuthTest extends ApiTestCase
 			$response['data']
 		);
 	}
+	
+	/** @test */
+	public function can_logout()
+	{
+		Sanctum::actingAs(Admin::factory()->create(), ['*'], 'admin');
+	
+		$this->post($this->getRoute('logout'))
+			->assertStatus(204);
+			
+		$this->assertFalse(auth('admin')->check());
+	}
 }
 

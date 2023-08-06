@@ -22,4 +22,11 @@ class AuthController extends Controller
     {
         return AdminResource::make(auth('admin')->user());
     }
+
+	public function logout()
+    {
+        auth('admin')->logout();
+
+        return response()->json([], 204);
+    }
 }

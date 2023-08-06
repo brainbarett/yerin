@@ -24,6 +24,7 @@ Route::prefix('admin')
 				->name('login')
 				->withoutMiddleware(['auth:sanctum', 'auth:admin']);
 			Route::get('authenticated', 'AuthController@isAuthenticated')->name('authenticated');
+			Route::post('logout', 'AuthController@logout')->name('logout');
 		});
 
 		Route::apiResource('admin', 'AdminController');
