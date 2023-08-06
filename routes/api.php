@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')
 	->name('admin.')
-	->middleware('auth:admin')
+	->middleware(['auth:sanctum', 'auth:admin'])
 	->namespace('Admin')
 	->group(function() {
 		Route::apiResource('admin', 'AdminController');
