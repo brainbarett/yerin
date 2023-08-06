@@ -19,5 +19,12 @@ Route::prefix('admin')
 	->middleware(['auth:sanctum', 'auth:admin'])
 	->namespace('Admin')
 	->group(function() {
+		Route::prefix('auth')->name('auth.')->group(function() {
+			Route::post('login', 'AuthController@login')
+				->name('login')
+				->withoutMiddleware(['auth:sanctum', 'auth:admin']);
+			Route::get('authenticated', 'AuthController@isAuthenticated')->name('authenticated');
+		});
+
 		Route::apiResource('admin', 'AdminController');
 	});
