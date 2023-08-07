@@ -2,7 +2,7 @@
 	<Layout>
 		<h1 class="text-xl font-medium">Create an Admin Account</h1>
 
-		<formulate-form @submit="save" v-model="form" name="main">
+		<formulate-form @submit="save" v-model="form" name="main" class="resource-form">
 			<div class="form__field-group grid-cols-2">
 				<formulate-input
 					name="name"
@@ -42,6 +42,7 @@
 			type="button"
 			class="button button--primary ml-auto h-9"
 			:class="{ 'opacity-70': loading }"
+			:disabled="loading"
 		>
 			<template v-if="loading">
 				Creating

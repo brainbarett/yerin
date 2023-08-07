@@ -64,9 +64,11 @@ body,
 	}
 }
 
-.formulate-form {
+.resource-form {
 	@apply box-border grid w-full gap-6 p-4 my-4 bg-white rounded shadow;
+}
 
+.formulate-form {
 	.formulate-form-error {
 		@apply text-xs text-red-400;
 	}
