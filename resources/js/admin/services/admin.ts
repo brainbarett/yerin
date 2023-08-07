@@ -4,6 +4,10 @@ import { AxiosResponse } from 'axios'
 const baseUrl: string = '/admin'
 
 export default {
+	index(): Promise<AxiosResponse<Response<Admin[]>>> {
+		return http.get(baseUrl)
+	},
+
 	store(data: StoreRequest): Promise<AxiosResponse<Response<Admin>>> {
 		return http.post(baseUrl, data)
 	},

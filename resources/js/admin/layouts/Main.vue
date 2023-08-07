@@ -47,7 +47,7 @@
 			const sidebarItems: SidebarItem[] = [
 				{
 					label: 'Admin Accounts',
-					routerLocation: { name: 'admin.create' },
+					routerLocation: { name: 'admin.index' },
 					active: this.$route.name?.startsWith('admin.'),
 				},
 			]
