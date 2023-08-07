@@ -19,6 +19,10 @@ export default {
 	update(id: number, data: UpdateRequest): AxiosPromise<Response<Admin>> {
 		return http.put(`${baseUrl}/${id}`, data)
 	},
+
+	destroy(id: number) {
+		return http.delete(`${baseUrl}/${id}`)
+	},
 }
 
 export type Admin = {

@@ -1,5 +1,17 @@
 <template>
 	<Layout>
+		<DeleteResourceModal
+			v-if="showDestroyModal"
+			title="Deleting Admin Account"
+			@close="showDestroyModal = false"
+			@confirm="destroy()"
+			:loading="loading.destroy"
+		>
+			<p>
+				You are attempting to delete <span class="underline">{{ resource.name }}</span>
+			</p>
+		</DeleteResourceModal>
+
 		<div class="flex items-center">
 			<router-link :to="{ name: 'admin.index' }" class="p-1 mr-2 bg-white rounded shadow">
 				<icon name="chevron-left" class="w-6 h-6" />
@@ -44,20 +56,26 @@
 			</div>
 		</formulate-form>
 
-		<button
-			@click="$formulate.submit('main')"
-			type="button"
-			class="button button--primary ml-auto h-9"
-			:class="{ 'opacity-70': loading }"
-			:disabled="loading"
-		>
-			<template v-if="loading">
-				Updating
-				<loading-spinner size="xs" color="white" class="ml-3" v-if="loading" />
-			</template>
+		<div class="flex justify-end gap-4">
+			<button @click="showDestroyModal = true" class="button !text-red-400 h-9">
+				Delete
+			</button>
 
-			<template v-else>Update</template>
-		</button>
+			<button
+				@click="$formulate.submit('main')"
+				type="button"
+				class="button button--primary h-9"
+				:class="{ 'opacity-70': loading.update }"
+				:disabled="loading.update"
+			>
+				<template v-if="loading.update">
+					Updating
+					<loading-spinner size="xs" color="white" v-if="loading.update" />
+				</template>
+
+				<template v-else>Update</template>
+			</button>
+		</div>
 	</Layout>
 </template>
 
@@ -68,6 +86,7 @@
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
 	import { RouteParams } from '@/router'
+	import DeleteResourceModal from '@/components/modals/DeleteResourceModal.vue'
 
 	type Form = {
 		name: string
@@ -77,19 +96,23 @@
 	}
 
 	export default Vue.extend({
-		components: { Layout },
+		components: { Layout, DeleteResourceModal },
 
 		data() {
 			return {
 				resource: {} as Admin,
-				loading: false as boolean,
+				loading: {
+					update: false,
+					destroy: false,
+				} as { [key: string]: boolean },
 				form: {} as Form,
+				showDestroyModal: false as boolean,
 			}
 		},
 
 		methods: {
 			async save(form: Form) {
-				this.loading = true
+				this.loading.update = true
 				this.$formulate.resetValidation('main')
 
 				const parsedFormData: UpdateRequest = form
@@ -111,7 +134,27 @@
 						)
 					})
 
-				this.loading = false
+				this.loading.update = false
+			},
+
+			async destroy() {
+				this.loading.destroy = true
+				await AdminApi.destroy(this.resource.id)
+					.then(res => this.$router.push({ name: 'admin.index' }))
+					.catch((res: AxiosResponse<ErrorResponse>) =>
+						this.$router.push({
+							name: 'admin.index',
+							/** @ts-ignore */
+							params: {
+								error: {
+									title: `Error deleting ${this.resource.name}`,
+									description: res.data.message,
+								},
+							} as RouteParams,
+						}),
+					)
+
+				this.loading.destroy = false
 			},
 		},
 
