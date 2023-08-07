@@ -97,6 +97,22 @@ class PropertiesTest extends ApiTestCase
         );
 	}
 
+	/** @test */
+    public function can_get_paginated_properties_index()
+    {
+        $properties = Properties::factory(5)->create();
+
+        $response = $this->get($this->getRoute('index', ['paginate' => 1, 'page' => 1]))
+            ->assertOk()
+            ->json();
+            
+        $this->assertEquals(
+            PropertiesResource::collection($properties)->resolve(),
+            $response['data']
+        );
+        $this->assertTrue(isset($response['links'], $response['meta']));
+    }
+
     /** @test */
 	public function can_create_a_new_property()
 	{

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Admin\RealEstate;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Admin\RealEstate\Properties\IndexRequest;
 use App\Http\Requests\Api\Admin\RealEstate\Properties\StoreRequest;
 use App\Http\Resources\Api\Admin\RealEstate\PropertiesResource;
 use App\Models\RealEstate\Properties;
@@ -12,9 +13,17 @@ use Illuminate\Support\Facades\DB;
 
 class PropertiesController extends Controller
 {
-	public function index()
+	public function index(IndexRequest $request)
     {
-        return PropertiesResource::collection(Properties::with('images')->get());
+		$data = $request->validated();
+
+		$properties = Properties::with('images');
+
+		return PropertiesResource::collection(
+            $data['paginate']
+                ? $properties->paginate()
+                : $properties->get()
+        );
     }
 
     public function store(StoreRequest $request)
