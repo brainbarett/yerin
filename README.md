@@ -1,4 +1,4 @@
-A Real Estate CMS where agencies can manage their property listings. It is a work-in-progress and not production ready.
+A Real Estate CMS where agencies can manage their property listings. It currently in its early stages; not production ready.
 
 Current progress can be seen at https://trello.com/b/W0JvYAlr/yerin
 
