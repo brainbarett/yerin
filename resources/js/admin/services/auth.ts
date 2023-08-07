@@ -12,6 +12,10 @@ export default {
 	isAuthenticated(): Promise<AxiosResponse<Response<Admin>>> {
 		return http.get(`${baseUrl}/authenticated`)
 	},
+
+	logout() {
+		return http.post(`${baseUrl}/logout`)
+	},
 }
 
 export type LoginRequest = {

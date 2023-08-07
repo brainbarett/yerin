@@ -12,6 +12,15 @@
 					</router-link>
 				</div>
 			</div>
+
+			<div class="sidebar__item-group !mt-auto">
+				<div class="sidebar__item">
+					<button @click="logout()" type="button" class="sidebar__button">
+						<icon name="logout" set="outline" class="w-5 h-5 mr-2" />
+						Log out
+					</button>
+				</div>
+			</div>
 		</div>
 
 		<div id="content">
@@ -25,6 +34,7 @@
 <script lang="ts">
 	import Vue from 'vue'
 	import { RawLocation } from 'vue-router'
+	import AuthApi from '@/services/auth'
 
 	type SidebarItem = {
 		label: string
@@ -45,6 +55,14 @@
 			return {
 				sidebarItems,
 			}
+		},
+
+		methods: {
+			logout() {
+				AuthApi.logout()
+					.then(res => this.$router.push({ name: 'auth.login' }))
+					.catch(res => alert(res.message))
+			},
 		},
 	})
 </script>
