@@ -1,14 +1,18 @@
 import http, { Response } from './http'
-import { AxiosResponse } from 'axios'
+import { AxiosPromise } from 'axios'
 
 const baseUrl: string = '/admin'
 
 export default {
-	index(): Promise<AxiosResponse<Response<Admin[]>>> {
+	index(): AxiosPromise<Response<Admin[]>> {
 		return http.get(baseUrl)
 	},
 
-	store(data: StoreRequest): Promise<AxiosResponse<Response<Admin>>> {
+	show(id: number): AxiosPromise<Response<Admin>> {
+		return http.get(`${baseUrl}/${id}`)
+	},
+
+	store(data: StoreRequest): AxiosPromise<Response<Admin>> {
 		return http.post(baseUrl, data)
 	},
 }

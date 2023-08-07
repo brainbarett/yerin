@@ -1,15 +1,15 @@
 import { Admin } from './admin'
 import http, { Response } from './http'
-import { AxiosResponse } from 'axios'
+import { AxiosPromise } from 'axios'
 
 const baseUrl: string = '/auth'
 
 export default {
-	login(data: LoginRequest): Promise<AxiosResponse<Response<Admin>>> {
+	login(data: LoginRequest): AxiosPromise<Response<Admin>> {
 		return http.post(`${baseUrl}/login`, data)
 	},
 
-	isAuthenticated(): Promise<AxiosResponse<Response<Admin>>> {
+	isAuthenticated(): AxiosPromise<Response<Admin>> {
 		return http.get(`${baseUrl}/authenticated`)
 	},
 
