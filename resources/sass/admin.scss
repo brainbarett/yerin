@@ -55,3 +55,41 @@ body,
 	margin: 0px;
 	height: 100%;
 }
+
+.button {
+	@apply min-w-[100px] box-border px-5 py-[6px] text-sm text-neutral-400 rounded flex items-center justify-center;
+
+	&--primary {
+		@apply text-white bg-gray-900;
+	}
+}
+
+.formulate-form {
+	@apply box-border grid w-full gap-6 p-4 my-4 bg-white rounded shadow;
+
+	.formulate-form-error {
+		@apply text-xs text-red-400;
+	}
+
+	.form__field-group {
+		@apply grid gap-6;
+	}
+}
+
+.formulate-input {
+	.formulate-input-label {
+		@apply block mb-1 text-sm font-medium;
+	}
+
+	.formulate-input-element > * {
+		@apply box-border block w-full px-3 py-2 text-sm bg-white border border-gray-300 rounded h-9;
+	}
+
+	.formulate-input-errors {
+		@apply mt-1;
+
+		.formulate-input-error {
+			@apply text-xs text-red-400;
+		}
+	}
+}

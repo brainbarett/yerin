@@ -34,7 +34,13 @@
 
 	export default Vue.extend({
 		data() {
-			const sidebarItems: SidebarItem[] = []
+			const sidebarItems: SidebarItem[] = [
+				{
+					label: 'Admin Accounts',
+					routerLocation: { name: 'admin.create' },
+					active: this.$route.name?.startsWith('admin.'),
+				},
+			]
 
 			return {
 				sidebarItems,

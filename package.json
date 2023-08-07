@@ -9,6 +9,7 @@
 		"prod": "mix --production"
 	},
 	"devDependencies": {
+		"@braid/vue-formulate": "^2.5.3",
 		"axios": "^0.25",
 		"laravel-mix": "^6.0.6",
 		"lodash": "^4.17.19",
@@ -23,6 +24,7 @@
 		"vue": "^2.7.14",
 		"vue-loader": "^15.9.8",
 		"vue-router": "^3.6.5",
+		"vue-tailwind-icons": "^0.1.2",
 		"vue-template-compiler": "^2.7.14"
 	}
 }
