@@ -28,4 +28,11 @@ Route::prefix('admin')
 		});
 
 		Route::apiResource('admin', 'AdminController');
+
+		Route::prefix('real-estate')
+			->name('real-estate.')
+			->namespace('RealEstate')
+			->group(function() {
+				Route::apiResource('properties', 'PropertiesController')->only('store');
+			});
 	});
