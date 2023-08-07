@@ -3,6 +3,8 @@
 namespace Database\Factories\RealEstate;
 
 use App\Enums\RealEstate\PropertyTypes;
+use App\Models\Images;
+use App\Models\RealEstate\Properties;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -32,5 +34,12 @@ class PropertiesFactory extends Factory
 			'construction_area' => $this->faker->randomNumber(3),
 			'construction_date' => $this->faker->date(),
         ];
+    }
+
+	public function withImages()
+    {
+        return $this->afterCreating(function(Properties $property) {
+            $property->syncImages(Images::factory(3)->create());
+        });
     }
 }

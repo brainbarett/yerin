@@ -35,6 +35,6 @@ Route::prefix('admin')
 			->name('real-estate.')
 			->namespace('RealEstate')
 			->group(function() {
-				Route::apiResource('properties', 'PropertiesController')->only('store');
+				Route::apiResource('properties', 'PropertiesController')->only(['index', 'store']);
 			});
 	});

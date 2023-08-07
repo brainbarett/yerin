@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api\Admin\RealEstate;
 
+use App\Http\Resources\Api\Admin\RealEstate\PropertiesResource;
 use App\Models\Admin;
 use App\Models\Images;
 use App\Models\ModelImages;
@@ -81,6 +82,21 @@ class PropertiesTest extends ApiTestCase
         }
     }
 	
+	/** @test */
+    public function can_get_properties_index()
+    {
+		$properties = Properties::factory(5)->withImages()->create();
+
+        $response = $this->get($this->getRoute('index'))
+            ->assertOk()
+            ->json();
+
+        $this->assertEquals(
+            PropertiesResource::collection($properties)->resolve(),
+            $response['data']
+        );
+	}
+
     /** @test */
 	public function can_create_a_new_property()
 	{

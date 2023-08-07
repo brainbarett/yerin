@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\DB;
 
 class PropertiesController extends Controller
 {
+	public function index()
+    {
+        return PropertiesResource::collection(Properties::with('images')->get());
+    }
+
     public function store(StoreRequest $request)
     {
 		$data = $request->validated();
