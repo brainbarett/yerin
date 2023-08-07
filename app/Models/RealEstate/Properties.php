@@ -2,12 +2,13 @@
 
 namespace App\Models\RealEstate;
 
+use App\Utils\ModelImages\HasImages;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Properties extends Model
 {
-    use HasFactory;
+    use HasFactory, HasImages;
 
 	protected $table = 'real_estate_properties';
 	protected $guarded = [];

@@ -4,6 +4,7 @@ namespace App\Http\Requests\Api\Admin\RealEstate\Properties;
 
 use App\Enums\RealEstate\PropertyTypes;
 use App\Enums\RealEstate\RentTerms;
+use App\Models\Images;
 use App\Models\RealEstate\Properties;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -47,7 +48,7 @@ class StoreRequest extends FormRequest
 			
 			'construction_date' => ['nullable', 'date'],
 
-			'listings' => ['array', 'min:1'],
+			'listings' => ['nullable', 'array', 'min:1'],
 			'listings.*' => ['required', 'string', Rule::in(['RENT', 'SALE'])],
 
 			'listings.SALE' => ['required', 'integer', 'min:1'],
@@ -58,6 +59,10 @@ class StoreRequest extends FormRequest
 				}
 			}],
 			'listings.RENT.*' => ['required', 'integer', 'min:1'],
+
+			'images' => ['nullable', 'array', 'min:1'],
+			'images.*.id' => ['required', 'integer', 'distinct', Rule::exists(Images::class, 'id')],
+            'images.*.order' => ['required', 'integer', 'min:0', 'distinct'],
         ];
     }
 }

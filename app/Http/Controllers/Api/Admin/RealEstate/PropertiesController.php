@@ -17,10 +17,14 @@ class PropertiesController extends Controller
 		$data = $request->validated();
 
 		$property = DB::transaction(function() use($data) {
-			$property = Properties::create(Arr::except($data, 'listings'));
+			$property = Properties::create(Arr::except($data, ['listings', 'images']));
 
-			if(isset($data['listings'])) {
+			if(isset($data['listings']) && $data['listings']) {
 				$property->syncListings($data['listings']);
+			}
+
+			if(isset($data['images']) && $data['images']) {
+				$property->syncImages($data['images']);
 			}
 
 			return $property;

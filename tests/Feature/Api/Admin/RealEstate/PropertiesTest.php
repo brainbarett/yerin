@@ -3,7 +3,10 @@
 namespace Tests\Feature\Api\Admin\RealEstate;
 
 use App\Models\Admin;
+use App\Models\Images;
+use App\Models\ModelImages;
 use App\Models\RealEstate\Properties;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\Sanctum;
 use Tests\Feature\Api\ApiTestCase;
 
@@ -17,8 +20,9 @@ class PropertiesTest extends ApiTestCase
 	{
 		parent::setUp();
 		
+		Storage::fake('uploads');
+		
 		$this->admin = Admin::factory()->create();
-
 		Sanctum::actingAs($this->admin, ['*'], 'admin');
 	}
 
@@ -58,6 +62,18 @@ class PropertiesTest extends ApiTestCase
 					}
 					break;
 
+				case 'images':
+					$this->assertEquals(
+						$value,
+						$property->images->map(function(ModelImages $image) {
+							return [
+								'id' => $image->image_id,
+								'order' => $image->order
+							];
+						})->toArray()
+					);
+					break;
+
                 default:
                     $this->assertEquals($value, $property->{$key});
                     break;
@@ -77,7 +93,13 @@ class PropertiesTest extends ApiTestCase
 					'YEAR' => $this->faker->randomNumber(3),
 				],
 				'SALE' => $this->faker->randomNumber(3)
-			]
+			],
+			'images' => Images::factory(3)->create()->map(function($image, $index) {
+				return [
+					'id' => $image->id,
+					'order' => $index
+				];
+			})->toArray(),
 		]);
 
 		$response = $this->post($this->getRoute('store'), $payload)
