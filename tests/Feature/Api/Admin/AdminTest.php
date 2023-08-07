@@ -105,4 +105,15 @@ class AdminTest extends ApiTestCase
 
         $this->assertNull(Admin::find($adminId));
     }
+
+	/** @test */
+    public function admin_cannot_destroy_self()
+	{
+		$this->withExceptionHandling();
+
+		$this->delete($this->getRoute('destroy', $this->admin->id))
+			->assertStatus(403);
+
+		$this->assertTrue(Admin::where('id', $this->admin->id)->exists());
+	}
 }

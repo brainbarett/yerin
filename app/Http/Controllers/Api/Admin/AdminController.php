@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Admin\Admin\DestroyRequest;
 use App\Http\Requests\Api\Admin\Admin\StoreRequest;
 use App\Http\Requests\Api\Admin\Admin\UpdateRequest;
 use App\Http\Resources\Api\Admin\AdminResource;
@@ -35,7 +36,7 @@ class AdminController extends Controller
         return AdminResource::make($admin->refresh());
     }
 
-	public function destroy(Admin $admin)
+	public function destroy(DestroyRequest $request, Admin $admin)
     {
         $admin->delete();
 
