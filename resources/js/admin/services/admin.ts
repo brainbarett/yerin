@@ -15,6 +15,10 @@ export default {
 	store(data: StoreRequest): AxiosPromise<Response<Admin>> {
 		return http.post(baseUrl, data)
 	},
+
+	update(id: number, data: UpdateRequest): AxiosPromise<Response<Admin>> {
+		return http.put(`${baseUrl}/${id}`, data)
+	},
 }
 
 export type Admin = {
@@ -28,3 +32,5 @@ export type StoreRequest = {
 	email: string
 	password: string
 }
+
+export type UpdateRequest = Omit<StoreRequest, 'password'> & { password?: string }

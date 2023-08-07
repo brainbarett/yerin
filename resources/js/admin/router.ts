@@ -36,3 +36,7 @@ router.beforeEach((to, from, next) => {
 })
 
 export default router
+
+export type RouteParams = {
+	error?: { title: string; description: string }
+}

@@ -9,10 +9,11 @@
 			</div>
 
 			<EmbeddedNotification
-				v-if="error"
+				v-for="(error, index) in errors"
+				:key="index"
 				type="error"
-				title="Error fetching data"
-				:description="error"
+				:title="error.title"
+				:description="error.description"
 				class="mt-3"
 			/>
 
@@ -21,7 +22,16 @@
 				:columns="columns"
 				:rows="rows"
 				class="mt-3 h-full overflow-hidden"
-			/>
+			>
+				<template #row="{ row, field }">
+					<router-link
+						:to="{ name: 'admin.edit', params: { id: row.id } }"
+						class="flex items-center"
+					>
+						{{ row[field] }}
+					</router-link>
+				</template>
+			</DataGrid>
 		</div>
 	</Layout>
 </template>
@@ -35,6 +45,7 @@
 	import AdminApi, { Admin } from '@/services/admin'
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse } from '@/services/http'
+	import { RouteParams } from '@/router'
 
 	export default Vue.extend({
 		components: { Layout, DataGrid, EmbeddedNotification },
@@ -55,7 +66,7 @@
 				loading: false,
 				columns,
 				rows: [] as Admin[],
-				error: null as null | string,
+				errors: [] as RouteParams['error'][],
 			}
 		},
 
@@ -64,8 +75,17 @@
 
 			AdminApi.index()
 				.then(res => (this.rows = res.data.data))
-				.catch((res: AxiosResponse) => (this.error = (res.data as ErrorResponse).message))
+				.catch((res: AxiosResponse) =>
+					this.errors.push({
+						title: 'Error fetching table data',
+						description: (res.data as ErrorResponse).message,
+					}),
+				)
 				.finally(() => (this.loading = false))
+
+			if ('error' in (this.$route.params as RouteParams)) {
+				this.errors.push((this.$route.params as RouteParams).error)
+			}
 		},
 	})
 </script>
