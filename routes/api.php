@@ -29,6 +29,8 @@ Route::prefix('admin')
 
 		Route::apiResource('admin', 'AdminController');
 
+		Route::post('images', 'ImagesController@upload')->name('images.upload');
+
 		Route::prefix('real-estate')
 			->name('real-estate.')
 			->namespace('RealEstate')
