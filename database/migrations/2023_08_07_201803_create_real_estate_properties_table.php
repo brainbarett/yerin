@@ -18,7 +18,7 @@ return new class extends Migration
 
 			$table->string('type');
 			$table->string('reference');
-			$table->string('title');
+			$table->string('name');
 			$table->text('description')->nullable();
 			
 			$table->integer('maintenance_fee')->nullable();

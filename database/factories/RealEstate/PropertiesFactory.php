@@ -20,7 +20,7 @@ class PropertiesFactory extends Factory
         return [
             'type' => $this->faker->randomElement(PropertyTypes::names()),
 			'reference' => $this->faker->word(),
-			'title' => $this->faker->sentence(),
+			'name' => $this->faker->sentence(),
 			'available' => $this->faker->boolean(),
 			'maintenance_fee' => $this->faker->randomNumber(3),
 			'parking_spaces' => $this->faker->randomNumber(),

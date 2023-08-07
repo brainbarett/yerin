@@ -31,7 +31,7 @@ class StoreRequest extends FormRequest
         return [
             'type' => ['required', 'string', Rule::in(PropertyTypes::names())],
 			'reference' => ['required', 'string', 'alpha_num', Rule::unique(Properties::class)],
-			'title' => ['required', 'string'],
+			'name' => ['required', 'string'],
 			'description' => ['nullable', 'string'],
 
 			'maintenance_fee' => ['nullable', 'min:0', 'integer'],
