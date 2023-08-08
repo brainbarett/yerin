@@ -1,4 +1,4 @@
-A Real Estate CMS where agencies can manage their property listings. It currently in its early stages; not production ready.
+🏡 Real Estate CMS where agencies can manage their property listings. It currently in its early stages; not production ready.
 
 Current progress can be seen at https://trello.com/b/W0JvYAlr/yerin
 
@@ -19,7 +19,15 @@ Current progress can be seen at https://trello.com/b/W0JvYAlr/yerin
 > composer install
 ```
 
-4. Run the server
+4. Make a copy of the `.env.example` file and name it `.env`. Update the values in `.env` to reflect your environment(mostly database credentials)
+
+5. Run the database migrations
+
+```
+> php artisan migrate
+```
+
+6. Run the server
 
 ```
 > php artisan serve
