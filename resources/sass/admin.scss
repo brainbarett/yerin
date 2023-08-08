@@ -65,7 +65,7 @@ body,
 }
 
 .resource-form {
-	@apply box-border grid w-full gap-6 p-4 my-4 bg-white rounded shadow;
+	@apply box-border grid w-full gap-12 p-4 my-4 bg-white rounded shadow;
 }
 
 .formulate-form {
@@ -78,13 +78,49 @@ body,
 	}
 }
 
+.input-label {
+	@apply block mb-1 text-sm font-medium;
+}
+
 .formulate-input {
 	.formulate-input-label {
-		@apply block mb-1 text-sm font-medium;
+		@extend .input-label;
 	}
 
-	.formulate-input-element > * {
-		@apply box-border block w-full px-3 py-2 text-sm bg-white border border-gray-300 rounded h-9;
+	&[data-classification='text'],
+	&[data-classification='textarea'],
+	&[data-classification='select'] {
+		input,
+		textarea,
+		select {
+			@apply box-border block w-full px-3 py-2 text-sm bg-white border border-gray-300 rounded h-9;
+		}
+
+		input:disabled,
+		textarea:disabled,
+		select:disabled {
+			@apply bg-gray-200 #{!important};
+		}
+	}
+
+	&[data-classification='group'].horizontal {
+		.formulate-input-group {
+			@apply flex items-center gap-5;
+		}
+	}
+
+	&[data-classification='box'] {
+		.formulate-input-wrapper {
+			@apply flex items-center gap-2;
+
+			.formulate-input-label {
+				@apply m-0;
+			}
+
+			input {
+				@apply w-4 h-4;
+			}
+		}
 	}
 
 	.formulate-input-errors {

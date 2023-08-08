@@ -3,6 +3,7 @@ import AuthApi from '@/services/auth'
 import Dashboard from '@/views/Dashboard.vue'
 import Login from '@/views/auth/Login.vue'
 import admin from '@/routes/admin'
+import realEstate from '@/routes/real-estate'
 
 const router = new VueRouter({
 	mode: 'history',
@@ -20,6 +21,7 @@ const router = new VueRouter({
 		},
 
 		...admin,
+		...realEstate,
 	],
 })
 

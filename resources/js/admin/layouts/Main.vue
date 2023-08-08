@@ -46,6 +46,11 @@
 		data() {
 			const sidebarItems: SidebarItem[] = [
 				{
+					label: 'Properties',
+					routerLocation: { name: 'real-estate.properties.create' },
+					active: this.$route.name?.startsWith('real-estate.properties.'),
+				},
+				{
 					label: 'Admin Accounts',
 					routerLocation: { name: 'admin.index' },
 					active: this.$route.name?.startsWith('admin.'),

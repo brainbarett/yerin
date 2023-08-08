@@ -15,6 +15,10 @@ declare module 'vue/types/vue' {
 	}
 }
 
+/** @ts-ignore */
+import CKEditor from '@ckeditor/ckeditor5-vue2'
+Vue.use(CKEditor)
+
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
 Vue.component('loading-spinner', LoadingSpinner)
 
