@@ -51,14 +51,14 @@ class StoreRequest extends FormRequest
 			'listings' => ['nullable', 'array', 'min:1'],
 			'listings.*' => ['required', 'string', Rule::in(['RENT', 'SALE'])],
 
-			'listings.SALE' => ['required', 'integer', 'min:1'],
+			'listings.SALE' => ['integer', 'min:1'],
 
-			'listings.RENT' => ['required', 'array', 'min:1', function($attribute, $value, $fail) {
+			'listings.RENT' => ['array', 'min:1', function($attribute, $value, $fail) {
 				if(array_diff(array_keys($value), RentTerms::names())) {
 					$fail('Invalid rent term');
 				}
 			}],
-			'listings.RENT.*' => ['required', 'integer', 'min:1'],
+			'listings.RENT.*' => ['integer', 'min:1'],
 
 			'images' => ['nullable', 'array', 'min:1'],
 			'images.*.id' => ['required', 'integer', 'distinct', Rule::exists(Images::class, 'id')],

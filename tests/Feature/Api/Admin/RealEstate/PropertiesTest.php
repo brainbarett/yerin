@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api\Admin\RealEstate;
 
+use App\Enums\RealEstate\RentTerms;
 use App\Http\Resources\Api\Admin\RealEstate\PropertiesResource;
 use App\Models\Admin;
 use App\Models\Images;
@@ -140,5 +141,65 @@ class PropertiesTest extends ApiTestCase
 
         $property = Properties::findOrFail($response['data']['id']);
         $this->assertModelAttributes($property, $payload);
+	}
+
+	/** @test */
+	public function can_create_a_new_property_that_is_only_for_sale()
+	{
+		$payload = $this->payload([
+			'listings' => [
+				'SALE' => $this->faker->randomNumber(3)
+			],
+		]);
+
+		$response = $this->post($this->getRoute('store'), $payload)
+            ->assertStatus(201)
+            ->json();
+
+        $property = Properties::findOrFail($response['data']['id']);
+        $this->assertModelAttributes($property, $payload);
+	}
+
+    /** @test */
+	public function can_create_a_new_property_that_is_only_for_rent()
+	{
+		$payload = $this->payload([
+			'listings' => [
+				'RENT' => [
+					'DAY' => $this->faker->randomNumber(3),
+					'WEEK' => $this->faker->randomNumber(3),
+					'MONTH' => $this->faker->randomNumber(3),
+					'YEAR' => $this->faker->randomNumber(3),
+				],
+			],
+		]);
+
+		$response = $this->post($this->getRoute('store'), $payload)
+            ->assertStatus(201)
+            ->json();
+
+        $property = Properties::findOrFail($response['data']['id']);
+        $this->assertModelAttributes($property, $payload);
+	}
+
+    /** @test */
+	public function can_create_new_properties_that_are_only_for_rent_on_specific_terms()
+	{
+		foreach(RentTerms::names() as $term) {
+			$payload = $this->payload([
+				'listings' => [
+					'RENT' => [
+						$term => $this->faker->randomNumber(3),
+					],
+				],
+			]);
+	
+			$response = $this->post($this->getRoute('store'), $payload)
+				->assertStatus(201)
+				->json();
+	
+			$property = Properties::findOrFail($response['data']['id']);
+			$this->assertModelAttributes($property, $payload);
+		}
 	}
 }
