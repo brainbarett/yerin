@@ -17,7 +17,7 @@ class PropertiesController extends Controller
     {
 		$data = $request->validated();
 
-		$properties = Properties::with('images');
+		$properties = Properties::with(['listings', 'images']);
 
 		return PropertiesResource::collection(
             $data['paginate']

@@ -3,6 +3,7 @@
 namespace Database\Factories\RealEstate;
 
 use App\Enums\RealEstate\PropertyTypes;
+use App\Enums\RealEstate\RentTerms;
 use App\Models\Images;
 use App\Models\RealEstate\Properties;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -42,4 +43,18 @@ class PropertiesFactory extends Factory
             $property->syncImages(Images::factory(3)->create());
         });
     }
+
+	public function withListings()
+	{
+		return $this->afterCreating(function(Properties $property) {
+            $property->syncListings([
+				'SALE' => $this->faker->randomNumber(),
+				'RENT' => collect(RentTerms::names())
+					->flatMap(function($term) {
+						return [$term => $this->faker->randomNumber()];
+					})
+					->toArray()
+			]);
+        });
+	}
 }

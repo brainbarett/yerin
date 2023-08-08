@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api\Admin\RealEstate;
 
+use App\Enums\RealEstate\RentTerms;
 use App\Http\Resources\Api\Admin\ImagesResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -38,6 +39,15 @@ class PropertiesResource extends JsonResource
 			'created_at' => (string)$this->created_at,
 			'updated_at' => (string)$this->updated_at,
 			
+			'listings' => [
+				'SALE' => $this->listings->firstWhere('term', 'SALE')?->price,
+				'RENT' => collect(RentTerms::names())
+					->flatMap(function($term) {
+						return [$term => $this->listings->firstWhere('term', $term)?->price];
+					})
+					->toArray()
+			],
+
 			'images' => ImagesResource::collection($this->images->map->source)->resolve(),
 		];
     }

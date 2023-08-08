@@ -85,7 +85,7 @@ class PropertiesTest extends ApiTestCase
 	/** @test */
     public function can_get_properties_index()
     {
-		$properties = Properties::factory(5)->withImages()->create();
+		$properties = Properties::factory(5)->withListings()->withImages()->create();
 
         $response = $this->get($this->getRoute('index'))
             ->assertOk()
