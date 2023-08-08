@@ -6,6 +6,7 @@ Current progress can be seen at https://trello.com/b/W0JvYAlr/yerin
 
 - php >= 8.1
 - mysql
+- composer (see http://getcomposer.org/download)
 
 ## Installation
 
@@ -15,24 +16,21 @@ Current progress can be seen at https://trello.com/b/W0JvYAlr/yerin
 > git clone https://github.com/brainbarett/yerin
 ```
 
-2. Install Composer (see http://getcomposer.org/download)
-
-3. Enter the project's directory and install all the dependencies
+2. Install all the dependencies(make sure you're in the project's directory when running the command)
 
 ```
-> cd yerin
 > composer install
 ```
 
-4. Make a copy of the `.env.example` file and name it `.env`. Update the values in `.env` to reflect your environment(mostly database credentials)
+3. Create a `.env` file(based on `.env.example`) that reflects your environment(mostly the database credentials)
 
-5. Run the database migrations
+4. Run the database migrations
 
 ```
 > php artisan migrate
 ```
 
-6. Run the server
+5. Run the server
 
 ```
 > php artisan serve
