@@ -30,7 +30,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'type' => ['required', 'string', Rule::in(PropertyTypes::names())],
-			'reference' => ['required', 'string', 'alpha_num', Rule::unique(Properties::class)],
+			'reference' => ['required', 'string', 'alpha_dash', Rule::unique(Properties::class)],
 			'name' => ['required', 'string'],
 			'description' => ['nullable', 'string'],
 
@@ -41,7 +41,7 @@ class StoreRequest extends FormRequest
 
 			'bedrooms' => ['required', 'integer'],
 			'full_bathrooms' => ['required', 'integer'],
-			'half_bathrooms' => ['required', 'integer'],
+			'half_bathrooms' => ['nullable', 'integer'],
 
 			'lot_area' => ['nullable', 'integer'],
 			'construction_area' => ['nullable', 'integer'],
