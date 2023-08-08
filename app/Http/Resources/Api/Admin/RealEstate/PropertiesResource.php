@@ -35,7 +35,7 @@ class PropertiesResource extends JsonResource
 			'lot_area' => $this->lot_area,
 			'construction_area' => $this->construction_area,
 
-			'construction_date' => $this->construction_date,
+			'construction_year' => $this->construction_year,
 			'created_at' => (string)$this->created_at,
 			'updated_at' => (string)$this->updated_at,
 			

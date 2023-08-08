@@ -33,7 +33,7 @@ class PropertiesFactory extends Factory
 			'half_bathrooms' => $this->faker->randomNumber(),
 			'lot_area' => $this->faker->randomNumber(3),
 			'construction_area' => $this->faker->randomNumber(3),
-			'construction_date' => $this->faker->date(),
+			'construction_year' => $this->faker->year(),
         ];
     }
 

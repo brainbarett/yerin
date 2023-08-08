@@ -46,7 +46,7 @@ class StoreRequest extends FormRequest
 			'lot_area' => ['nullable', 'integer'],
 			'construction_area' => ['nullable', 'integer'],
 			
-			'construction_date' => ['nullable', 'date'],
+			'construction_year' => ['nullable', 'date_format:Y'],
 
 			'listings' => ['nullable', 'array', 'min:1'],
 			'listings.*' => ['required', 'string', Rule::in(['RENT', 'SALE'])],

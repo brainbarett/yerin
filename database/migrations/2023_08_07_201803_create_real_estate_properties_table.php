@@ -33,7 +33,7 @@ return new class extends Migration
 			$table->integer('lot_area')->nullable();
 			$table->integer('construction_area')->nullable();
 
-			$table->date('construction_date')->nullable();
+			$table->year('construction_year')->nullable();
 
             $table->timestamps();
         });
