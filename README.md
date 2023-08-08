@@ -2,6 +2,11 @@
 
 Current progress can be seen at https://trello.com/b/W0JvYAlr/yerin
 
+## Requirements
+
+- php >= 8.1
+- mysql
+
 ## Installation
 
 1. Clone the repo
