@@ -26,10 +26,6 @@ export type Property = {
 	name: string
 	description: string | null
 	available: boolean
-	financing: boolean | null
-
-	maintenance_fee: number | null
-	parking_spaces: number | null
 
 	bedrooms: number | null
 	full_bathrooms: number | null

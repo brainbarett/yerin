@@ -38,25 +38,6 @@
 					validation="required"
 				/>
 
-				<formulate-input
-					name="financing"
-					type="radio"
-					:options="[
-						{ value: 'true', label: 'Available' },
-						{ value: 'false', label: 'Not Available' },
-					]"
-					label="Financing"
-					validation="optional"
-					class="horizontal"
-				/>
-
-				<formulate-input
-					name="maintenance_fee"
-					type="number"
-					label="Maintenance fee"
-					validation="optional|number"
-				/>
-
 				<div class="col-span-4">
 					<label class="input-label">Description</label>
 					<ckeditor
@@ -200,9 +181,8 @@
 
 	type PseudoBoolean = 'true' | 'false'
 
-	type Form = Omit<StoreRequest, 'available' | 'financing' | 'listings'> & {
+	type Form = Omit<StoreRequest, 'available' | 'listings'> & {
 		available: PseudoBoolean
-		financing: PseudoBoolean
 		listings: {
 			SALE: number | null
 			RENT: Record<(typeof rentTerms)[number], number | null>
@@ -295,7 +275,6 @@
 				return {
 					...data,
 					available: data.available == 'true',
-					financing: data.financing == 'true',
 					listings: Object.keys(listings).length ? listings : null,
 				}
 			},

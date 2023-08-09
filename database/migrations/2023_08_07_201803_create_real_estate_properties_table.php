@@ -20,10 +20,6 @@ return new class extends Migration
 			$table->string('reference');
 			$table->string('name');
 			$table->text('description')->nullable();
-			
-			$table->integer('maintenance_fee')->nullable();
-			$table->integer('parking_spaces')->nullable();
-			$table->boolean('financing')->nullable();
 			$table->boolean('available');
 			
 			$table->integer('bedrooms')->nullable();

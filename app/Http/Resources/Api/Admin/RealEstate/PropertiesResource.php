@@ -22,10 +22,6 @@ class PropertiesResource extends JsonResource
 			'reference' => $this->reference,
 			'name' => $this->name,
 			'description' => $this->description,
-
-			'maintenance_fee' => $this->maintenance_fee,
-			'parking_spaces' => $this->parking_spaces,
-			'financing' => (bool)$this->financing,
 			'available' => (bool)$this->available,
 
 			'bedrooms' => $this->bedrooms,

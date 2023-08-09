@@ -33,10 +33,6 @@ class StoreRequest extends FormRequest
 			'reference' => ['required', 'string', 'alpha_dash', Rule::unique(Properties::class)],
 			'name' => ['required', 'string'],
 			'description' => ['nullable', 'string'],
-
-			'maintenance_fee' => ['nullable', 'min:0', 'integer'],
-			'parking_spaces' => ['nullable', 'min:1', 'integer'],
-			'financing' => ['nullable', 'boolean'],
 			'available' => ['required', 'boolean'],
 
 			'bedrooms' => ['required', 'integer'],
