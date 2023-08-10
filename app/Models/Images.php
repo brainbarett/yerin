@@ -25,9 +25,9 @@ class Images extends Model
     }
 	
 	const RESPONSIVE_IMAGE_WIDTHS = [
-        'sn' => 300,
-        'md' => 600,
-        'lg' => 1200
+        'small' => 300,
+        'medium' => 600,
+        'large' => 1200
     ];
 
 	public function urls()

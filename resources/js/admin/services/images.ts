@@ -13,7 +13,7 @@ export type Image = {
 	id: number
 	filename: string
 	sizes: {
-		[size in 'sm' | 'md' | 'lg']: string
+		[size in 'small' | 'medium' | 'large']: string
 	}
 }
 
