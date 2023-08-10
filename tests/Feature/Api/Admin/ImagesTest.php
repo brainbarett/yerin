@@ -45,4 +45,15 @@ class ImagesTest extends ApiTestCase
             $this->storage->assertExists("$image->id/$name/$image->filename");
         }
     }
+
+	/** @test */
+	public function can_destroy_an_image()
+	{
+		$imageId = Images::factory()->create()->id;
+
+        $this->delete($this->getRoute('destroy', $imageId))
+            ->assertStatus(204);
+
+        $this->assertNull(Images::find($imageId));
+	}
 }

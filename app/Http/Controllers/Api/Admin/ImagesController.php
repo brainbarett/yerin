@@ -28,4 +28,11 @@ class ImagesController extends Controller
 
         return ImagesResource::make($image);
 	}
+
+	public function destroy(Images $image)
+    {
+        $image->delete();
+
+        return response()->json([], 204);
+    }
 }

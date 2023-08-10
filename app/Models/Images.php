@@ -57,4 +57,16 @@ class Images extends Model
                 ->save($this->storage->path('') . "{$this->id}/$name/" . $file->getClientOriginalName());
         }
     }
+
+	public function modelImages()
+	{
+		return $this->hasMany(ModelImages::class, 'image_id');
+	}
+
+	protected static function booted()
+    {
+		static::deleting(function(Images $image) {
+            $image->modelImages()->delete();
+        });
+	}
 }

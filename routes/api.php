@@ -30,6 +30,7 @@ Route::prefix('admin')
 		Route::apiResource('admin', 'AdminController');
 
 		Route::post('images', 'ImagesController@upload')->name('images.upload');
+		Route::delete('images/{image}', 'ImagesController@destroy')->name('images.destroy');
 
 		Route::prefix('real-estate')
 			->name('real-estate.')
