@@ -1,6 +1,13 @@
+# Yerin
+
 🏡 Real Estate CMS where agencies can manage their property listings. It currently in its early stages; not production ready.
 
 Current progress can be seen at https://trello.com/b/W0JvYAlr/yerin
+
+## Table of contents
+
+- [Requirements](#requirements)
+- [Installation](#installation)
 
 ## Requirements
 
@@ -16,7 +23,7 @@ Current progress can be seen at https://trello.com/b/W0JvYAlr/yerin
 > git clone https://github.com/brainbarett/yerin
 ```
 
-2. Install all the dependencies(make sure you're in the project's directory when running the command)
+2. Install the project's dependencies(make sure you're in the project's directory when running the command)
 
 ```
 > composer install
