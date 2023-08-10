@@ -22,12 +22,18 @@
 						type="email"
 						placeholder="email@hello.com"
 						validation="required|email"
+						@keyup.enter="$formulate.submit('main')"
 					/>
 				</div>
 
 				<div class="login-form__input-container">
 					<icon name="lock-closed" set="outline" class="login-form__input-icon" />
-					<formulate-input name="password" type="password" validation="required" />
+					<formulate-input
+						name="password"
+						type="password"
+						validation="required"
+						@keyup.enter="$formulate.submit('main')"
+					/>
 				</div>
 
 				<button
