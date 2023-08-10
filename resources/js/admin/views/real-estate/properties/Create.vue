@@ -48,6 +48,10 @@
 				</div>
 			</div>
 
+			<div class="form__field-group">
+				<ImageUpload :images="form.images" />
+			</div>
+
 			<div class="form__field-group grid-cols-3">
 				<formulate-input
 					name="bedrooms"
@@ -178,11 +182,14 @@
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
 	import CKEditorSettings from '@/utils/ckeditor-settings'
+	import { Image } from '@/services/images'
+	import ImageUpload from '@/components/form-fields/ImageUpload.vue'
 
 	type PseudoBoolean = 'true' | 'false'
 
-	type Form = Omit<StoreRequest, 'available' | 'listings'> & {
+	type Form = Omit<StoreRequest, 'available' | 'listings' | 'images'> & {
 		available: PseudoBoolean
+		images: Image[]
 		listings: {
 			SALE: number | null
 			RENT: Record<(typeof rentTerms)[number], number | null>
@@ -190,7 +197,7 @@
 	}
 
 	export default Vue.extend({
-		components: { Layout },
+		components: { Layout, ImageUpload },
 
 		data() {
 			return {
@@ -198,6 +205,7 @@
 				propertyTypes,
 				ckeditor: CKEditorSettings,
 				form: {
+					images: [] as Image[],
 					listings: {
 						SALE: null,
 						RENT: {
@@ -276,6 +284,9 @@
 					...data,
 					available: data.available == 'true',
 					listings: Object.keys(listings).length ? listings : null,
+					images: Object.keys(data.images.length)
+						? data.images.map((image, i) => ({ id: image.id, order: i }))
+						: null,
 				}
 			},
 		},

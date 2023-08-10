@@ -1,11 +1,18 @@
 import http, { Response } from './http'
 import { AxiosPromise } from 'axios'
 
-const baseUrl: string = '/real-estate/properties'
+const baseUrl: string = '/images'
 
 export default {
-	upload(data: UploadRequest): AxiosPromise<Response<Image>> {
+	upload(file: File): AxiosPromise<Response<Image>> {
+		const data = new FormData()
+		data.append('file', file)
+
 		return http.post(baseUrl, data)
+	},
+
+	destroy(id: number) {
+		return http.delete(`${baseUrl}/${id}`)
 	},
 }
 
@@ -15,8 +22,4 @@ export type Image = {
 	sizes: {
 		[size in 'small' | 'medium' | 'large']: string
 	}
-}
-
-export type UploadRequest = {
-	file: any
 }

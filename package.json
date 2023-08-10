@@ -27,6 +27,7 @@
 		"vue-loader": "^15.9.8",
 		"vue-router": "^3.6.5",
 		"vue-tailwind-icons": "^0.1.2",
-		"vue-template-compiler": "^2.7.14"
+		"vue-template-compiler": "^2.7.14",
+		"vuedraggable": "^2.24.3"
 	}
 }

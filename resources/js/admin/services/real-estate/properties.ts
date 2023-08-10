@@ -50,7 +50,7 @@ export type StoreRequest = Omit<
 	Property,
 	'id' | 'listings' | 'images' | 'created_at' | 'updated_at'
 > & {
-	images: { id: number; order: number }
+	images: Array<{ id: number; order: number }> | null
 	listings?: {
 		SALE?: number
 		RENT?: Partial<Record<(typeof rentTerms)[number], number>>
