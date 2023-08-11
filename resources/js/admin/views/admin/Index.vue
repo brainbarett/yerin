@@ -55,10 +55,12 @@
 				{
 					label: 'Name',
 					field: 'name',
+					searchable: true,
 				},
 				{
 					label: 'Email',
 					field: 'email',
+					searchable: true,
 				},
 			]
 

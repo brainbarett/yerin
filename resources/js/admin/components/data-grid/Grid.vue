@@ -9,13 +9,19 @@
 			</div>
 
 			<div class="data-grid__header">
+				<Searchbar
+					v-if="searchable.length"
+					:loading="loading"
+					@search="searchTerm = $event"
+				/>
+
 				<div class="data-grid__row">
 					<span v-for="column in columns" :key="column.field">{{ column.label }}</span>
 				</div>
 			</div>
 
 			<div ref="dataGridScrollableBody" class="data-grid__body">
-				<div class="data-grid__row" v-for="row in rows" :key="row.id">
+				<div class="data-grid__row" v-for="row in processedRows" :key="row.id">
 					<div v-for="column in columns" :key="column.field">
 						<slot name="row" :row="row" :field="column.field" :column="column">
 							{{ row[column.field] }}
@@ -30,20 +36,48 @@
 <script lang="ts">
 	import Vue, { PropType } from 'vue'
 	import { Column } from './types'
+	import Searchbar from './Searchbar.vue'
 
 	export default Vue.extend({
+		components: { Searchbar },
+
 		props: {
 			columns: {
 				type: Array as PropType<Column[]>,
 			},
 
 			rows: {
-				type: Array as PropType<Object[]>,
+				type: Array as PropType<Record<string, any>[]>,
 			},
 
 			loading: {
 				type: Boolean,
 				default: false,
+			},
+		},
+
+		data() {
+			return {
+				searchTerm: '' as string,
+				searchable: this.columns
+					.filter(column => column.searchable)
+					.map(column => column.field),
+			}
+		},
+
+		computed: {
+			processedRows() {
+				let processedRows: Record<string, any>[] = JSON.parse(JSON.stringify(this.rows))
+
+				if (this.searchTerm != '') {
+					processedRows = processedRows.filter(row =>
+						this.searchable.some(field =>
+							(row[field] as string).toLowerCase().includes(this.searchTerm),
+						),
+					)
+				}
+
+				return processedRows
 			},
 		},
 	})
