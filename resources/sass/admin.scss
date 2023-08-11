@@ -173,7 +173,7 @@ body,
 		}
 
 		.data-grid__thumbnail-container {
-			@apply flex items-center justify-center w-12 h-12 mr-2 rounded bg-gray-50;
+			@apply flex items-center justify-center w-12 h-12 mr-2 overflow-hidden rounded bg-gray-50 shrink-0;
 
 			img {
 				@apply block;
@@ -184,7 +184,7 @@ body,
 	.data-grid__footer {
 		@apply flex items-center w-full p-3 border-t-2 border-gray-200 shadow-sm;
 
-		.data-grid__footer-info {
+		.data-grid__pagination-info {
 			@apply mr-auto text-sm text-gray-500;
 		}
 	}

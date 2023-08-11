@@ -56,7 +56,7 @@
 					items: [
 						{
 							label: 'Properties',
-							routerLocation: { name: 'real-estate.properties.create' },
+							routerLocation: { name: 'real-estate.properties.index' },
 							active: this.$route.name?.startsWith('real-estate.properties.'),
 						},
 					],
@@ -111,7 +111,7 @@
 		}
 
 		&__group-label {
-			@apply ml-4 text-xs uppercase font-bold;
+			@apply ml-4 text-xs font-bold uppercase;
 		}
 
 		&__item {

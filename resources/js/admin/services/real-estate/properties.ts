@@ -1,10 +1,25 @@
-import http, { Response } from '../http'
+import http, { Response, PaginatedResponse, PaginationRequest, SearchRequest } from '../http'
 import { AxiosPromise } from 'axios'
 import { Image } from '../images'
 
 const baseUrl: string = '/real-estate/properties'
 
 export default {
+	index<TResponse = Response<Property[]>>(filters: IndexRequest): AxiosPromise<TResponse> {
+		const query = new URLSearchParams()
+
+		Object.entries(filters).map(([key, value]) => query.set(key, value.toString()))
+
+		return http.get(`${baseUrl}?${query}`)
+	},
+
+	paginate(filters: PaginateRequest): AxiosPromise<PaginatedResponse<Property>> {
+		filters.paginate = 1
+		filters.page = filters.page || 1
+
+		return this.index(filters)
+	},
+
 	store(data: StoreRequest): AxiosPromise<Response<Property>> {
 		return http.post(baseUrl, data)
 	},
@@ -45,6 +60,9 @@ export type Property = {
 
 	images: Array<Image & { order: number }>
 }
+
+export interface PaginateRequest extends PaginationRequest, SearchRequest {}
+export interface IndexRequest extends PaginateRequest {}
 
 export type StoreRequest = Omit<
 	Property,

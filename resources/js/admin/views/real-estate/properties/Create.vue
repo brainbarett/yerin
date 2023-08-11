@@ -1,6 +1,15 @@
 <template>
 	<Layout>
-		<h1 class="text-xl font-medium">Create a Property</h1>
+		<div class="flex items-center">
+			<router-link
+				:to="{ name: 'real-estate.properties.index' }"
+				class="p-1 mr-2 bg-white rounded shadow"
+			>
+				<icon name="chevron-left" class="w-6 h-6" />
+			</router-link>
+
+			<h1 class="text-xl font-medium">Create a Property</h1>
+		</div>
 
 		<formulate-form @submit="save" v-model="form" name="main" class="resource-form">
 			<div class="form__field-group grid-cols-4">
@@ -185,10 +194,10 @@
 	import { Image } from '@/services/images'
 	import ImageUpload from '@/components/form-fields/ImageUpload.vue'
 
-	type PseudoBoolean = 'true' | 'false'
+	type StringBoolean = 'true' | 'false'
 
 	type Form = Omit<StoreRequest, 'available' | 'listings' | 'images'> & {
-		available: PseudoBoolean
+		available: StringBoolean
 		images: Image[]
 		listings: {
 			SALE: number | null
@@ -229,7 +238,7 @@
 				this.$formulate.resetValidation('main')
 
 				await PropertiesApi.store(this.parseOutboundForm(form))
-					.then(res => alert('success'))
+					.then(res => this.$router.push({ name: 'real-estate.properties.index' }))
 					.catch((res: AxiosResponse) => {
 						let inputErrors = {}
 
