@@ -24,6 +24,7 @@ class IndexRequest extends FormRequest
     public function rules()
     {
         return [
+			'search' => ['nullable', 'string'],
             'paginate' => ['boolean'],
             'page' => ['required_if:paginate,true', 'integer', 'min:1'],
         ];

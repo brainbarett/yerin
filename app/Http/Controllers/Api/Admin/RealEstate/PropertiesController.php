@@ -7,6 +7,7 @@ use App\Http\Requests\Api\Admin\RealEstate\Properties\IndexRequest;
 use App\Http\Requests\Api\Admin\RealEstate\Properties\StoreRequest;
 use App\Http\Resources\Api\Admin\RealEstate\PropertiesResource;
 use App\Models\RealEstate\Properties;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,10 @@ class PropertiesController extends Controller
     {
 		$data = $request->validated();
 
-		$properties = Properties::with(['listings', 'images']);
+		$properties = Properties::with(['listings', 'images'])
+			->when(isset($data['search']) && !is_null($data['search']), function(Builder $query) use($data) {
+				return $query->search($data['search']);
+			});
 
 		return PropertiesResource::collection(
             $data['paginate']

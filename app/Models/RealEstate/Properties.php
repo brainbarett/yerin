@@ -3,6 +3,7 @@
 namespace App\Models\RealEstate;
 
 use App\Utils\ModelImages\HasImages;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -41,5 +42,12 @@ class Properties extends Model
 				}
 			}
 		}
+	}
+
+	public function scopeSearch(Builder $query, string $string)
+	{
+		return $query
+			->where('name', 'LIKE', "%$string%")
+			->orWhere('reference', 'LIKE', "%$string%");
 	}
 }
