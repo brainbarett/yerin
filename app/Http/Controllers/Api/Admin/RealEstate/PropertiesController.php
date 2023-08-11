@@ -25,7 +25,7 @@ class PropertiesController extends Controller
 
 		return PropertiesResource::collection(
             $data['paginate']
-                ? $properties->paginate()
+                ? $properties->paginate($data['per_page'] ?? 25)
                 : $properties->get()
         );
     }

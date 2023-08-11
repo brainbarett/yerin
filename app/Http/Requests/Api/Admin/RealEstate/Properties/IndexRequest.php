@@ -27,6 +27,7 @@ class IndexRequest extends FormRequest
 			'search' => ['nullable', 'string'],
             'paginate' => ['boolean'],
             'page' => ['required_if:paginate,true', 'integer', 'min:1'],
+			'per_page' => ['nullable', 'integer', 'min:1']
         ];
     }
 
