@@ -16,6 +16,16 @@ export interface Response<TEntity = Object | Object[]> {
 	data: TEntity
 }
 
+export interface PaginationRequest {
+	paginate?: 0 | 1
+	page?: number
+	per_page?: number
+}
+
+export interface SearchRequest {
+	search?: string
+}
+
 export interface PaginatedResponse<TEntity = Object> extends Response {
 	data: TEntity[]
 

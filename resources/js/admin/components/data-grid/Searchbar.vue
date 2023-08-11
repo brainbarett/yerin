@@ -11,7 +11,8 @@
 				class="bg-white border border-gray-300 rounded h-9 max-w-xs text-sm pl-9 pr-6"
 				type="text"
 				v-model="searchTerm"
-				@keyup="search"
+				@keyup="keyupSearch"
+				@keyup.enter="search"
 				:disabled="loading"
 			/>
 
@@ -32,7 +33,14 @@
 
 	export default Vue.extend({
 		props: {
+			currentSearchTerm: String,
+
 			loading: {
+				type: Boolean,
+				default: false,
+			},
+
+			debounce: {
 				type: Boolean,
 				default: false,
 			},
@@ -41,17 +49,39 @@
 		data() {
 			return {
 				searchTerm: '' as string,
+				timeout: null as null | NodeJS.Timeout,
 			}
 		},
 
 		methods: {
+			debouncedSearch() {
+				if (this.searchTerm != this.currentSearchTerm) {
+					this.clearDebouncedSearch()
+
+					this.timeout = setTimeout(() => {
+						this.search()
+					}, 500)
+				}
+			},
+
+			clearDebouncedSearch() {
+				if (this.timeout) {
+					clearTimeout(this.timeout)
+				}
+			},
+
+			keyupSearch() {
+				this.debounce ? this.debouncedSearch() : this.search()
+			},
+
 			search() {
+				this.clearDebouncedSearch()
+
 				this.$emit('search', this.searchTerm)
 			},
 
 			clearSearch() {
 				this.searchTerm = ''
-
 				this.search()
 			},
 		},
