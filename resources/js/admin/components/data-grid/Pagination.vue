@@ -1,6 +1,6 @@
 <template>
 	<div class="flex items-center w-full">
-		<span class="mr-auto text-sm text-gray-500"
+		<span class="data-grid__pagination-info"
 			>Showing {{ pagination.from }} to {{ pagination.to }} of
 			{{ pagination.total }} entries</span
 		>
