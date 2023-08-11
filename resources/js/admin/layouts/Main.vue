@@ -1,8 +1,10 @@
 <template>
 	<div class="flex items-center justify-start">
 		<div class="sidebar">
-			<div class="sidebar__item-group">
-				<div class="sidebar__item" v-for="(item, index) in sidebarItems" :key="index">
+			<div v-for="(group, index) in menu" :key="index" class="sidebar__item-group">
+				<span class="sidebar__group-label">{{ group.label }}</span>
+
+				<div class="sidebar__item" v-for="(item, index) in group.items" :key="index">
 					<router-link
 						:to="item.routerLocation"
 						:class="{ 'sidebar__button--active': item.active }"
@@ -36,6 +38,10 @@
 	import { RawLocation } from 'vue-router'
 	import AuthApi from '@/services/auth'
 
+	type SidebarGroup = {
+		label: string
+		items: SidebarItem[]
+	}
 	type SidebarItem = {
 		label: string
 		routerLocation: RawLocation
@@ -44,21 +50,31 @@
 
 	export default Vue.extend({
 		data() {
-			const sidebarItems: SidebarItem[] = [
+			const menu: SidebarGroup[] = [
 				{
-					label: 'Properties',
-					routerLocation: { name: 'real-estate.properties.create' },
-					active: this.$route.name?.startsWith('real-estate.properties.'),
+					label: 'Real Estate',
+					items: [
+						{
+							label: 'Properties',
+							routerLocation: { name: 'real-estate.properties.create' },
+							active: this.$route.name?.startsWith('real-estate.properties.'),
+						},
+					],
 				},
 				{
-					label: 'Admin Accounts',
-					routerLocation: { name: 'admin.index' },
-					active: this.$route.name?.startsWith('admin.'),
+					label: 'System',
+					items: [
+						{
+							label: 'Admin Accounts',
+							routerLocation: { name: 'admin.index' },
+							active: this.$route.name?.startsWith('admin.'),
+						},
+					],
 				},
 			]
 
 			return {
-				sidebarItems,
+				menu,
 			}
 		},
 
@@ -92,6 +108,10 @@
 		}
 		&__item-group:last-child {
 			@apply mb-0;
+		}
+
+		&__group-label {
+			@apply ml-4 text-xs uppercase font-bold;
 		}
 
 		&__item {
