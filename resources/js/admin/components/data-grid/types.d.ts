@@ -3,4 +3,8 @@ export type Column<TField = string> = {
 	label: string
 	searchable?: boolean
 }
+
+import { PaginatedResponse } from '@/services/http'
+export type PaginationMeta = Omit<PaginatedResponse['meta'], 'path'> & {
+	path?: PaginatedResponse['meta']['path']
 }

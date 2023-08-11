@@ -29,17 +29,30 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="data-grid__footer">
+				<Pagination
+					v-if="paginate"
+					:pagination="paginationMeta"
+					@jump-to-page="page = $event"
+				/>
+
+				<span v-else class="mr-auto text-sm text-gray-500"
+					>Showing {{ processedRows.length }} of {{ rows.length }} entries</span
+				>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
 	import Vue, { PropType } from 'vue'
-	import { Column } from './types'
+	import { Column, PaginationMeta } from './types'
 	import Searchbar from './Searchbar.vue'
+	import Pagination from './Pagination.vue'
 
 	export default Vue.extend({
-		components: { Searchbar },
+		components: { Searchbar, Pagination },
 
 		props: {
 			columns: {
@@ -54,11 +67,22 @@
 				type: Boolean,
 				default: false,
 			},
+
+			paginate: {
+				type: Boolean,
+				default: false,
+			},
+
+			perPage: {
+				type: Number,
+				default: 25,
+			},
 		},
 
 		data() {
 			return {
 				searchTerm: '' as string,
+				page: 1,
 				searchable: this.columns
 					.filter(column => column.searchable)
 					.map(column => column.field),
@@ -77,7 +101,32 @@
 					)
 				}
 
+				if (this.paginate) {
+					processedRows = processedRows.slice(
+						this.paginationMeta.from - 1,
+						this.paginationMeta.to,
+					)
+				}
+
 				return processedRows
+			},
+
+			paginationMeta(): PaginationMeta {
+				const total = this.rows.length
+				const current_page = this.page
+				const per_page = this.perPage
+				const last_page = Math.ceil(total / per_page)
+				const from = (current_page - 1) * per_page + 1
+				const to = current_page == last_page ? total : current_page * per_page
+
+				return {
+					current_page,
+					from,
+					last_page,
+					per_page,
+					to,
+					total,
+				}
 			},
 		},
 	})
@@ -115,6 +164,18 @@
 			> * {
 				@apply flex items-center p-3 text-sm text-left;
 			}
+
+			.data-grid__thumbnail-container {
+				@apply flex items-center justify-center w-12 h-12 mr-2 rounded bg-gray-50;
+
+				img {
+					@apply block;
+				}
+			}
+		}
+
+		.data-grid__footer {
+			@apply flex items-center w-full p-3 border-t-2 border-gray-200 shadow-sm;
 		}
 	}
 </style>
