@@ -19,14 +19,14 @@ trait HasImages
 		if(is_array($images)) {
 			$images = collect($images);
 		}
-		
-		$this->images()->whereNotIn('id', $images->pluck('id')->toArray())->delete();
+
+		$this->images()->whereNotIn('image_id', $images->pluck('id')->toArray())->delete();
 
 		$images->sortBy('order')->each(function($image, $i) {
-            $this->images()->create([
-				'image_id' => $image['id'],
-                'order' => $i
-			]);
+            $this->images()->updateOrCreate(
+                ['image_id' => $image['id']],
+                ['order' => $i]
+            );
         });
 	}
 
