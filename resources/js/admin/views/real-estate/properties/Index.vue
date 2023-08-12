@@ -26,7 +26,11 @@
 				class="mt-3 h-full overflow-hidden"
 			>
 				<template #row="{ row, field }">
-					<div v-if="field == 'name'" class="flex items-center">
+					<router-link
+						v-if="field == 'name'"
+						:to="{ name: 'real-estate.properties.edit', params: { id: row.id } }"
+						class="flex items-center"
+					>
 						<div class="data-grid__thumbnail-container">
 							<img
 								:src="
@@ -38,7 +42,7 @@
 						</div>
 
 						{{ row[field] }}
-					</div>
+					</router-link>
 
 					<template v-else-if="field == 'type'">
 						{{ propertyTypes[row.type] }}

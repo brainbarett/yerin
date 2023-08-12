@@ -20,8 +20,16 @@ export default {
 		return this.index(filters)
 	},
 
+	show(id: number): AxiosPromise<Response<Property>> {
+		return http.get(`${baseUrl}/${id}`)
+	},
+
 	store(data: StoreRequest): AxiosPromise<Response<Property>> {
 		return http.post(baseUrl, data)
+	},
+
+	update(id: number, data: UpdateRequest): AxiosPromise<Response<Property>> {
+		return http.put(`${baseUrl}/${id}`, data)
 	},
 }
 
@@ -74,3 +82,5 @@ export type StoreRequest = Omit<
 		RENT?: Partial<Record<(typeof rentTerms)[number], number>>
 	} | null
 }
+
+export type UpdateRequest = StoreRequest
