@@ -37,7 +37,7 @@ class PropertiesResource extends JsonResource
 			'updated_at' => (string)$this->updated_at,
 			
 			'listings' => [
-				'SALE' => $this->listings->firstWhere('term', 'SALE')?->price,
+				'SALE' => $this->listings->firstWhere('type', 'SALE')?->price,
 				'RENT' => collect(RentTerms::names())
 					->flatMap(function($term) {
 						return [$term => $this->listings->firstWhere('term', $term)?->price];
