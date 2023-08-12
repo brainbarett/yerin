@@ -88,9 +88,9 @@
 	})
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.sidebar {
-		@apply box-border flex flex-col w-56 h-screen py-6 bg-neutral-800 shrink-0;
+		@apply box-border flex flex-col w-56 h-screen py-6 bg-gray-200 shrink-0;
 
 		> *:first-child {
 			margin-top: 0px;
@@ -111,23 +111,23 @@
 		}
 
 		&__group-label {
-			@apply ml-4 text-xs font-bold uppercase;
+			@apply block mb-[6px] ml-4 text-xs font-medium text-gray-400 uppercase;
 		}
 
 		&__item {
-			@apply mx-4 mb-1;
+			@apply mx-2 mb-1;
 		}
 
 		&__button {
-			@apply box-border flex items-center w-full px-3 py-2 text-sm rounded-sm text-neutral-400;
+			@apply font-medium box-border flex items-center w-full px-3 py-[6px] text-sm text-gray-600 rounded-sm;
 		}
 
 		&__button--active {
-			@apply font-bold text-neutral-200;
+			@apply bg-gray-100;
 		}
 
 		&__button:not(&__button--active) {
-			@apply duration-100 hover:bg-neutral-600 hover:text-neutral-200 hover:pl-4;
+			@apply duration-100 hover:bg-gray-100 hover:pl-4;
 		}
 	}
 
