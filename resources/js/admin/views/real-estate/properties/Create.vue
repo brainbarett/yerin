@@ -321,9 +321,7 @@
 					...data,
 					available: data.available == 'true',
 					listings: Object.keys(listings).length ? listings : null,
-					images: Object.keys(data.images.length)
-						? data.images.map((image, i) => ({ id: image.id, order: i }))
-						: null,
+					images: data.images.map((image, i) => ({ id: image.id, order: i })),
 				}
 			},
 		},

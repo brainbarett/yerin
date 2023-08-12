@@ -22,7 +22,7 @@ class PropertiesFactory extends Factory
     {
         return [
             'type' => $this->faker->randomElement(PropertyTypes::names()),
-			'reference' => $this->faker->word(),
+			'reference' => $this->faker->unique()->word(),
 			'name' => $this->faker->sentence(),
 			'available' => $this->faker->boolean(),
 			'bedrooms' => $this->faker->randomNumber(),

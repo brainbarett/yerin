@@ -105,27 +105,31 @@ class PropertiesTest extends ApiTestCase
         foreach($attributes as $key => $value) {
             switch($key) {
 				case 'listings':
-					foreach($value as $listingType => $priceOrTerms) {
-						if($listingType == 'SALE') {
-							$this->assertEquals(
-								$priceOrTerms,
-								$property->listings()
-									->where('type', 'SALE')
-									->firstOrFail()
-									->price
-							);
-						}
-						
-						if($listingType == 'RENT') {
-							foreach($priceOrTerms as $term => $price) {
+					if(is_null($value)) {
+						$this->assertEquals(0, $property->listings()->count());
+					} else {
+						foreach($value as $listingType => $priceOrTerms) {
+							if($listingType == 'SALE') {
 								$this->assertEquals(
-									$price,
+									$priceOrTerms,
 									$property->listings()
-										->where('type', 'RENT')
-										->where('term', $term)
+										->where('type', 'SALE')
 										->firstOrFail()
 										->price
 								);
+							}
+							
+							if($listingType == 'RENT') {
+								foreach($priceOrTerms as $term => $price) {
+									$this->assertEquals(
+										$price,
+										$property->listings()
+											->where('type', 'RENT')
+											->where('term', $term)
+											->firstOrFail()
+											->price
+									);
+								}
 							}
 						}
 					}

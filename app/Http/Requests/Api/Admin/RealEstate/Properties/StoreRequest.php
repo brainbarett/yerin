@@ -44,7 +44,7 @@ class StoreRequest extends FormRequest
 			
 			'construction_year' => ['nullable', 'date_format:Y'],
 
-			'listings' => ['nullable', 'array', 'min:1'],
+			'listings' => ['present', 'nullable', 'array', 'min:1'],
 			'listings.*' => ['required', 'string', Rule::in(['RENT', 'SALE'])],
 
 			'listings.SALE' => ['integer', 'min:1'],
@@ -56,9 +56,20 @@ class StoreRequest extends FormRequest
 			}],
 			'listings.RENT.*' => ['integer', 'min:1'],
 
-			'images' => ['nullable', 'array', 'min:1'],
+			'images' => ['present', 'array'],
 			'images.*.id' => ['required', 'integer', 'distinct', Rule::exists(Images::class, 'id')],
             'images.*.order' => ['required', 'integer', 'min:0', 'distinct'],
         ];
     }
+
+	public function validated($key = null, $default = null)
+	{
+		/**
+		 * for some reason using 'nullable' rule in a nested array field
+		 * and then sending null as the value
+		 * completely removes that field from the validated()
+		 * current solution is to re-introduce the field with the sent null value
+		 */
+		return parent::validated() + ['listings' => null];
+	}
 }

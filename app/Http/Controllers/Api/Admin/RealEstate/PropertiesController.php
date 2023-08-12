@@ -37,11 +37,11 @@ class PropertiesController extends Controller
 		$property = DB::transaction(function() use($data) {
 			$property = Properties::create(Arr::except($data, ['listings', 'images']));
 
-			if(isset($data['listings']) && $data['listings']) {
+			if($data['listings']) {
 				$property->syncListings($data['listings']);
 			}
 
-			if(isset($data['images']) && $data['images']) {
+			if($data['images']) {
 				$property->syncImages($data['images']);
 			}
 
