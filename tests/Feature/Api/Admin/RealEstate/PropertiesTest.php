@@ -197,4 +197,17 @@ class PropertiesTest extends ApiTestCase
 			$this->assertModelAttributes($property, $payload);
 		}
 	}
+
+	/** @test */
+	public function can_update_a_property()
+	{
+		$property = Properties::factory()->create();
+	
+		foreach($this->payloadVariations() as $payload) {
+			$this->put($this->getRoute('update', $property->id), $payload)
+				->assertOk();
+	
+			$this->assertModelAttributes($property->refresh(), $payload);
+		}
+	}
 }
