@@ -1,5 +1,17 @@
 <template>
 	<Layout>
+		<DeleteResourceModal
+			v-if="showDestroyModal"
+			title="Deleting Property"
+			@close="showDestroyModal = false"
+			@confirm="destroy()"
+			:loading="loading.destroy"
+		>
+			<p>
+				You are attempting to delete <span class="underline">{{ resource.name }}</span>
+			</p>
+		</DeleteResourceModal>
+
 		<formulate-form @submit="save" name="main" class="resource-form flex gap-6">
 			<div class="w-56 relative">
 				<div class="fixed w-56">
@@ -193,20 +205,25 @@
 			</div>
 		</formulate-form>
 
-		<button
-			@click="$formulate.submit('main')"
-			type="button"
-			class="button button--primary ml-auto h-9"
-			:class="{ 'opacity-70': loading }"
-			:disabled="loading"
-		>
-			<template v-if="loading">
-				Updating
-				<loading-spinner size="xs" color="white" class="ml-3" v-if="loading" />
-			</template>
+		<div class="flex justify-end gap-4">
+			<button @click="showDestroyModal = true" class="button !text-red-400 h-9">
+				Delete
+			</button>
+			<button
+				@click="$formulate.submit('main')"
+				type="button"
+				class="button button--primary h-9"
+				:class="{ 'opacity-70': loading.update }"
+				:disabled="loading.update"
+			>
+				<template v-if="loading.update">
+					Updating
+					<loading-spinner size="xs" color="white" class="ml-3" v-if="loading.update" />
+				</template>
 
-			<template v-else>Update</template>
-		</button>
+				<template v-else>Update</template>
+			</button>
+		</div>
 	</Layout>
 </template>
 
@@ -225,6 +242,7 @@
 	import { Image } from '@/services/images'
 	import ImageUpload from '@/components/form-fields/ImageUpload.vue'
 	import { RouteParams } from '@/router'
+	import DeleteResourceModal from '@/components/modals/DeleteResourceModal.vue'
 
 	type StringBoolean = 'true' | 'false'
 
@@ -239,12 +257,15 @@
 	}
 
 	export default Vue.extend({
-		components: { Layout, ImageUpload },
+		components: { Layout, ImageUpload, DeleteResourceModal },
 
 		data() {
 			return {
 				resource: {} as Property,
-				loading: false as boolean,
+				loading: {
+					update: false,
+					destroy: false,
+				} as { [key: string]: boolean },
 				propertyTypes,
 				ckeditor: CKEditorSettings,
 				form: {
@@ -263,12 +284,13 @@
 					RENT: false,
 					SALE: false,
 				},
+				showDestroyModal: false as boolean,
 			}
 		},
 
 		methods: {
 			async save() {
-				this.loading = true
+				this.loading.update = true
 				this.$formulate.resetValidation('main')
 
 				await PropertiesApi.update(this.resource.id, this.parseOutboundForm(this.form))
@@ -291,7 +313,7 @@
 						document.getElementById('content__scroll-box')!.scrollTo({ top: 0 })
 					})
 
-				this.loading = false
+				this.loading.update = false
 			},
 
 			parseOutboundForm(data: Form): UpdateRequest {
@@ -323,6 +345,24 @@
 					listings: Object.keys(listings).length ? listings : null,
 					images: data.images.map((image, i) => ({ id: image.id, order: i })),
 				}
+			},
+
+			async destroy() {
+				this.loading.destroy = true
+				await PropertiesApi.destroy(this.resource.id)
+					.then(res => this.$router.push({ name: 'real-estate.properties.index' }))
+					.catch((res: AxiosResponse<ErrorResponse>) =>
+						this.$router.push({
+							name: 'real-estate.properties.index',
+							/** @ts-ignore */
+							params: {
+								error: {
+									title: `Error deleting ${this.resource.name}`,
+									description: res.data.message,
+								},
+							} as RouteParams,
+						}),
+					)
 			},
 		},
 

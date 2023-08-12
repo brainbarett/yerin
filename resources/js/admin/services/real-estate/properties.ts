@@ -31,6 +31,10 @@ export default {
 	update(id: number, data: UpdateRequest): AxiosPromise<Response<Property>> {
 		return http.put(`${baseUrl}/${id}`, data)
 	},
+
+	destroy(id: number) {
+		return http.delete(`${baseUrl}/${id}`)
+	},
 }
 
 export const propertyTypes = [
