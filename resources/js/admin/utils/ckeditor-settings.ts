@@ -7,10 +7,10 @@ export default {
 		toolbar: [
 			'undo', 'redo',
 			'|', 'heading',
-			'|', 'fontColor', 'fontBackgroundColor',
-			'|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript',
+			//'|', 'fontColor', 'fontBackgroundColor',
+			'|', 'bold', 'italic', //'strikethrough', 'subscript', 'superscript',
 			'|', 'link', 'blockQuote', 'insertTable',
-			'|', 'alignment',
+			//'|', 'alignment',
 			'|', 'bulletedList', 'numberedList', 'outdent', 'indent',
 		],
 	},
