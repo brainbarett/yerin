@@ -82,21 +82,21 @@
 					<div class="form__field-group grid-cols-3">
 						<formulate-input
 							name="bedrooms"
-							type="number"
+							type="text"
 							label="Bedrooms"
 							validation="required|number"
 						/>
 
 						<formulate-input
 							name="full_bathrooms"
-							type="number"
+							type="text"
 							label="Full bathrooms"
 							validation="required|number"
 						/>
 
 						<formulate-input
 							name="half_bathrooms"
-							type="number"
+							type="text"
 							label="Half bathrooms"
 							validation="required|number"
 						/>
@@ -104,15 +104,15 @@
 
 					<div class="form__field-group grid-cols-3">
 						<formulate-input
-							name="lot_area"
 							type="number"
+							type="text"
 							label="Lot area (m2)"
 							validation="optional|number"
 						/>
 
 						<formulate-input
 							name="construction_area"
-							type="number"
+							type="text"
 							label="Construction area (m2)"
 							validation="optional|number"
 						/>
@@ -151,7 +151,7 @@
 
 							<formulate-input
 								v-model="form.listings.SALE"
-								type="number"
+								type="text"
 								validation="optional|number"
 								:disabled="!enabledListingTypes.SALE"
 								class="col-span-8"
@@ -178,7 +178,7 @@
 									v-for="(price, term) in form.listings.RENT"
 									:key="term"
 									v-model="form.listings.RENT[term]"
-									type="number"
+									type="text"
 									validation="optional|number"
 									:disabled="!enabledListingTypes.RENT"
 									class="w-full"
