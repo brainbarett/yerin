@@ -33,6 +33,73 @@ class PropertiesTest extends ApiTestCase
         return $attributes + Properties::factory()->raw();
     }
 
+	private function payloadVariations()
+	{
+		$payloadVariations = [
+			// all
+			$this->payload([
+				'listings' => [
+					'RENT' => [
+						'DAY' => $this->faker->randomNumber(3),
+						'WEEK' => $this->faker->randomNumber(3),
+						'MONTH' => $this->faker->randomNumber(3),
+						'YEAR' => $this->faker->randomNumber(3),
+					],
+					'SALE' => $this->faker->randomNumber(3)
+				],
+				'images' => Images::factory(3)->create()->map(function($image, $index) {
+					return [
+						'id' => $image->id,
+						'order' => $index
+					];
+				})->toArray(),
+			]),
+
+			// only for sale
+			$this->payload([
+				'listings' => ['SALE' => $this->faker->randomNumber(3)],
+				'images' => []
+			]),
+
+			// only for rent
+			$this->payload([
+				'listings' => [
+					'RENT' => [
+						'DAY' => $this->faker->randomNumber(3),
+						'WEEK' => $this->faker->randomNumber(3),
+						'MONTH' => $this->faker->randomNumber(3),
+						'YEAR' => $this->faker->randomNumber(3),
+					],
+				],
+				'images' => []
+			]),
+
+			// only images
+			$this->payload([
+				'images' => Images::factory(3)->create()->map(function($image, $index) {
+					return [
+						'id' => $image->id,
+						'order' => $index
+					];
+				})->toArray(),
+
+				'listings' => null
+			]),
+		];
+
+		// each specific term individually
+		foreach(RentTerms::names() as $term) {
+			$payloadVariations[] = $this->payload([
+				'listings' => [
+					'RENT' => [$term => $this->faker->randomNumber(3)],
+				],
+				'images' => []
+			]);
+		}
+
+		return $payloadVariations;
+	}
+
 	private function assertModelAttributes(Properties $property, array $attributes)
     {
         foreach($attributes as $key => $value) {
@@ -117,83 +184,7 @@ class PropertiesTest extends ApiTestCase
     /** @test */
 	public function can_create_a_new_property()
 	{
-		$payload = $this->payload([
-			'listings' => [
-				'RENT' => [
-					'DAY' => $this->faker->randomNumber(3),
-					'WEEK' => $this->faker->randomNumber(3),
-					'MONTH' => $this->faker->randomNumber(3),
-					'YEAR' => $this->faker->randomNumber(3),
-				],
-				'SALE' => $this->faker->randomNumber(3)
-			],
-			'images' => Images::factory(3)->create()->map(function($image, $index) {
-				return [
-					'id' => $image->id,
-					'order' => $index
-				];
-			})->toArray(),
-		]);
-
-		$response = $this->post($this->getRoute('store'), $payload)
-            ->assertStatus(201)
-            ->json();
-
-        $property = Properties::findOrFail($response['data']['id']);
-        $this->assertModelAttributes($property, $payload);
-	}
-
-	/** @test */
-	public function can_create_a_new_property_that_is_only_for_sale()
-	{
-		$payload = $this->payload([
-			'listings' => [
-				'SALE' => $this->faker->randomNumber(3)
-			],
-		]);
-
-		$response = $this->post($this->getRoute('store'), $payload)
-            ->assertStatus(201)
-            ->json();
-
-        $property = Properties::findOrFail($response['data']['id']);
-        $this->assertModelAttributes($property, $payload);
-	}
-
-    /** @test */
-	public function can_create_a_new_property_that_is_only_for_rent()
-	{
-		$payload = $this->payload([
-			'listings' => [
-				'RENT' => [
-					'DAY' => $this->faker->randomNumber(3),
-					'WEEK' => $this->faker->randomNumber(3),
-					'MONTH' => $this->faker->randomNumber(3),
-					'YEAR' => $this->faker->randomNumber(3),
-				],
-			],
-		]);
-
-		$response = $this->post($this->getRoute('store'), $payload)
-            ->assertStatus(201)
-            ->json();
-
-        $property = Properties::findOrFail($response['data']['id']);
-        $this->assertModelAttributes($property, $payload);
-	}
-
-    /** @test */
-	public function can_create_new_properties_that_are_only_for_rent_on_specific_terms()
-	{
-		foreach(RentTerms::names() as $term) {
-			$payload = $this->payload([
-				'listings' => [
-					'RENT' => [
-						$term => $this->faker->randomNumber(3),
-					],
-				],
-			]);
-	
+		foreach($this->payloadVariations() as $payload) {
 			$response = $this->post($this->getRoute('store'), $payload)
 				->assertStatus(201)
 				->json();
