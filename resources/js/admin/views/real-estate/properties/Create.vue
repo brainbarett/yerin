@@ -1,163 +1,191 @@
 <template>
 	<Layout>
-		<div class="flex items-center">
-			<router-link
-				:to="{ name: 'real-estate.properties.index' }"
-				class="p-1 mr-2 bg-white rounded shadow"
-			>
-				<icon name="chevron-left" class="w-6 h-6" />
-			</router-link>
+		<formulate-form @submit="save" v-model="form" name="main" class="resource-form flex gap-6">
+			<div class="w-56 relative">
+				<div class="fixed">
+					<div class="flex items-center">
+						<router-link
+							:to="{ name: 'real-estate.properties.index' }"
+							class="p-1 mr-2 bg-white rounded shadow"
+						>
+							<icon name="chevron-left" class="w-6 h-6" />
+						</router-link>
 
-			<h1 class="text-xl font-medium">Create a Property</h1>
-		</div>
+						<h1 class="text-xl font-medium">Create a Property</h1>
+					</div>
 
-		<formulate-form @submit="save" v-model="form" name="main" class="resource-form">
-			<div class="form__field-group grid-cols-4">
-				<formulate-input
-					name="type"
-					type="select"
-					:options="propertyTypes"
-					label="Property type"
-					validation="required"
-				/>
+					<div class="sidebar">
+						<div class="sidebar__item-group">
+							<div class="sidebar__item">
+								<a href="#basic-info" class="sidebar__button">Basic info</a>
+							</div>
 
-				<formulate-input
-					name="available"
-					type="radio"
-					:options="[
-						{ value: 'true', label: 'Available' },
-						{ value: 'false', label: 'Not Available' },
-					]"
-					label="Availability"
-					validation="required"
-					class="horizontal"
-				/>
+							<div class="sidebar__item">
+								<a href="#images" class="sidebar__button">Images</a>
+							</div>
 
-				<formulate-input
-					name="reference"
-					type="text"
-					label="Reference"
-					validation="required|matches:/^[A-Za-z0-9_-]+$/"
-				/>
-
-				<formulate-input
-					name="name"
-					type="text"
-					label="Name or address"
-					validation="required"
-				/>
-
-				<div class="col-span-4">
-					<label class="input-label">Description</label>
-					<ckeditor
-						v-model="form.description"
-						:editor="ckeditor.editor"
-						:config="ckeditor.config"
-					/>
+							<div class="sidebar__item">
+								<a href="#listings" class="sidebar__button">Listings</a>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
-			<div class="form__field-group">
-				<ImageUpload :images="form.images" />
-			</div>
-
-			<div class="form__field-group grid-cols-3">
-				<formulate-input
-					name="bedrooms"
-					type="number"
-					label="Bedrooms"
-					validation="required|number"
-				/>
-
-				<formulate-input
-					name="full_bathrooms"
-					type="number"
-					label="Full bathrooms"
-					validation="required|number"
-				/>
-
-				<formulate-input
-					name="half_bathrooms"
-					type="number"
-					label="Half bathrooms"
-					validation="required|number"
-				/>
-			</div>
-
-			<div class="form__field-group grid-cols-3">
-				<formulate-input
-					name="lot_area"
-					type="number"
-					label="Lot area (m2)"
-					validation="optional|number"
-				/>
-
-				<formulate-input
-					name="construction_area"
-					type="number"
-					label="Construction area (m2)"
-					validation="optional|number"
-				/>
-
-				<formulate-input
-					name="construction_year"
-					type="text"
-					label="Construction year"
-					validation="optional|date:YYYY"
-				/>
-			</div>
-
-			<div class="form__field-group">
-				<div class="grid grid-cols-10 items-center gap-12">
-					<div class="col-span-2 flex items-center gap-2">
-						<input
-							type="checkbox"
-							id="listing-type-sale-checkbox"
-							v-model="enabledListingTypes.SALE"
-							class="h-5 w-5 cursor-pointer"
-						/>
-						<label
-							for="listing-type-sale-checkbox"
-							class="whitespace-nowrap cursor-pointer"
-							>Sale price</label
-						>
-					</div>
-
-					<formulate-input
-						v-model="form.listings.SALE"
-						type="number"
-						validation="optional|number"
-						:disabled="!enabledListingTypes.SALE"
-						class="col-span-8"
-					/>
-				</div>
-
-				<div class="grid grid-cols-10 items-center gap-12">
-					<div class="col-span-2 flex items-center gap-2">
-						<input
-							type="checkbox"
-							id="listing-type-rent-checkbox"
-							v-model="enabledListingTypes.RENT"
-							class="h-5 w-5 cursor-pointer"
-						/>
-						<label
-							for="listing-type-rent-checkbox"
-							class="whitespace-nowrap cursor-pointer"
-							>Rent terms</label
-						>
-					</div>
-
-					<div class="form__field-group grid-cols-4 col-span-8">
+			<div class="flex flex-col">
+				<div id="basic-info" class="resource-form__section !mt-0">
+					<div class="form__field-group grid-cols-4">
 						<formulate-input
-							v-for="(price, term) in form.listings.RENT"
-							:key="term"
-							v-model="form.listings.RENT[term]"
-							type="number"
-							validation="optional|number"
-							:disabled="!enabledListingTypes.RENT"
-							class="w-full"
-							:label="term"
+							name="type"
+							type="select"
+							:options="propertyTypes"
+							label="Property type"
+							validation="required"
 						/>
+
+						<formulate-input
+							name="available"
+							type="radio"
+							:options="[
+								{ value: 'true', label: 'Available' },
+								{ value: 'false', label: 'Not Available' },
+							]"
+							label="Availability"
+							validation="required"
+							class="horizontal"
+						/>
+
+						<formulate-input
+							name="reference"
+							type="text"
+							label="Reference"
+							validation="required|matches:/^[A-Za-z0-9_-]+$/"
+						/>
+
+						<formulate-input
+							name="name"
+							type="text"
+							label="Name or address"
+							validation="required"
+						/>
+
+						<div class="col-span-4">
+							<label class="input-label">Description</label>
+							<ckeditor
+								v-model="form.description"
+								:editor="ckeditor.editor"
+								:config="ckeditor.config"
+							/>
+						</div>
+					</div>
+
+					<div class="form__field-group grid-cols-3">
+						<formulate-input
+							name="bedrooms"
+							type="number"
+							label="Bedrooms"
+							validation="required|number"
+						/>
+
+						<formulate-input
+							name="full_bathrooms"
+							type="number"
+							label="Full bathrooms"
+							validation="required|number"
+						/>
+
+						<formulate-input
+							name="half_bathrooms"
+							type="number"
+							label="Half bathrooms"
+							validation="required|number"
+						/>
+					</div>
+
+					<div class="form__field-group grid-cols-3">
+						<formulate-input
+							name="lot_area"
+							type="number"
+							label="Lot area (m2)"
+							validation="optional|number"
+						/>
+
+						<formulate-input
+							name="construction_area"
+							type="number"
+							label="Construction area (m2)"
+							validation="optional|number"
+						/>
+
+						<formulate-input
+							name="construction_year"
+							type="text"
+							label="Construction year"
+							validation="optional|date:YYYY"
+						/>
+					</div>
+				</div>
+
+				<div id="images" class="resource-form__section">
+					<div class="form__field-group">
+						<ImageUpload :images="form.images" />
+					</div>
+				</div>
+
+				<div id="listings" class="resource-form__section">
+					<div class="form__field-group">
+						<div class="grid grid-cols-10 items-center gap-12">
+							<div class="col-span-2 flex items-center gap-2">
+								<input
+									type="checkbox"
+									id="listing-type-sale-checkbox"
+									v-model="enabledListingTypes.SALE"
+									class="h-5 w-5 cursor-pointer"
+								/>
+								<label
+									for="listing-type-sale-checkbox"
+									class="whitespace-nowrap cursor-pointer"
+									>Sale price</label
+								>
+							</div>
+
+							<formulate-input
+								v-model="form.listings.SALE"
+								type="number"
+								validation="optional|number"
+								:disabled="!enabledListingTypes.SALE"
+								class="col-span-8"
+							/>
+						</div>
+
+						<div class="grid grid-cols-10 items-center gap-12">
+							<div class="col-span-2 flex items-center gap-2">
+								<input
+									type="checkbox"
+									id="listing-type-rent-checkbox"
+									v-model="enabledListingTypes.RENT"
+									class="h-5 w-5 cursor-pointer"
+								/>
+								<label
+									for="listing-type-rent-checkbox"
+									class="whitespace-nowrap cursor-pointer"
+									>Rent terms</label
+								>
+							</div>
+
+							<div class="form__field-group grid-cols-4 col-span-8">
+								<formulate-input
+									v-for="(price, term) in form.listings.RENT"
+									:key="term"
+									v-model="form.listings.RENT[term]"
+									type="number"
+									validation="optional|number"
+									:disabled="!enabledListingTypes.RENT"
+									class="w-full"
+									:label="term"
+								/>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

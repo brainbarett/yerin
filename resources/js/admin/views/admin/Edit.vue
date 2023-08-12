@@ -20,7 +20,7 @@
 			<h1 class="text-xl font-medium">Edit Admin Account ({{ resource.name }})</h1>
 		</div>
 
-		<formulate-form @submit="save" v-model="form" name="main" class="resource-form">
+		<formulate-form @submit="save" v-model="form" name="main" class="resource-form__section">
 			<div class="form__field-group grid-cols-2">
 				<formulate-input
 					name="name"

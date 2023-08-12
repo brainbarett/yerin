@@ -65,6 +65,20 @@ body,
 }
 
 .resource-form {
+	.sidebar {
+		@apply bg-[unset] #{!important};
+
+		.sidebar__item {
+			@apply mx-0;
+		}
+
+		.sidebar__button {
+			@apply px-0 mx-0 font-normal;
+		}
+	}
+}
+
+.resource-form__section {
 	@apply box-border grid w-full gap-12 p-4 my-4 bg-white rounded shadow;
 }
 
