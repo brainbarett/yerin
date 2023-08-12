@@ -64,4 +64,11 @@ class PropertiesController extends Controller
 
 		return PropertiesResource::make($property->refresh());
 	}
+
+	public function destroy(Properties $property)
+    {
+        $property->delete();
+
+        return response()->json([], 204);
+    }
 }

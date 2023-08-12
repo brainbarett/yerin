@@ -210,4 +210,15 @@ class PropertiesTest extends ApiTestCase
 			$this->assertModelAttributes($property->refresh(), $payload);
 		}
 	}
+
+	/** @test */
+    public function can_destroy_a_property()
+    {
+        $propertyId = Properties::factory()->create()->id;
+
+        $this->delete($this->getRoute('destroy', $propertyId))
+            ->assertStatus(204);
+
+        $this->assertNull(Properties::find($propertyId));
+    }
 }
