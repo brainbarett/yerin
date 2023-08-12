@@ -60,7 +60,7 @@ class AdminTest extends ApiTestCase
     }
 
 	/** @test */
-    public function can_get_specific_admin()
+    public function can_get_specific_a_admin()
     {
         $response = $this->get($this->getRoute('show', $this->admin->id))
             ->assertOk()

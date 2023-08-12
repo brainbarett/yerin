@@ -185,6 +185,18 @@ class PropertiesTest extends ApiTestCase
         $this->assertTrue(isset($response['links'], $response['meta']));
     }
 
+	/** @test */
+    public function can_get_specific_a_property()
+    {
+		$property = Properties::factory()->create();
+
+        $response = $this->get($this->getRoute('show', $property->id))
+            ->assertOk()
+            ->json();
+
+        $this->assertEquals(PropertiesResource::make($property)->resolve(), $response['data']);
+    }
+
     /** @test */
 	public function can_create_a_new_property()
 	{

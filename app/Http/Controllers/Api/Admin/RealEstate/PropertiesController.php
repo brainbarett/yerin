@@ -31,6 +31,11 @@ class PropertiesController extends Controller
         );
     }
 
+	public function show(Properties $property)
+    {
+        return PropertiesResource::make($property);
+    }
+
     public function store(StoreRequest $request)
     {
 		$data = $request->validated();

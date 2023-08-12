@@ -4,6 +4,7 @@ namespace App\Http\Resources\Api\Admin\RealEstate;
 
 use App\Enums\RealEstate\RentTerms;
 use App\Http\Resources\Api\Admin\ImagesResource;
+use App\Http\Resources\Api\Admin\ModelImagesResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PropertiesResource extends JsonResource
@@ -44,7 +45,7 @@ class PropertiesResource extends JsonResource
 					->toArray()
 			],
 
-			'images' => ImagesResource::collection($this->images->map->source)->resolve(),
+			'images' => ModelImagesResource::collection($this->images)->resolve(),
 		];
     }
 }
