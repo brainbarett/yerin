@@ -148,9 +148,7 @@
 			},
 
 			remove(index: number) {
-				const removedImage = this.images.splice(index, 1)[0]
-
-				ImagesApi.destroy(removedImage.id)
+				this.images.splice(index, 1)
 			},
 		},
 	})
