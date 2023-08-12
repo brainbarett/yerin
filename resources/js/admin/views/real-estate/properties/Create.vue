@@ -1,8 +1,8 @@
 <template>
 	<Layout>
-		<formulate-form @submit="save" v-model="form" name="main" class="resource-form flex gap-6">
+		<formulate-form @submit="save" name="main" class="resource-form flex gap-6">
 			<div class="w-56 relative">
-				<div class="fixed">
+				<div class="fixed w-56">
 					<div class="flex items-center">
 						<router-link
 							:to="{ name: 'real-estate.properties.index' }"
@@ -29,6 +29,8 @@
 							</div>
 						</div>
 					</div>
+
+					<formulate-errors />
 				</div>
 			</div>
 
@@ -36,7 +38,7 @@
 				<div id="basic-info" class="resource-form__section !mt-0">
 					<div class="form__field-group grid-cols-4">
 						<formulate-input
-							name="type"
+							v-model="form.type"
 							type="select"
 							:options="propertyTypes"
 							label="Property type"
@@ -44,7 +46,7 @@
 						/>
 
 						<formulate-input
-							name="available"
+							v-model="form.available"
 							type="radio"
 							:options="[
 								{ value: 'true', label: 'Available' },
@@ -56,14 +58,14 @@
 						/>
 
 						<formulate-input
-							name="reference"
+							v-model="form.reference"
 							type="text"
 							label="Reference"
 							validation="required|matches:/^[A-Za-z0-9_-]+$/"
 						/>
 
 						<formulate-input
-							name="name"
+							v-model="form.name"
 							type="text"
 							label="Name or address"
 							validation="required"
@@ -81,21 +83,21 @@
 
 					<div class="form__field-group grid-cols-3">
 						<formulate-input
-							name="bedrooms"
+							v-model="form.bedrooms"
 							type="text"
 							label="Bedrooms"
 							validation="required|number"
 						/>
 
 						<formulate-input
-							name="full_bathrooms"
+							v-model="form.full_bathrooms"
 							type="text"
 							label="Full bathrooms"
 							validation="required|number"
 						/>
 
 						<formulate-input
-							name="half_bathrooms"
+							v-model="form.half_bathrooms"
 							type="text"
 							label="Half bathrooms"
 							validation="required|number"
@@ -104,21 +106,21 @@
 
 					<div class="form__field-group grid-cols-3">
 						<formulate-input
-							type="number"
+							v-model="form.lot_area"
 							type="text"
 							label="Lot area (m2)"
 							validation="optional|number"
 						/>
 
 						<formulate-input
-							name="construction_area"
+							v-model="form.construction_area"
 							type="text"
 							label="Construction area (m2)"
 							validation="optional|number"
 						/>
 
 						<formulate-input
-							name="construction_year"
+							v-model="form.construction_year"
 							type="text"
 							label="Construction year"
 							validation="optional|date:YYYY"
@@ -261,11 +263,11 @@
 		},
 
 		methods: {
-			async save(form: Form) {
+			async save() {
 				this.loading = true
 				this.$formulate.resetValidation('main')
 
-				await PropertiesApi.store(this.parseOutboundForm(form))
+				await PropertiesApi.store(this.parseOutboundForm(this.form))
 					.then(res => this.$router.push({ name: 'real-estate.properties.index' }))
 					.catch((res: AxiosResponse) => {
 						let inputErrors = {}
@@ -289,30 +291,24 @@
 			},
 
 			parseOutboundForm(data: Form): StoreRequest {
+				// vue-formulate doesnt make '' = null on optional fields like listings price & rent
 				const listings: StoreRequest['listings'] = {}
-				for (const listingType in data.listings) {
-					if (listingType == 'SALE') {
-						const price = data.listings[listingType]
 
-						if (price != null) {
-							listings[listingType] = price
-						}
-					}
+				if (data.listings.SALE != null && (data.listings.SALE as unknown) != '') {
+					listings.SALE = data.listings.SALE
+				}
 
-					if (listingType == 'RENT') {
-						const rentals = data.listings[listingType]
-						const validRentals: Partial<Record<(typeof rentTerms)[number], number>> = {}
+				if (
+					Object.values(data.listings.RENT).some(
+						price => price != null && (price as unknown) != '',
+					)
+				) {
+					listings.RENT = {}
 
-						for (const term in rentals) {
-							const price = rentals[term as keyof typeof rentals]
-
-							if (price != null) {
-								validRentals[term as keyof typeof rentals] = price
-							}
-						}
-
-						if (Object.keys(validRentals).length) {
-							listings[listingType] = validRentals
+					const rentals = data.listings.RENT
+					for (const [term, price] of Object.entries(rentals)) {
+						if (price != null && (price as unknown) != '') {
+							listings.RENT[term as keyof typeof rentals] = price
 						}
 					}
 				}
