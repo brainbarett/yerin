@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,4 +31,11 @@ class ModelImages extends Model
 			get: fn() => $this->source->filename
 		);
     }
+
+	protected static function booted()
+    {
+		static::addGlobalScope('order', function(Builder $builder) {
+            $builder->orderBy('order');
+        });
+	}
 }

@@ -22,7 +22,8 @@ class PropertiesController extends Controller
 		$properties = Properties::with(['listings', 'images'])
 			->when(isset($data['search']) && !is_null($data['search']), function(Builder $query) use($data) {
 				return $query->search($data['search']);
-			});
+			})
+			->orderByDesc('updated_at');
 
 		return PropertiesResource::collection(
             $data['paginate']
