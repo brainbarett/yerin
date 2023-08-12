@@ -17,7 +17,7 @@
 				<icon name="chevron-left" class="w-6 h-6" />
 			</router-link>
 
-			<h1 class="text-xl font-medium">Edit Admin Account ({{ resource.name }})</h1>
+			<h1 class="text-xl font-medium">Edit Admin Account</h1>
 		</div>
 
 		<formulate-form @submit="save" v-model="form" name="main" class="resource-form__section">
@@ -163,9 +163,10 @@
 				.then(res => {
 					next((vm: any) => {
 						const admin = res.data.data
+						const form: Form = admin
 
 						vm.resource = admin
-						vm.form = admin
+						vm.form = form
 					})
 				})
 				.catch((res: AxiosResponse) =>
