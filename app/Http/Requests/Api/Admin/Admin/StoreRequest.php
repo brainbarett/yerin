@@ -29,6 +29,7 @@ class StoreRequest extends FormRequest
             'email' => ['required', 'string', 'email', Rule::unique(Admin::class)],
             'name' => ['required', 'string'],
             'password' => ['required', 'string'],
+			'language' => [Rule::in(config('app.accepted_languages'))],
         ];
     }
 }

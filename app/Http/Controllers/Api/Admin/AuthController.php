@@ -13,7 +13,7 @@ class AuthController extends Controller
     {
         $credentials = $request->validated();
 
-		abort_unless(auth('admin')->attempt($credentials), 400, 'Invalid credentials');
+		abort_unless(auth('admin')->attempt($credentials), 400, __('auth.failed'));
 
 		return AdminResource::make(auth('admin')->user());
     }

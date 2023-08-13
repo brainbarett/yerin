@@ -13,7 +13,7 @@ class DestroyRequest extends FormRequest
      */
     public function authorize()
     {
-		abort_if(auth('admin')->id() == $this->route('admin')->id, 403, 'You cannot delete your own account');
+		abort_if(auth('admin')->id() == $this->route('admin')->id, 403, __('messages.cant-delete-self'));
 
 		return true;
     }

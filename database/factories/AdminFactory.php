@@ -18,6 +18,7 @@ class AdminFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'password' => 'password',
+			'language' => 'en'
         ];
     }
 }
