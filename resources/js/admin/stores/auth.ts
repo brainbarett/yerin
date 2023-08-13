@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { Admin } from '@/services/admin'
+import useLanguageStore from '@/stores/language'
 
 export default defineStore('auth', {
 	state: () => ({
@@ -10,6 +11,7 @@ export default defineStore('auth', {
 	actions: {
 		setUser(user: Admin) {
 			this.user = user
+			useLanguageStore().setLanguage(this.user.language)
 		},
 	},
 })

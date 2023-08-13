@@ -10,8 +10,10 @@
 	},
 	"devDependencies": {
 		"@braid/vue-formulate": "^2.5.3",
+		"@braid/vue-formulate-i18n": "^1.16.0",
 		"@ckeditor/ckeditor5-build-classic": "^39.0.0",
 		"@ckeditor/ckeditor5-vue2": "^3.0.1",
+		"@intlify/vue-i18n-loader": "^1.1.0",
 		"axios": "^0.25",
 		"laravel-mix": "^6.0.6",
 		"lodash": "^4.17.19",
@@ -26,6 +28,7 @@
 		"tsconfig-paths-webpack-plugin": "^4.1.0",
 		"typescript": "^4.9.5",
 		"vue": "^2.7.14",
+		"vue-i18n": "^8.28.2",
 		"vue-loader": "^15.9.8",
 		"vue-router": "^3.6.5",
 		"vue-tailwind-icons": "^0.1.2",

@@ -2,7 +2,23 @@ const mix = require('laravel-mix')
 const tailwindcss = require('tailwindcss')
 const tsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
+mix.extend(
+	'i18n',
+	new (class {
+		webpackRules() {
+			return [
+				{
+					resourceQuery: /blockType=i18n/,
+					type: 'javascript/auto',
+					loader: '@intlify/vue-i18n-loader',
+				},
+			]
+		}
+	})(),
+)
+
 mix.disableNotifications()
+	.i18n()
 	.ts('resources/js/admin/main.ts', 'public/admin_panel/app.js')
 	.vue()
 	.sass('resources/sass/admin.scss', 'public/admin_panel/main.css')

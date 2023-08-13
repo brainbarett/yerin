@@ -25,10 +25,13 @@ export default {
 	},
 }
 
+export type Language = 'en' | 'es'
+
 export type Admin = {
 	id: number
 	name: string
 	email: string
+	language: Language
 }
 
 export type StoreRequest = {

@@ -1,8 +1,14 @@
+import { i18n } from '@/main'
 import axios, { AxiosError } from 'axios'
 
 const http = axios.create({
 	baseURL: '/api/admin',
 	withCredentials: true,
+})
+
+http.interceptors.request.use(config => {
+	config.headers!['X-Language'] = i18n.locale
+	return config
 })
 
 http.interceptors.response.use(

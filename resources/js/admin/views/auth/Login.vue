@@ -51,6 +51,12 @@
 				<formulate-errors class="mt-2 text-center" />
 			</formulate-form>
 		</div>
+
+		<div class="mt-2">
+			<button type="button" @click="setLanguage('en')">English</button>
+			<span>|</span>
+			<button type="button" @click="setLanguage('es')">Español</button>
+		</div>
 	</div>
 </template>
 
@@ -59,6 +65,8 @@
 	import AuthApi, { LoginRequest } from '@/services/auth'
 	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
 	import { AxiosResponse } from 'axios'
+	import useLanguageStore from '@/stores/language'
+	import { mapActions } from 'pinia'
 
 	export default Vue.extend({
 		data() {
@@ -93,6 +101,8 @@
 
 				this.loading = false
 			},
+
+			...mapActions(useLanguageStore, ['setLanguage']),
 		},
 	})
 </script>

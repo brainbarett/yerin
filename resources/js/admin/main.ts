@@ -7,14 +7,6 @@ Vue.use(VueRouter)
 import VIcon from 'vue-tailwind-icons'
 Vue.use(VIcon)
 
-import VueFormulate, { FormulateGlobalInstance } from '@braid/vue-formulate'
-Vue.use(VueFormulate)
-declare module 'vue/types/vue' {
-	interface Vue {
-		$formulate: FormulateGlobalInstance
-	}
-}
-
 /** @ts-ignore */
 import CKEditor from '@ckeditor/ckeditor5-vue2'
 Vue.use(CKEditor)
@@ -28,10 +20,34 @@ Vue.use(PiniaVuePlugin)
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
+import VueI18n from 'vue-i18n'
+import translations from '@/lang'
+Vue.use(VueI18n)
+export const i18n = new VueI18n({
+	fallbackLocale: 'en',
+	messages: translations,
+})
+
+import VueFormulate, { FormulateGlobalInstance } from '@braid/vue-formulate'
+// @ts-ignore
+import { es } from '@braid/vue-formulate-i18n'
+Vue.use(VueFormulate, {
+	plugins: [es],
+})
+declare module 'vue/types/vue' {
+	interface Vue {
+		$formulate: FormulateGlobalInstance
+	}
+}
+
 import router from './router'
-const app = new Vue({
+export default new Vue({
 	el: '#app',
 	render: h => h('router-view'),
 	router,
 	pinia,
+	i18n,
 })
+
+import useLanguageStore from '@/stores/language'
+useLanguageStore().setLanguage(useLanguageStore().language || 'en')

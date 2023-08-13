@@ -108,6 +108,7 @@ declare module '@braid/vue-formulate' {
 		resetValidation: (formName: string) => void
 		setValues: <V>(formName: string, values: V) => void
 		submit: (formName: string) => void
+		setLocale: (locale: string) => void
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-empty-interface
