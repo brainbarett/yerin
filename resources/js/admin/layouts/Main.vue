@@ -30,7 +30,7 @@
 				<div class="sidebar__item">
 					<button @click="logout()" type="button" class="sidebar__button">
 						<icon name="logout" set="outline" class="w-5 h-5 mr-2" />
-						Log out
+						{{ $t('common.auth.logout') }}
 					</button>
 				</div>
 			</div>
@@ -65,20 +65,20 @@
 		data() {
 			const menu: SidebarGroup[] = [
 				{
-					label: 'Real Estate',
+					label: this.$tc('menu.real-estate'),
 					items: [
 						{
-							label: 'Properties',
+							label: this.$tc('menu.properties'),
 							routerLocation: { name: 'real-estate.properties.index' },
 							active: this.$route.name?.startsWith('real-estate.properties.'),
 						},
 					],
 				},
 				{
-					label: 'System',
+					label: this.$tc('menu.system'),
 					items: [
 						{
-							label: 'Admin Accounts',
+							label: this.$tc('menu.admin-accounts'),
 							routerLocation: { name: 'admin.index' },
 							active: this.$route.name?.startsWith('admin.'),
 						},

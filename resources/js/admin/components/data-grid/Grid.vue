@@ -34,9 +34,12 @@
 					@jump-to-page="page = $event"
 				/>
 
-				<span v-else class="data-grid__pagination-info"
-					>Showing {{ processedRows.length }} of {{ rows.length }} entries</span
-				>
+				<span v-else class="data-grid__pagination-info">{{
+					$t('data-table.pagination.showing-amount-of-total', {
+						amount: processedRows.length,
+						total: rows.length,
+					})
+				}}</span>
 			</div>
 		</div>
 	</div>

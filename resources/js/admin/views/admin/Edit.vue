@@ -2,13 +2,14 @@
 	<Layout>
 		<DeleteResourceModal
 			v-if="showDestroyModal"
-			title="Deleting Admin Account"
+			:title="$t('routes.admin.edit.delete-account-modal-title')"
 			@close="showDestroyModal = false"
 			@confirm="destroy()"
 			:loading="loading.destroy"
 		>
 			<p>
-				You are attempting to delete <span class="underline">{{ resource.name }}</span>
+				{{ $t('routes.admin.edit.attempting-to-delete-account') }}
+				<span class="underline">{{ resource.name }}</span>
 			</p>
 		</DeleteResourceModal>
 
@@ -17,22 +18,24 @@
 				<icon name="chevron-left" class="w-6 h-6" />
 			</router-link>
 
-			<h1 class="text-xl font-medium">Edit Admin Account</h1>
+			<h1 class="text-xl font-medium">{{ $t('routes.admin.edit.title') }}</h1>
 		</div>
 
 		<formulate-form @submit="save" v-model="form" name="main" class="resource-form__section">
 			<div class="form__field-group grid-cols-2">
 				<formulate-input
 					name="name"
+					:validation-name="$t('common.form.fields.name')"
 					type="text"
-					label="Name"
+					:label="$t('common.form.fields.name')"
 					placeholder="Yerin Arelius"
 					validation="required"
 				/>
 				<formulate-input
 					name="email"
+					:validation-name="$t('common.form.fields.email')"
 					type="email"
-					label="Email"
+					:label="$t('common.form.fields.email')"
 					placeholder="example@email.com"
 					validation="required|email"
 				/>
@@ -41,24 +44,25 @@
 			<div class="form__field-group grid-cols-2">
 				<formulate-input
 					name="password"
+					:validation-name="$t('common.form.fields.password')"
 					type="password"
-					label="Password"
+					:label="$t('common.form.fields.password')"
 					placeholder="(unchanged)"
 					validation="optional"
 				/>
 				<formulate-input
 					name="password_confirm"
+					:validation-name="$t('routes.admin.shared.form.fields.password-confirmation')"
 					type="password"
-					label="Confirm password"
+					:label="$t('routes.admin.shared.form.fields.password-confirmation')"
 					:validation="`${form.password ? 'required' : 'optional'}|confirm`"
-					validation-name="Password confirmation"
 				/>
 			</div>
 		</formulate-form>
 
 		<div class="flex justify-end gap-4">
 			<button @click="showDestroyModal = true" class="button !text-red-400 h-9">
-				Delete
+				{{ $t('common.form.delete') }}
 			</button>
 
 			<button
@@ -69,11 +73,11 @@
 				:disabled="loading.update"
 			>
 				<template v-if="loading.update">
-					Updating
+					{{ $t('common.form.updating') }}
 					<loading-spinner size="xs" color="white" v-if="loading.update" />
 				</template>
 
-				<template v-else>Update</template>
+				<template v-else>{{ $t('common.form.update') }}</template>
 			</button>
 		</div>
 	</Layout>
@@ -147,7 +151,9 @@
 							/** @ts-ignore */
 							params: {
 								error: {
-									title: `Error deleting ${this.resource.name}`,
+									title: this.$t('routes.admin.edit.error-deleting-account', {
+										name: this.resource.name,
+									}),
 									description: res.data.message,
 								},
 							} as RouteParams,
@@ -175,7 +181,7 @@
 							name: 'admin.index',
 							params: {
 								error: {
-									title: 'Error loading resource',
+									title: this.$tc('routes.admin.edit.error-fetching-account'),
 									description: (res.data as ErrorResponse).message,
 								},
 							} as RouteParams,

@@ -4,7 +4,9 @@
 			<slot />
 
 			<div class="mt-5">
-				<p class="mb-1 text-sm">Please type 'confirm' to delete</p>
+				<p class="mb-1 text-sm">
+					{{ $t('modals.delete-resource.type-confirm-to-delete') }}
+				</p>
 
 				<div class="relative inline-block h-[42px]">
 					<input
@@ -20,7 +22,7 @@
 						:disabled="loading"
 					>
 						<loading-spinner v-if="loading" size="s" />
-						<template v-else>DELETE</template>
+						<template v-else>{{ $t('common.form.delete') }}</template>
 					</button>
 				</div>
 			</div>
@@ -51,7 +53,10 @@
 
 		methods: {
 			confirm() {
-				if (this.confirmation.toLowerCase() == 'confirm') {
+				if (
+					this.confirmation.toLowerCase() ==
+					this.$t('modals.delete-resource.confirm-keyword')
+				) {
 					this.$emit('confirm')
 				}
 			},

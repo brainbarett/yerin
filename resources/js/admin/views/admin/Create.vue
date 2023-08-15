@@ -5,22 +5,24 @@
 				<icon name="chevron-left" class="w-6 h-6" />
 			</router-link>
 
-			<h1 class="text-xl font-medium">Create an Admin Account</h1>
+			<h1 class="text-xl font-medium">{{ $t('routes.admin.create.title') }}</h1>
 		</div>
 
 		<formulate-form @submit="save" v-model="form" name="main" class="resource-form__section">
 			<div class="form__field-group grid-cols-2">
 				<formulate-input
 					name="name"
+					:validation-name="$t('common.form.fields.name')"
 					type="text"
-					label="Name"
+					:label="$t('common.form.fields.name')"
 					placeholder="Yerin Arelius"
 					validation="required"
 				/>
 				<formulate-input
 					name="email"
+					:validation-name="$t('common.form.fields.email')"
 					type="email"
-					label="Email"
+					:label="$t('common.form.fields.email')"
 					placeholder="example@email.com"
 					validation="required|email"
 				/>
@@ -29,16 +31,17 @@
 			<div class="form__field-group grid-cols-2">
 				<formulate-input
 					name="password"
+					:validation-name="$t('common.form.fields.password')"
 					type="password"
-					label="Password"
+					:label="$t('common.form.fields.password')"
 					validation="required"
 				/>
 				<formulate-input
 					name="password_confirm"
+					:validation-name="$t('routes.admin.shared.form.fields.password-confirmation')"
 					type="password"
-					label="Confirm password"
+					:label="$t('routes.admin.shared.form.fields.password-confirmation')"
 					validation="required|confirm"
-					validation-name="Password confirmation"
 				/>
 			</div>
 		</formulate-form>
@@ -51,11 +54,11 @@
 			:disabled="loading"
 		>
 			<template v-if="loading">
-				Creating
+				{{ $t('common.form.creating') }}
 				<loading-spinner size="xs" color="white" class="ml-3" v-if="loading" />
 			</template>
 
-			<template v-else>Create</template>
+			<template v-else>{{ $t('common.form.create') }}</template>
 		</button>
 	</Layout>
 </template>

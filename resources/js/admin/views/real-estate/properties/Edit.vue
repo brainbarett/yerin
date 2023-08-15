@@ -2,13 +2,14 @@
 	<Layout>
 		<DeleteResourceModal
 			v-if="showDestroyModal"
-			title="Deleting Property"
+			:title="$t('routes.real-estate.properties.edit.delete-property-modal-title')"
 			@close="showDestroyModal = false"
 			@confirm="destroy()"
 			:loading="loading.destroy"
 		>
 			<p>
-				You are attempting to delete <span class="underline">{{ resource.name }}</span>
+				{{ $t('routes.real-estate.properties.edit.attempting-to-delete-property') }}
+				<span class="underline">{{ resource.name }}</span>
 			</p>
 		</DeleteResourceModal>
 
@@ -23,21 +24,33 @@
 							<icon name="chevron-left" class="w-6 h-6" />
 						</router-link>
 
-						<h1 class="text-xl font-medium">Edit Property</h1>
+						<h1 class="text-xl font-medium">
+							{{ $t('routes.real-estate.properties.edit.title') }}
+						</h1>
 					</div>
 
 					<div class="sidebar">
 						<div class="sidebar__item-group">
 							<div class="sidebar__item">
-								<a href="#basic-info" class="sidebar__button">Basic info</a>
+								<a href="#basic-info" class="sidebar__button">{{
+									$t(
+										'routes.real-estate.properties.shared.form.sections.basic-info',
+									)
+								}}</a>
 							</div>
 
 							<div class="sidebar__item">
-								<a href="#images" class="sidebar__button">Images</a>
+								<a href="#images" class="sidebar__button">{{
+									$t('routes.real-estate.properties.shared.form.sections.images')
+								}}</a>
 							</div>
 
 							<div class="sidebar__item">
-								<a href="#listings" class="sidebar__button">Listings</a>
+								<a href="#listings" class="sidebar__button">{{
+									$t(
+										'routes.real-estate.properties.shared.form.sections.listings',
+									)
+								}}</a>
 							</div>
 						</div>
 					</div>
@@ -52,6 +65,9 @@
 						<formulate-input
 							v-model="form.type"
 							type="select"
+							:validation-name="
+								$t('routes.real-estate.properties.shared.form.fields.property-type')
+							"
 							:options="propertyTypes"
 							label="Property type"
 							validation="required"
@@ -60,6 +76,9 @@
 						<formulate-input
 							v-model="form.available"
 							type="radio"
+							:validation-name="
+								$t('routes.real-estate.properties.shared.form.fields.availability')
+							"
 							:options="[
 								{ value: 'true', label: 'Available' },
 								{ value: 'false', label: 'Not Available' },
@@ -72,6 +91,9 @@
 						<formulate-input
 							v-model="form.reference"
 							type="text"
+							:validation-name="
+								$t('routes.real-estate.properties.shared.form.fields.reference')
+							"
 							label="Reference"
 							validation="required|matches:/^[A-Za-z0-9_-]+$/"
 						/>
@@ -79,6 +101,7 @@
 						<formulate-input
 							v-model="form.name"
 							type="text"
+							:validation-name="$t('common.form.fields.name')"
 							label="Name or address"
 							validation="required"
 						/>
@@ -97,6 +120,9 @@
 						<formulate-input
 							v-model="form.bedrooms"
 							type="text"
+							:validation-name="
+								$t('routes.real-estate.properties.shared.form.fields.bedrooms')
+							"
 							label="Bedrooms"
 							validation="required|number"
 						/>
@@ -104,6 +130,11 @@
 						<formulate-input
 							v-model="form.full_bathrooms"
 							type="text"
+							:validation-name="
+								$t(
+									'routes.real-estate.properties.shared.form.fields.full-bathrooms',
+								)
+							"
 							label="Full bathrooms"
 							validation="required|number"
 						/>
@@ -111,6 +142,11 @@
 						<formulate-input
 							v-model="form.half_bathrooms"
 							type="text"
+							:validation-name="
+								$t(
+									'routes.real-estate.properties.shared.form.fields.half-bathrooms',
+								)
+							"
 							label="Half bathrooms"
 							validation="required|number"
 						/>
@@ -120,6 +156,9 @@
 						<formulate-input
 							v-model="form.lot_area"
 							type="text"
+							:validation-name="
+								$t('routes.real-estate.properties.shared.form.fields.lot-area')
+							"
 							label="Lot area (m2)"
 							validation="optional|number"
 						/>
@@ -127,6 +166,11 @@
 						<formulate-input
 							v-model="form.construction_area"
 							type="text"
+							:validation-name="
+								$t(
+									'routes.real-estate.properties.shared.form.fields.construction-area',
+								)
+							"
 							label="Construction area (m2)"
 							validation="optional|number"
 						/>
@@ -134,6 +178,11 @@
 						<formulate-input
 							v-model="form.construction_year"
 							type="text"
+							:validation-name="
+								$t(
+									'routes.real-estate.properties.shared.form.fields.construction-year',
+								)
+							"
 							label="Construction year"
 							validation="optional|date:YYYY"
 						/>
@@ -166,6 +215,11 @@
 							<formulate-input
 								v-model="form.listings.SALE"
 								type="text"
+								:validation-name="
+									$t(
+										'routes.real-estate.properties.shared.form.fields.sale-price',
+									)
+								"
 								validation="optional|number"
 								:disabled="!enabledListingTypes.SALE"
 								class="col-span-8"
@@ -193,6 +247,11 @@
 									:key="term"
 									v-model="form.listings.RENT[term]"
 									type="text"
+									:validation-name="
+										$t(
+											`routes.real-estate.properties.shared.form.fields.rent-${term}-price`,
+										)
+									"
 									validation="optional|number"
 									:disabled="!enabledListingTypes.RENT"
 									class="w-full"
@@ -217,11 +276,11 @@
 				:disabled="loading.update"
 			>
 				<template v-if="loading.update">
-					Updating
+					{{ $t('common.form.updating') }}
 					<loading-spinner size="xs" color="white" class="ml-3" v-if="loading.update" />
 				</template>
 
-				<template v-else>Update</template>
+				<template v-else>{{ $t('common.form.update') }}</template>
 			</button>
 		</div>
 	</Layout>
@@ -357,7 +416,12 @@
 							/** @ts-ignore */
 							params: {
 								error: {
-									title: `Error deleting ${this.resource.name}`,
+									title: this.$t(
+										'routes.real-estate.properties.edit.error-deleting-account',
+										{
+											name: this.resource.name,
+										},
+									),
 									description: res.data.message,
 								},
 							} as RouteParams,
@@ -408,7 +472,9 @@
 							name: 'real-estate.properties.index',
 							params: {
 								error: {
-									title: 'Error loading resource',
+									title: this.$tc(
+										'routes.real-estate.properties.edit.error-fetching-account',
+									),
 									description: (res.data as ErrorResponse).message,
 								},
 							} as RouteParams,

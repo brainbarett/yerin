@@ -1,9 +1,12 @@
 <template>
 	<div class="flex items-center w-full">
-		<span class="data-grid__pagination-info"
-			>Showing {{ pagination.from }} to {{ pagination.to }} of
-			{{ pagination.total }} entries</span
-		>
+		<span class="data-grid__pagination-info">{{
+			$t('data-table.pagination.from-to-total', {
+				from: pagination.from,
+				to: pagination.to,
+				total: pagination.total,
+			})
+		}}</span>
 
 		<div class="flex gap-1">
 			<div class="data-grid__pagination-link">

@@ -13,12 +13,15 @@
 			</div>
 
 			<formulate-form class="login-form" @submit="login" v-model="form" name="main">
-				<h1 class="text-center text-2xl font-bold mb-6">Welcome back!</h1>
+				<h1 class="text-center text-2xl font-bold mb-6">
+					{{ $t('routes.auth.login.welcome') }}
+				</h1>
 
 				<div class="login-form__input-container">
 					<icon name="at-symbol" set="outline" class="login-form__input-icon" />
 					<formulate-input
 						name="email"
+						:validation-name="$t('common.form.fields.email')"
 						type="email"
 						placeholder="email@hello.com"
 						validation="required|email"
@@ -30,6 +33,7 @@
 					<icon name="lock-closed" set="outline" class="login-form__input-icon" />
 					<formulate-input
 						name="password"
+						:validation-name="$t('common.form.fields.password')"
 						type="password"
 						validation="required"
 						@keyup.enter="$formulate.submit('main')"
@@ -43,7 +47,7 @@
 					:class="{ 'opacity-70': loading }"
 					:disabled="loading"
 				>
-					Log in
+					{{ $t('common.auth.login') }}
 					<loading-spinner v-if="loading" size="xs" color="white" class="ml-3" />
 					<icon v-else name="arrow-right" set="outline" class="w-5 h-5 ml-2" />
 				</button>

@@ -2,11 +2,13 @@
 	<Layout>
 		<div class="flex flex-col h-full">
 			<div class="flex items-center">
-				<h1 class="text-xl font-medium">Properties</h1>
+				<h1 class="text-xl font-medium">
+					{{ $t('routes.real-estate.properties.index.title') }}
+				</h1>
 				<router-link
 					:to="{ name: 'real-estate.properties.create' }"
 					class="button button--primary ml-auto"
-					>Add a Property</router-link
+					>{{ $t('routes.real-estate.properties.index.add-property-btn') }}</router-link
 				>
 			</div>
 
@@ -53,7 +55,11 @@
 							class="text-xs px-2 py-1 rounded text-white"
 							:class="row.available ? 'bg-blue-500' : 'bg-gray-400'"
 						>
-							{{ row.available ? 'available' : 'not available' }}
+							{{
+								row.available
+									? $t('routes.real-estate.properties.shared.available')
+									: $t('routes.real-estate.properties.shared.not-available')
+							}}
 						</span>
 					</div>
 
@@ -81,21 +87,25 @@
 		data() {
 			const columns: Column<keyof Property>[] = [
 				{
-					label: 'Name',
+					label: this.$tc('common.form.fields.name'),
 					field: 'name',
 					searchable: true,
 				},
 				{
-					label: 'Reference',
+					label: this.$tc('routes.real-estate.properties.shared.form.fields.reference'),
 					field: 'reference',
 					searchable: true,
 				},
 				{
-					label: 'Type',
+					label: this.$tc(
+						'routes.real-estate.properties.shared.form.fields.property-type',
+					),
 					field: 'type',
 				},
 				{
-					label: 'Availability',
+					label: this.$tc(
+						'routes.real-estate.properties.shared.form.fields.availability',
+					),
 					field: 'available',
 				},
 			]

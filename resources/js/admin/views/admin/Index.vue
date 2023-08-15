@@ -2,9 +2,11 @@
 	<Layout>
 		<div class="flex flex-col h-full">
 			<div class="flex items-center">
-				<h1 class="text-xl font-medium">Admin Accounts</h1>
-				<router-link :to="{ name: 'admin.create' }" class="button button--primary ml-auto"
-					>Add an Admin Account</router-link
+				<h1 class="text-xl font-medium">{{ $t('routes.admin.index.title') }}</h1>
+				<router-link
+					:to="{ name: 'admin.create' }"
+					class="button button--primary ml-auto"
+					>{{ $t('routes.admin.index.add-admin-btn') }}</router-link
 				>
 			</div>
 
@@ -53,12 +55,12 @@
 		data() {
 			const columns: Column<keyof Admin>[] = [
 				{
-					label: 'Name',
+					label: this.$tc('common.form.fields.name'),
 					field: 'name',
 					searchable: true,
 				},
 				{
-					label: 'Email',
+					label: this.$tc('common.form.fields.email'),
 					field: 'email',
 					searchable: true,
 				},
@@ -79,7 +81,7 @@
 				.then(res => (this.rows = res.data.data))
 				.catch((res: AxiosResponse) =>
 					this.errors.push({
-						title: 'Error fetching table data',
+						title: this.$tc('routes.admin.index.error-fetching-data'),
 						description: (res.data as ErrorResponse).message,
 					}),
 				)

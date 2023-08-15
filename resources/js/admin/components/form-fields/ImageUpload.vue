@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<label class="input-label">{{ label }}</label>
+		<label class="input-label">{{ label || $t('common.form.fields.images') }}</label>
 
 		<div class="bg-gray-200 rounded box-border p-2 w-full">
 			<input
@@ -17,7 +17,7 @@
 				type="button"
 				class="block w-full rounded p-2 bg-gray-100 border border-dashed border-gray-400 text-center font-medium text-sm uppercase cursor-pointer"
 			>
-				Upload Image
+				{{ $t('common.form.image-upload.upload') }}
 			</button>
 
 			<div v-if="pendingUploads.length" class="gallery">
@@ -95,10 +95,7 @@
 		},
 
 		props: {
-			label: {
-				type: String,
-				default: 'Images',
-			},
+			label: String,
 
 			images: {
 				type: Array as PropType<Image[]>,
@@ -139,7 +136,12 @@
 										? (res.data as ValidationErrorResponse).errors.file[0]
 										: res.data.message
 
-								pendingUpload.failedReason = `Error uploading ${image.name} ${errorMessage}`
+								pendingUpload.failedReason = <string>(
+									this.$t('common.form.image-upload.error-uploading', {
+										name: image.name,
+										error: errorMessage,
+									})
+								)
 							})
 
 						this.pendingUploads.unshift(pendingUpload)
