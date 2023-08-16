@@ -1,17 +1,6 @@
 <template>
 	<div class="flex items-center justify-start">
 		<div class="sidebar">
-			<div class="sidebar__item-group mx-3 border-b border-gray-300">
-				<div class="sidebar__item !mx-0">
-					<div
-						class="font-medium box-border flex items-center py-[6px] text-sm text-gray-400"
-					>
-						<icon name="user-solid-circle" set="zondicons" class="w-5 h-5 mr-2" />
-						{{ user.name }}
-					</div>
-				</div>
-			</div>
-
 			<div v-for="(group, index) in menu" :key="index" class="sidebar__item-group">
 				<span class="sidebar__group-label">{{ group.label }}</span>
 
@@ -32,6 +21,15 @@
 						<icon name="logout" set="outline" class="w-5 h-5 mr-2" />
 						{{ $t('common.auth.logout') }}
 					</button>
+				</div>
+
+				<div class="sidebar__item border-t border-gray-300">
+					<div
+						class="font-medium box-border flex items-center px-3 py-[6px] pt-3 text-sm text-gray-400"
+					>
+						<icon name="user-solid-circle" set="zondicons" class="w-5 h-5 mr-2" />
+						{{ user.name }}
+					</div>
 				</div>
 			</div>
 		</div>
