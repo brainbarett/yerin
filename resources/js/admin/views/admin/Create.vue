@@ -9,7 +9,7 @@
 		</div>
 
 		<formulate-form @submit="save" v-model="form" name="main" class="resource-form__section">
-			<div class="form__field-group grid-cols-2">
+			<div class="form__field-group grid-cols-3">
 				<formulate-input
 					name="name"
 					:validation-name="$t('common.form.fields.name')"
@@ -25,6 +25,14 @@
 					:label="$t('common.form.fields.email')"
 					placeholder="example@email.com"
 					validation="required|email"
+				/>
+				<formulate-input
+					name="language"
+					:validation-name="$t('common.language')"
+					type="select"
+					:options="languages"
+					:label="$t('common.language')"
+					validation="required"
 				/>
 			</div>
 
@@ -66,7 +74,7 @@
 <script lang="ts">
 	import Vue from 'vue'
 	import Layout from '@/layouts/Main.vue'
-	import AdminApi, { StoreRequest } from '@/services/admin'
+	import AdminApi, { Language, StoreRequest } from '@/services/admin'
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
 
@@ -75,6 +83,7 @@
 		email: string
 		password: string
 		password_confirm: string
+		language: Language
 	}
 
 	export default Vue.extend({
@@ -84,6 +93,10 @@
 			return {
 				loading: false as boolean,
 				form: {} as Form,
+				languages: {
+					es: this.$t('common.spanish'),
+					en: this.$t('common.english'),
+				},
 			}
 		},
 
