@@ -100,6 +100,7 @@ export default {
 				index: {
 					title: 'Gestionar Propiedades',
 					'add-property-btn': 'Añadir una Propiedad',
+					'error-fetching-data': 'Error cargando data de la tabla',
 				},
 
 				create: {

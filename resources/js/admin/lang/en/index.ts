@@ -100,6 +100,7 @@ export default {
 				index: {
 					title: 'Manage Properties',
 					'add-property-btn': 'Add a Property',
+					'error-fetching-data': 'Error fetching table data',
 				},
 
 				create: {

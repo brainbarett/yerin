@@ -51,7 +51,8 @@
 	import { Column, PaginationMeta, RemoteApi } from './types'
 	import Searchbar from './Searchbar.vue'
 	import Pagination from './Pagination.vue'
-	import { PaginatedResponse } from '@/services/http'
+	import { ErrorResponse, PaginatedResponse } from '@/services/http'
+	import { AxiosResponse } from 'axios'
 
 	export default Vue.extend({
 		components: { Searchbar, Pagination },
@@ -111,6 +112,9 @@
 							this.paginationMeta = (res.data as PaginatedResponse).meta
 						}
 					})
+					.catch((res: AxiosResponse) =>
+						this.$emit('error', (res.data as ErrorResponse).message),
+					)
 					.finally(() => (this.loading = false))
 			},
 

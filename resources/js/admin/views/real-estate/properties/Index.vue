@@ -25,6 +25,12 @@
 				:api="apiForDataGrid"
 				:columns="columns"
 				:paginate="true"
+				@error="
+					errors.push({
+						title: $t('routes.real-estate.properties.index.error-fetching-data'),
+						description: $event,
+					})
+				"
 				class="mt-3 h-full overflow-hidden"
 			>
 				<template #row="{ row, field }">
