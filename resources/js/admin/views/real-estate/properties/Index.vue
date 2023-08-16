@@ -114,9 +114,12 @@
 				columns,
 				errors: [] as RouteParams['error'][],
 				propertyTypes: propertyTypes.reduce(
-					(obj, type) => ({ ...obj, [type.value]: type.label }),
+					(obj, type) => ({
+						...obj,
+						[type]: this.$t(`real-estate.property-types.${type.toLowerCase()}`),
+					}),
 					{},
-				) as { [key in (typeof propertyTypes)[number]['value']]: string },
+				) as { [key in (typeof propertyTypes)[number]]: string },
 			}
 		},
 

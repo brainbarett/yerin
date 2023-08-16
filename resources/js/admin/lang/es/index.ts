@@ -17,8 +17,9 @@ export default {
 				name: 'Nombre',
 				password: 'Contraseña',
 				email: 'Correo',
+				description: 'Descripción',
+				images: 'Imagenes',
 			},
-			images: 'Imagenes',
 			'image-upload': {
 				upload: 'Subir Imagenes',
 				'error-uploading': 'Error al subir {name} {error}',
@@ -31,6 +32,15 @@ export default {
 		properties: 'Propiedades',
 		'real-estate': 'Bienes Raices',
 		system: 'Sistema',
+	},
+
+	'real-estate': {
+		'property-types': {
+			house: 'Casa',
+			villa: 'Villa',
+			apartment: 'Apartmento',
+			penthouse: 'Penthouse',
+		},
 	},
 
 	'data-table': {
@@ -120,6 +130,11 @@ export default {
 							'construction-area': 'Area de la construcción',
 							'construction-year': 'Año de construcción',
 							'sale-price': 'Precio de venta',
+							'rent-terms': 'Precios de renta',
+							'rent-day': 'Día',
+							'rent-week': 'Semana',
+							'rent-month': 'Mes',
+							'rent-year': 'Año',
 							'rent-day-price': 'Precio de renta diaria',
 							'rent-week-price': 'Precio de renta semanal',
 							'rent-month-price': 'Precio de renta mensual',

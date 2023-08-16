@@ -17,8 +17,9 @@ export default {
 				name: 'Name',
 				password: 'Password',
 				email: 'Email',
+				description: 'Description',
+				images: 'Images',
 			},
-			images: 'Images',
 			'image-upload': {
 				upload: 'Upload Images',
 				'error-uploading': 'Error uploading {name} {error}',
@@ -31,6 +32,15 @@ export default {
 		properties: 'Properties',
 		'real-estate': 'Real Estate',
 		system: 'System',
+	},
+
+	'real-estate': {
+		'property-types': {
+			house: 'House',
+			villa: 'Villa',
+			apartment: 'Apartment',
+			penthouse: 'Penthouse',
+		},
 	},
 
 	'data-table': {
@@ -120,6 +130,11 @@ export default {
 							'construction-area': 'Construction area',
 							'construction-year': 'Construction year',
 							'sale-price': 'Sale price',
+							'rent-terms': 'Rent terms',
+							'rent-day': 'Day',
+							'rent-week': 'Week',
+							'rent-month': 'Month',
+							'rent-year': 'Year',
 							'rent-day-price': 'Daily rent price',
 							'rent-week-price': 'Weekly rent price',
 							'rent-month-price': 'Monthly rent price',

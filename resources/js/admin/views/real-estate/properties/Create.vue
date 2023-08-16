@@ -56,7 +56,9 @@
 								$t('routes.real-estate.properties.shared.form.fields.property-type')
 							"
 							:options="propertyTypes"
-							label="Property type"
+							:label="
+								$t('routes.real-estate.properties.shared.form.fields.property-type')
+							"
 							validation="required"
 						/>
 
@@ -67,10 +69,18 @@
 								$t('routes.real-estate.properties.shared.form.fields.availability')
 							"
 							:options="[
-								{ value: 'true', label: 'Available' },
-								{ value: 'false', label: 'Not Available' },
+								{
+									value: 'true',
+									label: $t('routes.real-estate.properties.shared.available'),
+								},
+								{
+									value: 'false',
+									label: $t('routes.real-estate.properties.shared.not-available'),
+								},
 							]"
-							label="Availability"
+							:label="
+								$t('routes.real-estate.properties.shared.form.fields.availability')
+							"
 							validation="required"
 							class="horizontal"
 						/>
@@ -81,7 +91,9 @@
 							:validation-name="
 								$t('routes.real-estate.properties.shared.form.fields.reference')
 							"
-							label="Reference"
+							:label="
+								$t('routes.real-estate.properties.shared.form.fields.reference')
+							"
 							validation="required|matches:/^[A-Za-z0-9_-]+$/"
 						/>
 
@@ -89,12 +101,14 @@
 							v-model="form.name"
 							type="text"
 							:validation-name="$t('common.form.fields.name')"
-							label="Name or address"
+							:label="$t('common.form.fields.name')"
 							validation="required"
 						/>
 
 						<div class="col-span-4">
-							<label class="input-label">Description</label>
+							<label class="input-label">{{
+								$t('common.form.fields.description')
+							}}</label>
 							<ckeditor
 								v-model="form.description"
 								:editor="ckeditor.editor"
@@ -110,7 +124,7 @@
 							:validation-name="
 								$t('routes.real-estate.properties.shared.form.fields.bedrooms')
 							"
-							label="Bedrooms"
+							:label="$t('routes.real-estate.properties.shared.form.fields.bedrooms')"
 							validation="required|number"
 						/>
 
@@ -122,7 +136,11 @@
 									'routes.real-estate.properties.shared.form.fields.full-bathrooms',
 								)
 							"
-							label="Full bathrooms"
+							:label="
+								$t(
+									'routes.real-estate.properties.shared.form.fields.full-bathrooms',
+								)
+							"
 							validation="required|number"
 						/>
 
@@ -134,7 +152,11 @@
 									'routes.real-estate.properties.shared.form.fields.half-bathrooms',
 								)
 							"
-							label="Half bathrooms"
+							:label="
+								$t(
+									'routes.real-estate.properties.shared.form.fields.half-bathrooms',
+								)
+							"
 							validation="required|number"
 						/>
 					</div>
@@ -146,7 +168,10 @@
 							:validation-name="
 								$t('routes.real-estate.properties.shared.form.fields.lot-area')
 							"
-							label="Lot area (m2)"
+							:label="
+								$t('routes.real-estate.properties.shared.form.fields.lot-area') +
+								'(m2)'
+							"
 							validation="optional|number"
 						/>
 
@@ -158,7 +183,11 @@
 									'routes.real-estate.properties.shared.form.fields.construction-area',
 								)
 							"
-							label="Construction area (m2)"
+							:label="
+								$t(
+									'routes.real-estate.properties.shared.form.fields.construction-area',
+								) + '(m2)'
+							"
 							validation="optional|number"
 						/>
 
@@ -170,7 +199,11 @@
 									'routes.real-estate.properties.shared.form.fields.construction-year',
 								)
 							"
-							label="Construction year"
+							:label="
+								$t(
+									'routes.real-estate.properties.shared.form.fields.construction-year',
+								)
+							"
 							validation="optional|date:YYYY"
 						/>
 					</div>
@@ -195,7 +228,11 @@
 								<label
 									for="listing-type-sale-checkbox"
 									class="whitespace-nowrap cursor-pointer"
-									>Sale price</label
+									>{{
+										$t(
+											'routes.real-estate.properties.shared.form.fields.sale-price',
+										)
+									}}</label
 								>
 							</div>
 
@@ -224,7 +261,11 @@
 								<label
 									for="listing-type-rent-checkbox"
 									class="whitespace-nowrap cursor-pointer"
-									>Rent terms</label
+									>{{
+										$t(
+											'routes.real-estate.properties.shared.form.fields.rent-terms',
+										)
+									}}</label
 								>
 							</div>
 
@@ -236,13 +277,17 @@
 									type="text"
 									:validation-name="
 										$t(
-											`routes.real-estate.properties.shared.form.fields.rent-${term}-price`,
+											`routes.real-estate.properties.shared.form.fields.rent-${term.toLowerCase()}-price`,
 										)
 									"
 									validation="optional|number"
 									:disabled="!enabledListingTypes.RENT"
 									class="w-full"
-									:label="term"
+									:label="
+										$t(
+											`routes.real-estate.properties.shared.form.fields.rent-${term.toLowerCase()}`,
+										)
+									"
 								/>
 							</div>
 						</div>
@@ -281,6 +326,7 @@
 	import CKEditorSettings from '@/utils/ckeditor-settings'
 	import { Image } from '@/services/images'
 	import ImageUpload from '@/components/form-fields/ImageUpload.vue'
+	import useLanguageStore from '@/stores/language'
 
 	type StringBoolean = 'true' | 'false'
 
@@ -297,10 +343,16 @@
 		components: { Layout, ImageUpload },
 
 		data() {
+			const ckeditor = CKEditorSettings
+			ckeditor.config.language = useLanguageStore().language
+
 			return {
 				loading: false as boolean,
-				propertyTypes,
-				ckeditor: CKEditorSettings,
+				propertyTypes: propertyTypes.map(type => ({
+					value: type,
+					label: this.$t(`real-estate.property-types.${type.toLowerCase()}`),
+				})),
+				ckeditor,
 				form: {
 					images: [] as Image[],
 					listings: {

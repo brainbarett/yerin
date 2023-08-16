@@ -37,18 +37,13 @@ export default {
 	},
 }
 
-export const propertyTypes = [
-	{ label: 'House', value: 'HOUSE' },
-	{ label: 'Villa', value: 'VILLA' },
-	{ label: 'Apartment', value: 'APARTMENT' },
-	{ label: 'Penthouse', value: 'PENTHOUSE' },
-] as const
+export const propertyTypes = ['HOUSE', 'VILLA', 'APARTMENT', 'PENTHOUSE'] as const
 
 export const rentTerms = ['DAY', 'WEEK', 'MONTH', 'YEAR'] as const
 
 export type Property = {
 	id: number
-	type: (typeof propertyTypes)[number]['value']
+	type: (typeof propertyTypes)[number]
 	reference: string
 	name: string
 	description: string | null
