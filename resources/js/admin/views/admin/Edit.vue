@@ -8,8 +8,7 @@
 			:loading="loading.destroy"
 		>
 			<p>
-				{{ $t('routes.admin.edit.attempting-to-delete-account') }}
-				<span class="underline">{{ resource.name }}</span>
+				{{ $t('routes.admin.edit.attempting-to-delete-account', { name: resource.name }) }}
 			</p>
 		</DeleteResourceModal>
 

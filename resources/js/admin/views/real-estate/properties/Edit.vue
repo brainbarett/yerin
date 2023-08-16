@@ -8,8 +8,11 @@
 			:loading="loading.destroy"
 		>
 			<p>
-				{{ $t('routes.real-estate.properties.edit.attempting-to-delete-property') }}
-				<span class="underline">{{ resource.name }}</span>
+				{{
+					$t('routes.real-estate.properties.edit.attempting-to-delete-property', {
+						name: resource.name,
+					})
+				}}
 			</p>
 		</DeleteResourceModal>
 

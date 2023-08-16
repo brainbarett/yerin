@@ -52,7 +52,7 @@ export default {
 	routes: {
 		auth: {
 			login: {
-				welcome: 'Bienvenido!',
+				title: 'Bienvenid@!',
 			},
 		},
 
@@ -70,9 +70,10 @@ export default {
 			edit: {
 				title: 'Editar Cuenta Admin',
 				'error-fetching-account': 'Error cargando data',
-				'error-deleting-account': 'Error eliminando {name}',
-				'attempting-to-delete-account': 'Estás intentando eliminar',
-				'delete-account-modal-title': 'Eliminando Cuenta Admin',
+				'error-deleting-account': "Error eliminando '{name}'",
+				'attempting-to-delete-account':
+					'Estás intentando eliminar <span class="underline">{name}</span>',
+				'delete-account-modal-title': 'Eliminar Cuenta Admin',
 			},
 
 			shared: {
@@ -98,9 +99,10 @@ export default {
 				edit: {
 					title: 'Editar Propiedad',
 					'error-fetching-property': 'Error cargando data',
-					'error-deleting-property': 'Error eliminando {name}',
-					'attempting-to-delete-property': 'Estás intentando eliminar',
-					'delete-property-modal-title': 'Eliminando Propiedad',
+					'error-deleting-property': "Error eliminando '{name}'",
+					'attempting-to-delete-property':
+						'Estás intentando eliminar <span class="underline">{name}</span>',
+					'delete-property-modal-title': 'Eliminar Propiedad',
 				},
 
 				shared: {

@@ -14,7 +14,7 @@
 
 			<formulate-form class="login-form" @submit="login" v-model="form" name="main">
 				<h1 class="text-center text-2xl font-bold mb-6">
-					{{ $t('routes.auth.login.welcome') }}
+					{{ $t('routes.auth.login.title') }}
 				</h1>
 
 				<div class="login-form__input-container">

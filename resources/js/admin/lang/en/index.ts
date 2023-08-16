@@ -52,7 +52,7 @@ export default {
 	routes: {
 		auth: {
 			login: {
-				welcome: 'Welcome back!',
+				title: 'Welcome back!',
 			},
 		},
 
@@ -69,10 +69,11 @@ export default {
 
 			edit: {
 				title: 'Edit Admin Account',
-				'error-fetching-account': 'Error loading resource',
-				'error-deleting-account': 'Error deleting {name}',
-				'attempting-to-delete-account': 'You are attempting to delete',
-				'delete-account-modal-title': 'Deleting Admin Account',
+				'error-fetching-account': 'Error fetching data',
+				'error-deleting-account': "Error deleting '{name}'",
+				'attempting-to-delete-account':
+					'You are attempting to delete <span class="underline">{name}</span>',
+				'delete-account-modal-title': 'Delete Admin Account',
 			},
 
 			shared: {
@@ -97,10 +98,11 @@ export default {
 
 				edit: {
 					title: 'Edit Property',
-					'error-fetching-property': 'Error loading resource',
-					'error-deleting-property': 'Error deleting {name}',
-					'attempting-to-delete-property': 'You are attempting to delete',
-					'delete-property-modal-title': 'Deleting Property',
+					'error-fetching-property': 'Error fetching data',
+					'error-deleting-property': "Error deleting '{name}'",
+					'attempting-to-delete-account':
+						'You are attempting to delete <span class="underline">{name}</span>',
+					'delete-property-modal-title': 'Delete Property',
 				},
 
 				shared: {
