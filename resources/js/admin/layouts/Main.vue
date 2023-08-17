@@ -140,7 +140,7 @@
 
 <style lang="scss">
 	.sidebar {
-		@apply box-border flex flex-col w-56 h-full py-6 bg-gray-200 shrink-0;
+		@apply box-border flex flex-col w-56 h-full py-3 bg-gray-200 md:py-6 shrink-0;
 
 		> *:first-child {
 			margin-top: 0px;
@@ -175,6 +175,6 @@
 	}
 
 	#content {
-		@apply box-border relative w-full min-h-[100dvh] p-6 overflow-y-auto bg-gray-100;
+		@apply box-border relative w-full min-h-[100dvh] p-3 md:p-6 overflow-y-auto bg-gray-100;
 	}
 </style>
