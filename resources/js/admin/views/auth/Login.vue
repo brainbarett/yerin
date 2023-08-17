@@ -1,12 +1,12 @@
 <template>
 	<div
-		class="box-border flex flex-col items-center justify-center w-full h-full p-6 bg-slate-100"
+		class="box-border flex flex-col items-center justify-center w-full min-h-full p-6 bg-gray-100"
 	>
-		<div class="bg-white rounded shadow-md max-w-full w-[400px] overflow-hidden">
+		<div class="bg-white rounded shadow-md max-w-full w-[400px]">
 			<div class="pb-28 relative">
 				<div class="h-28 bg-gray-600"></div>
 				<div
-					class="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-white rounded-full p-2 drop-shadow-lg"
+					class="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-white rounded-full p-2 drop-shadow-lg text-gray-600"
 				>
 					<icon name="user-solid-circle" set="zondicons" class="w-28 h-28" />
 				</div>
