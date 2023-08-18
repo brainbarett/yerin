@@ -10,7 +10,11 @@
 			<table class="data-table">
 				<thead>
 					<tr>
-						<th v-for="column in columns" :key="column.field">
+						<th
+							v-for="column in columns"
+							:key="column.field"
+							:class="column.columnClass"
+						>
 							{{ column.label }}
 						</th>
 					</tr>
@@ -18,7 +22,7 @@
 
 				<tbody>
 					<tr v-for="row in processedRows" :key="row.id">
-						<td v-for="column in columns" :key="column.field">
+						<td v-for="column in columns" :key="column.field" :class="column.rowClass">
 							<slot name="row" :row="row" :field="column.field" :column="column">
 								{{ row[column.field] }}
 							</slot>

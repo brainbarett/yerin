@@ -5,6 +5,8 @@ export type Column<TField = string> = {
 	field: TField
 	label: string
 	searchable?: boolean
+	columnClass?: string
+	rowClass?: string
 }
 
 export type PaginationMeta = Omit<PaginatedResponse['meta'], 'path'> & {

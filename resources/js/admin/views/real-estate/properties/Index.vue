@@ -113,6 +113,7 @@
 						'routes.real-estate.properties.shared.form.fields.availability',
 					),
 					field: 'available',
+					columnClass: 'text-center',
 				},
 			]
 
