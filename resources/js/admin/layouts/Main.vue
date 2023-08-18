@@ -132,8 +132,16 @@
 
 			toggleSidebar() {
 				this.showSidebar = !this.showSidebar
-				document.body.style.overflow = this.showSidebar ? 'hidden' : 'unset'
+				this.lockScroll(this.showSidebar)
 			},
+
+			lockScroll(lock: boolean) {
+				document.body.style.overflow = lock ? 'hidden' : 'unset'
+			},
+		},
+
+		mounted() {
+			this.lockScroll(false)
 		},
 	})
 </script>
