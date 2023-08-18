@@ -1,5 +1,5 @@
 <template>
-	<Layout>
+	<Layout :vh="true">
 		<div class="flex flex-col h-full">
 			<div class="flex items-center">
 				<h1 class="text-xl font-medium">{{ $t('routes.admin.index.title') }}</h1>

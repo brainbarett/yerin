@@ -11,7 +11,7 @@
 			class="md:block md:sticky md:top-0 md:h-screen"
 			:class="
 				showSidebar
-					? 'flex w-screen h-[calc(100%-48px)] fixed top-12 z-50 left-0'
+					? 'flex w-screen h-[calc(100dvh-48px)] fixed top-12 z-50 left-0'
 					: 'hidden'
 			"
 		>
@@ -62,7 +62,7 @@
 			></div>
 		</div>
 
-		<div id="content">
+		<div id="content" :class="{ 'h-[calc(100vh-24px)] md:h-[calc(100vh-48px)]': vh }">
 			<slot />
 		</div>
 	</div>
@@ -87,6 +87,13 @@
 	}
 
 	export default Vue.extend({
+		props: {
+			vh: {
+				type: Boolean,
+				default: false,
+			},
+		},
+
 		data() {
 			const menu: SidebarGroup[] = [
 				{
@@ -146,7 +153,7 @@
 	})
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.sidebar {
 		@apply box-border flex flex-col w-56 h-full py-3 bg-gray-200 md:py-6 shrink-0;
 
