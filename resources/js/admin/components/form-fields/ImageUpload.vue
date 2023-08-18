@@ -48,7 +48,7 @@
 					</template>
 
 					<div v-else class="gallery-item__container">
-						<loading-spinner size="m" color="blue" />
+						<loading-spinner size="m" color="black" />
 					</div>
 				</div>
 			</div>
@@ -136,11 +136,12 @@
 										? (res.data as ValidationErrorResponse).errors.file[0]
 										: res.data.message
 
-								pendingUpload.failedReason = <string>(
-									this.$t('common.form.image-upload.error-uploading', {
+								pendingUpload.failedReason = <string>this.$t(
+									'common.form.image-upload.error-uploading',
+									{
 										name: image.name,
 										error: errorMessage,
-									})
+									},
 								)
 							})
 

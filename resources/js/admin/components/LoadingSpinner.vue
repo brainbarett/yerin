@@ -18,7 +18,7 @@
 			},
 
 			color: {
-				type: String as PropType<'white' | 'blue'>,
+				type: String as PropType<'white' | 'blue' | 'black'>,
 				default: 'white',
 			},
 		},
