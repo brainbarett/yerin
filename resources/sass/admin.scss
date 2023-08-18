@@ -146,59 +146,61 @@ body,
 	}
 }
 
-.data-grid-container {
-	@apply bg-white rounded drop-shadow;
-}
+.data-table-container {
+	@apply flex flex-col w-full h-full overflow-hidden bg-white rounded drop-shadow;
 
-.data-grid {
-	@apply flex flex-col w-full h-full overflow-hidden;
-
-	.data-grid__loader {
+	.data-table__loader {
 		@apply absolute top-0 z-50 flex items-center justify-center w-full h-full bg-gray-600 bg-opacity-25;
 	}
 
-	.data-grid__header {
-		@apply sticky top-0 bg-white border-b-2 border-gray-200 shadow-sm;
+	.data-table-scroll-container {
+		@apply w-full h-full overflow-auto;
+	}
 
-		.data-grid__row {
-			> * {
-				@apply font-medium;
+	.data-table {
+		@apply min-w-full overflow-hidden table-fixed md:w-full;
+
+		tr {
+			@apply text-sm text-left border-0;
+		}
+
+		thead {
+			@apply sticky top-0 bg-white shadow shadow-gray-300;
+
+			tr {
+				th {
+					@apply p-3 font-medium;
+				}
+			}
+		}
+
+		tbody {
+			tr {
+				@apply hover:bg-[#f9f9f9] border-b border-gray-200;
+
+				td {
+					@apply p-3;
+
+					.data-table__thumbnail-container {
+						@apply flex items-center justify-center w-12 h-12 mr-2 overflow-hidden rounded bg-gray-50 shrink-0;
+
+						img {
+							@apply block;
+						}
+					}
+				}
+			}
+
+			tr:last-child {
+				@apply border-b-0;
 			}
 		}
 	}
 
-	.data-grid__body {
-		@apply h-full overflow-y-auto;
-
-		.data-grid__row {
-			@apply hover:bg-[#f9f9f9] border-b border-gray-200;
-		}
-
-		.data-grid__row:last-child {
-			@apply border-b-0;
-		}
-	}
-
-	.data-grid__row {
-		@apply grid grid-flow-col auto-cols-fr;
-
-		> * {
-			@apply flex items-center p-3 text-sm text-left;
-		}
-
-		.data-grid__thumbnail-container {
-			@apply flex items-center justify-center w-12 h-12 mr-2 overflow-hidden rounded bg-gray-50 shrink-0;
-
-			img {
-				@apply block;
-			}
-		}
-	}
-
-	.data-grid__footer {
+	.data-table__pagination-container {
 		@apply flex items-center w-full p-3 border-t-2 border-gray-200 shadow-sm;
 
-		.data-grid__pagination-info {
+		.data-table__pagination-info {
 			@apply mr-auto text-sm text-gray-500;
 		}
 	}

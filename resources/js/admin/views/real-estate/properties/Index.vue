@@ -39,7 +39,7 @@
 						:to="{ name: 'real-estate.properties.edit', params: { id: row.id } }"
 						class="flex items-center"
 					>
-						<div class="data-grid__thumbnail-container">
+						<div class="data-table__thumbnail-container">
 							<img
 								:src="
 									row.images.length
@@ -56,9 +56,9 @@
 						{{ propertyTypes[row.type] }}
 					</template>
 
-					<div v-else-if="field == 'available'">
+					<div v-else-if="field == 'available'" class="flex justify-center">
 						<span
-							class="text-xs px-2 py-1 rounded text-white"
+							class="block whitespace-nowrap text-xs text-center px-2 py-1 rounded text-white"
 							:class="row.available ? 'bg-blue-500' : 'bg-gray-400'"
 						>
 							{{
@@ -81,8 +81,8 @@
 <script lang="ts">
 	import Vue from 'vue'
 	import Layout from '@/layouts/Main.vue'
-	import { Column, RemoteApi } from '@/components/data-grid/types'
-	import { default as DataGrid } from '@/components/data-grid/ServerSideGrid.vue'
+	import { Column, RemoteApi } from '@/components/data-table/types'
+	import { default as DataGrid } from '@/components/data-table/RemoteTable.vue'
 	import EmbeddedNotification from '@/components/EmbeddedNotification.vue'
 	import PropertiesApi, { propertyTypes, Property } from '@/services/real-estate/properties'
 	import { RouteParams } from '@/router'

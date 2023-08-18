@@ -41,8 +41,8 @@
 <script lang="ts">
 	import Vue from 'vue'
 	import Layout from '@/layouts/Main.vue'
-	import { Column } from '@/components/data-grid/types'
-	import { default as DataGrid } from '@/components/data-grid/Grid.vue'
+	import { Column } from '@/components/data-table/types'
+	import { default as DataGrid } from '@/components/data-table/Table.vue'
 	import EmbeddedNotification from '@/components/EmbeddedNotification.vue'
 	import AdminApi, { Admin } from '@/services/admin'
 	import { AxiosResponse } from 'axios'

@@ -1,6 +1,6 @@
 <template>
 	<div class="flex items-center w-full">
-		<span class="data-grid__pagination-info">{{
+		<span class="data-table__pagination-info">{{
 			$t('data-table.pagination.from-to-total', {
 				from: pagination.from,
 				to: pagination.to,
@@ -9,13 +9,13 @@
 		}}</span>
 
 		<div class="flex gap-1">
-			<div class="data-grid__pagination-link">
+			<div class="data-table__pagination-link">
 				<button @click="jumpToPage(1)" type="button" class="!px-2">
 					<icon name="chevron-double-left" set="outline" class="h-4 w-4"></icon>
 				</button>
 			</div>
 
-			<div class="data-grid__pagination-link">
+			<div class="data-table__pagination-link">
 				<button
 					@click="
 						jumpToPage(pagination.current_page == 1 ? 1 : --pagination.current_page)
@@ -30,7 +30,7 @@
 			<div
 				v-for="page in pagination.last_page"
 				:key="page"
-				class="data-grid__pagination-link"
+				class="data-table__pagination-link"
 			>
 				<button
 					@click="jumpToPage(page)"
@@ -41,7 +41,7 @@
 				</button>
 			</div>
 
-			<div class="data-grid__pagination-link">
+			<div class="data-table__pagination-link">
 				<button
 					@click="
 						jumpToPage(
@@ -57,7 +57,7 @@
 				</button>
 			</div>
 
-			<div class="data-grid__pagination-link">
+			<div class="data-table__pagination-link">
 				<button @click="jumpToPage(pagination.last_page)" type="button" class="!px-2">
 					<icon name="chevron-double-right" set="outline" class="h-4 w-4"></icon>
 				</button>
@@ -86,7 +86,7 @@
 </script>
 
 <style lang="scss">
-	.data-grid__pagination-link {
+	.data-table__pagination-link {
 		@apply flex items-center text-sm;
 
 		button {
