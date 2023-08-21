@@ -1,14 +1,15 @@
 <template>
 	<Layout :vh="true">
 		<div class="flex flex-col h-full">
-			<div class="flex items-center">
-				<h1 class="text-xl font-medium">{{ $t('routes.admin.index.title') }}</h1>
-				<router-link
-					:to="{ name: 'admin.create' }"
-					class="button button--primary ml-auto"
-					>{{ $t('routes.admin.index.add-admin-btn') }}</router-link
-				>
-			</div>
+			<Header :title="$t('routes.admin.index.title')">
+				<template #extra-content>
+					<Button
+						:to="{ name: 'admin.create' }"
+						:label="$t('routes.admin.index.add-admin-btn')"
+						class="ml-auto"
+					/>
+				</template>
+			</Header>
 
 			<EmbeddedNotification
 				v-for="(error, index) in errors"
@@ -41,6 +42,8 @@
 <script lang="ts">
 	import Vue from 'vue'
 	import Layout from '@/layouts/Main.vue'
+	import Header from '@/components/Header.vue'
+	import Button from '@/components/Button.vue'
 	import { Column } from '@/components/data-table/types'
 	import { default as DataGrid } from '@/components/data-table/Table.vue'
 	import EmbeddedNotification from '@/components/EmbeddedNotification.vue'
@@ -50,7 +53,7 @@
 	import { RouteParams } from '@/router'
 
 	export default Vue.extend({
-		components: { Layout, DataGrid, EmbeddedNotification },
+		components: { Layout, Header, Button, DataGrid, EmbeddedNotification },
 
 		data() {
 			const columns: Column<keyof Admin>[] = [

@@ -40,17 +40,13 @@
 					/>
 				</div>
 
-				<button
+				<Button
 					@click="$formulate.submit('main')"
-					type="button"
-					class="relative flex items-center justify-center w-full p-2 text-white uppercase rounded bg-gray-900"
-					:class="{ 'opacity-70': loading }"
-					:disabled="loading"
-				>
-					{{ $t('common.auth.login') }}
-					<loading-spinner v-if="loading" size="xs" color="white" class="ml-3" />
-					<icon v-else name="arrow-right" set="outline" class="w-5 h-5 ml-2" />
-				</button>
+					:loading="loading"
+					:label="$t('common.auth.login')"
+					icon-right="arrow-right"
+					class="w-full uppercase"
+				/>
 
 				<formulate-errors class="mt-2 text-center" />
 			</formulate-form>
@@ -66,6 +62,7 @@
 
 <script lang="ts">
 	import Vue from 'vue'
+	import Button from '@/components/Button.vue'
 	import AuthApi, { LoginRequest } from '@/services/auth'
 	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
 	import { AxiosResponse } from 'axios'
@@ -73,6 +70,8 @@
 	import { mapActions } from 'pinia'
 
 	export default Vue.extend({
+		components: { Button },
+
 		data() {
 			return {
 				loading: false as Boolean,

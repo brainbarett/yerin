@@ -22,18 +22,10 @@
 			class="resource-form flex flex-col lg:flex-row items-start gap-6"
 		>
 			<div class="sidebar">
-				<div class="flex items-start">
-					<router-link
-						:to="{ name: 'real-estate.properties.index' }"
-						class="p-1 mr-2 bg-white rounded shadow"
-					>
-						<icon name="chevron-left" class="w-6 h-6" />
-					</router-link>
-
-					<h1 class="text-xl font-medium self-center">
-						{{ $t('routes.real-estate.properties.edit.title') }}
-					</h1>
-				</div>
+				<Header
+					:title="$t('routes.real-estate.properties.edit.title')"
+					:back="{ name: 'real-estate.properties.index' }"
+				/>
 
 				<div class="sidebar__item-group">
 					<div class="sidebar__item">
@@ -309,23 +301,18 @@
 		</formulate-form>
 
 		<div class="flex justify-end gap-4">
-			<button @click="showDestroyModal = true" class="button !text-red-400 h-9">
-				Delete
-			</button>
-			<button
-				@click="$formulate.submit('main')"
-				type="button"
-				class="button button--primary h-9"
-				:class="{ 'opacity-70': loading.update }"
-				:disabled="loading.update"
-			>
-				<template v-if="loading.update">
-					{{ $t('common.form.updating') }}
-					<loading-spinner size="xs" color="white" class="ml-3" v-if="loading.update" />
-				</template>
+			<Button
+				type="secondary"
+				@click="showDestroyModal = true"
+				destructive
+				:label="$t('common.form.delete')"
+			/>
 
-				<template v-else>{{ $t('common.form.update') }}</template>
-			</button>
+			<Button
+				@click="$formulate.submit('main')"
+				:loading="loading.update"
+				:label="$t('common.form.create')"
+			/>
 		</div>
 	</Layout>
 </template>
@@ -333,6 +320,8 @@
 <script lang="ts">
 	import Vue from 'vue'
 	import Layout from '@/layouts/Main.vue'
+	import Header from '@/components/Header.vue'
+	import Button from '@/components/Button.vue'
 	import PropertiesApi, {
 		Property,
 		propertyTypes,
@@ -361,7 +350,7 @@
 	}
 
 	export default Vue.extend({
-		components: { Layout, ImageUpload, DeleteResourceModal },
+		components: { Layout, Header, Button, ImageUpload, DeleteResourceModal },
 
 		data() {
 			const ckeditor = CKEditorSettings

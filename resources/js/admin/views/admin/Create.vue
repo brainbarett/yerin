@@ -1,12 +1,6 @@
 <template>
 	<Layout>
-		<div class="flex items-center">
-			<router-link :to="{ name: 'admin.index' }" class="p-1 mr-2 bg-white rounded shadow">
-				<icon name="chevron-left" class="w-6 h-6" />
-			</router-link>
-
-			<h1 class="text-xl font-medium">{{ $t('routes.admin.create.title') }}</h1>
-		</div>
+		<Header :title="$t('routes.admin.create.title')" :back="{ name: 'admin.index' }" />
 
 		<formulate-form @submit="save" v-model="form" name="main" class="resource-form__section">
 			<div class="form__field-group md:grid-cols-3">
@@ -54,26 +48,20 @@
 			</div>
 		</formulate-form>
 
-		<button
+		<Button
 			@click="$formulate.submit('main')"
-			type="button"
-			class="button button--primary ml-auto h-9"
-			:class="{ 'opacity-70': loading }"
-			:disabled="loading"
-		>
-			<template v-if="loading">
-				{{ $t('common.form.creating') }}
-				<loading-spinner size="xs" color="white" class="ml-3" v-if="loading" />
-			</template>
-
-			<template v-else>{{ $t('common.form.create') }}</template>
-		</button>
+			class="ml-auto"
+			:loading="loading"
+			:label="$t('common.form.create')"
+		/>
 	</Layout>
 </template>
 
 <script lang="ts">
 	import Vue from 'vue'
 	import Layout from '@/layouts/Main.vue'
+	import Header from '@/components/Header.vue'
+	import Button from '@/components/Button.vue'
 	import AdminApi, { Language, StoreRequest } from '@/services/admin'
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
@@ -87,7 +75,7 @@
 	}
 
 	export default Vue.extend({
-		components: { Layout },
+		components: { Layout, Header, Button },
 
 		data() {
 			return {

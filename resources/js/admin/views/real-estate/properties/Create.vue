@@ -6,18 +6,10 @@
 			class="resource-form flex flex-col lg:flex-row items-start gap-6"
 		>
 			<div class="sidebar">
-				<div class="flex items-start">
-					<router-link
-						:to="{ name: 'real-estate.properties.index' }"
-						class="p-1 mr-2 bg-white rounded shadow"
-					>
-						<icon name="chevron-left" class="w-6 h-6" />
-					</router-link>
-
-					<h1 class="text-xl font-medium self-center">
-						{{ $t('routes.real-estate.properties.create.title') }}
-					</h1>
-				</div>
+				<Header
+					:title="$t('routes.real-estate.properties.create.title')"
+					:back="{ name: 'real-estate.properties.index' }"
+				/>
 
 				<div class="sidebar__item-group">
 					<div class="sidebar__item">
@@ -292,26 +284,20 @@
 			</div>
 		</formulate-form>
 
-		<button
+		<Button
 			@click="$formulate.submit('main')"
-			type="button"
-			class="button button--primary ml-auto h-9"
-			:class="{ 'opacity-70': loading }"
-			:disabled="loading"
-		>
-			<template v-if="loading">
-				{{ $t('common.form.creating') }}
-				<loading-spinner size="xs" color="white" class="ml-3" v-if="loading" />
-			</template>
-
-			<template v-else>{{ $t('common.form.create') }}</template>
-		</button>
+			class="ml-auto"
+			:loading="loading"
+			:label="$t('common.form.create')"
+		/>
 	</Layout>
 </template>
 
 <script lang="ts">
 	import Vue from 'vue'
 	import Layout from '@/layouts/Main.vue'
+	import Header from '@/components/Header.vue'
+	import Button from '@/components/Button.vue'
 	import PropertiesApi, {
 		propertyTypes,
 		rentTerms,
@@ -336,7 +322,7 @@
 	}
 
 	export default Vue.extend({
-		components: { Layout, ImageUpload },
+		components: { Layout, Header, Button, ImageUpload },
 
 		data() {
 			const ckeditor = CKEditorSettings
