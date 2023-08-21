@@ -32,6 +32,8 @@ Route::prefix('admin')
 		Route::post('images', 'ImagesController@upload')->name('images.upload');
 		Route::delete('images/{image}', 'ImagesController@destroy')->name('images.destroy');
 
+		Route::get('geo-locations', 'GeoLocationsController@index')->name('geo-locations.index');
+
 		Route::prefix('real-estate')
 			->name('real-estate.')
 			->namespace('RealEstate')
