@@ -5,13 +5,17 @@ export default {
 	editor: ClassicEditor,
 	config: {
 		// prettier-ignore
-		toolbar: [
-			'heading',
-			//'|', 'fontColor', 'fontBackgroundColor',
-			'|', 'bold', 'italic', //'strikethrough', 'subscript', 'superscript',
-			'|', 'link', 'blockQuote', 'insertTable',
-			//'|', 'alignment',
-			'|', 'bulletedList', 'numberedList', 'outdent', 'indent',
-		],
+		toolbar: {
+			items: [
+				'heading',
+				//'|', 'fontColor', 'fontBackgroundColor',
+				'|', 'bold', 'italic', //'strikethrough', 'subscript', 'superscript',
+				'|', 'link', 'blockQuote', 'insertTable',
+				//'|', 'alignment',
+				'|', 'bulletedList', 'numberedList', 'outdent', 'indent',
+			],
+			
+			shouldNotGroupWhenFull: true,
+		},
 	} as any,
 }

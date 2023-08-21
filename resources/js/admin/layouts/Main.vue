@@ -190,6 +190,6 @@
 	}
 
 	#content {
-		@apply box-border relative w-full min-h-[100dvh] p-3 md:p-6 overflow-y-auto bg-gray-100;
+		@apply box-border relative w-full min-h-[100dvh] p-3 md:p-6 bg-gray-100;
 	}
 </style>

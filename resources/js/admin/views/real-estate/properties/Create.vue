@@ -1,54 +1,50 @@
 <template>
 	<Layout>
-		<formulate-form @submit="save" name="main" class="resource-form flex gap-6">
-			<div class="w-56 relative">
-				<div class="fixed w-56">
-					<div class="flex items-center">
-						<router-link
-							:to="{ name: 'real-estate.properties.index' }"
-							class="p-1 mr-2 bg-white rounded shadow"
-						>
-							<icon name="chevron-left" class="w-6 h-6" />
-						</router-link>
+		<formulate-form
+			@submit="save"
+			name="main"
+			class="resource-form flex flex-col lg:flex-row items-start gap-6"
+		>
+			<div class="sidebar">
+				<div class="flex items-start">
+					<router-link
+						:to="{ name: 'real-estate.properties.index' }"
+						class="p-1 mr-2 bg-white rounded shadow"
+					>
+						<icon name="chevron-left" class="w-6 h-6" />
+					</router-link>
 
-						<h1 class="text-xl font-medium">
-							{{ $t('routes.real-estate.properties.create.title') }}
-						</h1>
-					</div>
-
-					<div class="sidebar">
-						<div class="sidebar__item-group">
-							<div class="sidebar__item">
-								<a href="#basic-info" class="sidebar__button">{{
-									$t(
-										'routes.real-estate.properties.shared.form.sections.basic-info',
-									)
-								}}</a>
-							</div>
-
-							<div class="sidebar__item">
-								<a href="#images" class="sidebar__button">{{
-									$t('routes.real-estate.properties.shared.form.sections.images')
-								}}</a>
-							</div>
-
-							<div class="sidebar__item">
-								<a href="#listings" class="sidebar__button">{{
-									$t(
-										'routes.real-estate.properties.shared.form.sections.listings',
-									)
-								}}</a>
-							</div>
-						</div>
-					</div>
-
-					<formulate-errors />
+					<h1 class="text-xl font-medium self-center">
+						{{ $t('routes.real-estate.properties.create.title') }}
+					</h1>
 				</div>
+
+				<div class="sidebar__item-group">
+					<div class="sidebar__item">
+						<a href="#basic-info" class="sidebar__button">{{
+							$t('routes.real-estate.properties.shared.form.sections.basic-info')
+						}}</a>
+					</div>
+
+					<div class="sidebar__item">
+						<a href="#images" class="sidebar__button">{{
+							$t('routes.real-estate.properties.shared.form.sections.images')
+						}}</a>
+					</div>
+
+					<div class="sidebar__item">
+						<a href="#listings" class="sidebar__button">{{
+							$t('routes.real-estate.properties.shared.form.sections.listings')
+						}}</a>
+					</div>
+				</div>
+
+				<formulate-errors />
 			</div>
 
-			<div class="flex flex-col">
+			<div class="flex flex-col w-full">
 				<div id="basic-info" class="resource-form__section !mt-0">
-					<div class="form__field-group grid-cols-4">
+					<div class="form__field-group lg:grid-cols-4">
 						<formulate-input
 							v-model="form.type"
 							type="select"
@@ -105,7 +101,7 @@
 							validation="required"
 						/>
 
-						<div class="col-span-4">
+						<div class="lg:col-span-4">
 							<label class="input-label">{{
 								$t('common.form.fields.description')
 							}}</label>
@@ -117,7 +113,7 @@
 						</div>
 					</div>
 
-					<div class="form__field-group grid-cols-3">
+					<div class="form__field-group lg:grid-cols-3">
 						<formulate-input
 							v-model="form.bedrooms"
 							type="text"
@@ -161,7 +157,7 @@
 						/>
 					</div>
 
-					<div class="form__field-group grid-cols-3">
+					<div class="form__field-group lg:grid-cols-3">
 						<formulate-input
 							v-model="form.lot_area"
 							type="text"
@@ -217,8 +213,8 @@
 
 				<div id="listings" class="resource-form__section">
 					<div class="form__field-group">
-						<div class="grid grid-cols-10 items-center gap-12">
-							<div class="col-span-2 flex items-center gap-2">
+						<div class="grid gap-2 lg:grid-cols-10 items-center lg:gap-12">
+							<div class="lg:col-span-2 flex items-center gap-2">
 								<input
 									type="checkbox"
 									id="listing-type-sale-checkbox"
@@ -250,8 +246,8 @@
 							/>
 						</div>
 
-						<div class="grid grid-cols-10 items-center gap-12">
-							<div class="col-span-2 flex items-center gap-2">
+						<div class="grid gap-2 lg:grid-cols-10 items-center lg:gap-12">
+							<div class="lg:col-span-2 flex items-center gap-2">
 								<input
 									type="checkbox"
 									id="listing-type-rent-checkbox"
@@ -269,7 +265,7 @@
 								>
 							</div>
 
-							<div class="form__field-group grid-cols-4 col-span-8">
+							<div class="form__field-group lg:grid-cols-4 lg:col-span-8">
 								<formulate-input
 									v-for="(price, term) in form.listings.RENT"
 									:key="term"

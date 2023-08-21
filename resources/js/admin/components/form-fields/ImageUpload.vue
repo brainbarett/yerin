@@ -159,7 +159,7 @@
 
 <style lang="scss" scoped>
 	.gallery {
-		@apply grid items-start grid-cols-4 gap-2 mt-2;
+		@apply grid items-start gap-2 mt-2 md:grid-cols-2 lg:grid-cols-4;
 	}
 
 	.gallery-item {

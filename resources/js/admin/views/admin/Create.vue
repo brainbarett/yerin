@@ -9,7 +9,7 @@
 		</div>
 
 		<formulate-form @submit="save" v-model="form" name="main" class="resource-form__section">
-			<div class="form__field-group grid-cols-3">
+			<div class="form__field-group md:grid-cols-3">
 				<formulate-input
 					name="name"
 					:validation-name="$t('common.form.fields.name')"
@@ -36,7 +36,7 @@
 				/>
 			</div>
 
-			<div class="form__field-group grid-cols-2">
+			<div class="form__field-group md:grid-cols-2">
 				<formulate-input
 					name="password"
 					:validation-name="$t('common.form.fields.password')"
