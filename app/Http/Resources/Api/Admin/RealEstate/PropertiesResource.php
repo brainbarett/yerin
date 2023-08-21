@@ -35,6 +35,13 @@ class PropertiesResource extends JsonResource
 			'construction_year' => $this->construction_year,
 			'created_at' => (string)$this->created_at,
 			'updated_at' => (string)$this->updated_at,
+
+			'latitude' => $this->latitude,
+			'longitude' => $this->longitude,
+			'location' => [
+				'id' => $this->location->id,
+				'name' => $this->location->name,
+			],
 			
 			'listings' => [
 				'SALE' => $this->listings->firstWhere('type', 'SALE')?->price,

@@ -2,6 +2,7 @@
 
 namespace App\Models\RealEstate;
 
+use App\Models\GeoLocation\Sectors;
 use App\Utils\ModelImages\HasImages;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,5 +50,10 @@ class Properties extends Model
 		return $query
 			->where('name', 'LIKE', "%$string%")
 			->orWhere('reference', 'LIKE', "%$string%");
+	}
+
+	public function location()
+	{
+		return $this->hasOne(Sectors::class, 'id', 'location_id');
 	}
 }

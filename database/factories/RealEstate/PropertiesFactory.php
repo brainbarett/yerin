@@ -4,6 +4,7 @@ namespace Database\Factories\RealEstate;
 
 use App\Enums\RealEstate\PropertyTypes;
 use App\Enums\RealEstate\RentTerms;
+use App\Models\GeoLocation\Sectors;
 use App\Models\Images;
 use App\Models\RealEstate\Properties;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -31,6 +32,9 @@ class PropertiesFactory extends Factory
 			'lot_area' => $this->faker->randomNumber(3),
 			'construction_area' => $this->faker->randomNumber(3),
 			'construction_year' => $this->faker->year(),
+			'location_id' => Sectors::factory()->create()->id,
+			'latitude' => $this->faker->latitude(),
+			'longitude' => $this->faker->longitude(),
         ];
     }
 

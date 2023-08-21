@@ -31,6 +31,10 @@ return new class extends Migration
 
 			$table->year('construction_year')->nullable();
 
+			$table->foreignId('location_id')->constrained('location_sectors');
+			$table->string('latitude')->nullable();
+			$table->string('longitude')->nullable();
+
             $table->timestamps();
         });
     }

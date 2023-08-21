@@ -4,6 +4,7 @@ namespace App\Http\Requests\Api\Admin\RealEstate\Properties;
 
 use App\Enums\RealEstate\PropertyTypes;
 use App\Enums\RealEstate\RentTerms;
+use App\Models\GeoLocation\Sectors;
 use App\Models\Images;
 use App\Models\RealEstate\Properties;
 use Illuminate\Foundation\Http\FormRequest;
@@ -45,6 +46,10 @@ class UpdateRequest extends FormRequest
 			'construction_area' => ['nullable', 'integer'],
 			
 			'construction_year' => ['nullable', 'date_format:Y'],
+
+			'location_id' => ['required', 'integer', Rule::exists(Sectors::class, 'id')],
+			'latitude' => ['nullable', 'numeric', 'min:-90', 'max:90'],
+            'longitude' => ['nullable', 'numeric', 'min:-180', 'max:180'],
 
 			'listings' => ['present', 'nullable', 'array', 'min:1'],
 			'listings.*' => ['required', 'string', Rule::in(['RENT', 'SALE'])],
