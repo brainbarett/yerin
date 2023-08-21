@@ -7,9 +7,11 @@
 			@confirm="destroy()"
 			:loading="loading.destroy"
 		>
-			<p>
-				{{ $t('routes.admin.edit.attempting-to-delete-account', { name: resource.name }) }}
-			</p>
+			<p
+				v-html="
+					$t('routes.admin.edit.attempting-to-delete-account', { name: resource.name })
+				"
+			></p>
 		</DeleteResourceModal>
 
 		<Header :title="$t('routes.admin.edit.title')" :back="{ name: 'admin.index' }" />

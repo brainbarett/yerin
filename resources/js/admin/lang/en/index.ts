@@ -111,7 +111,7 @@ export default {
 					title: 'Edit Property',
 					'error-fetching-property': 'Error fetching data',
 					'error-deleting-property': "Error deleting '{name}'",
-					'attempting-to-delete-account':
+					'attempting-to-delete-property':
 						'You are attempting to delete <span class="underline">{name}</span>',
 					'delete-property-modal-title': 'Delete Property',
 				},

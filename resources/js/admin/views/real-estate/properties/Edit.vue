@@ -7,13 +7,13 @@
 			@confirm="destroy()"
 			:loading="loading.destroy"
 		>
-			<p>
-				{{
+			<p
+				v-html="
 					$t('routes.real-estate.properties.edit.attempting-to-delete-property', {
 						name: resource.name,
 					})
-				}}
-			</p>
+				"
+			></p>
 		</DeleteResourceModal>
 
 		<formulate-form
