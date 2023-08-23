@@ -38,6 +38,7 @@ Route::prefix('admin')
 			->name('real-estate.')
 			->namespace('RealEstate')
 			->group(function() {
+				Route::apiResource('features', 'FeaturesController')->except('show');
 				Route::apiResource('properties', 'PropertiesController');
 			});
 	});
