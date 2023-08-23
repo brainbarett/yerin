@@ -42,15 +42,14 @@ class PropertiesController extends Controller
 		$data = $request->validated();
 
 		$property = DB::transaction(function() use($data) {
-			$property = Properties::create(Arr::except($data, ['listings', 'images']));
+			$property = Properties::create(Arr::except($data, ['listings', 'images', 'features']));
 
 			if($data['listings']) {
 				$property->syncListings($data['listings']);
 			}
 
-			if($data['images']) {
-				$property->syncImages($data['images']);
-			}
+			$property->syncImages($data['images']);
+			$property->syncFeatures($data['features']);
 
 			return $property;
 		});
@@ -63,9 +62,10 @@ class PropertiesController extends Controller
 		$data = $request->validated();
 
 		DB::transaction(function() use($property, $data) {
-			$property->update(Arr::except($data, ['listings', 'images']));
+			$property->update(Arr::except($data, ['listings', 'images', 'features']));
 			$property->syncListings($data['listings'] ?? []);
 			$property->syncImages($data['images']);
+			$property->syncFeatures($data['features']);
 		});
 
 		return PropertiesResource::make($property->refresh());

@@ -6,6 +6,7 @@ use App\Enums\RealEstate\PropertyTypes;
 use App\Enums\RealEstate\RentTerms;
 use App\Models\GeoLocation\Sectors;
 use App\Models\Images;
+use App\Models\RealEstate\Features;
 use App\Models\RealEstate\Properties;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -51,6 +52,9 @@ class UpdateRequest extends FormRequest
 			'latitude' => ['present', 'nullable', 'numeric', 'min:-90', 'max:90'],
             'longitude' => ['present', 'nullable', 'numeric', 'min:-180', 'max:180'],
 
+			'features' => ['present', 'array'],
+			'features.*' => ['required', 'integer', 'distinct', Rule::exists(Features::class, 'id')],
+			
 			'listings' => ['present', 'nullable', 'array', 'min:1'],
 			'listings.*' => ['required', 'string', Rule::in(['RENT', 'SALE'])],
 

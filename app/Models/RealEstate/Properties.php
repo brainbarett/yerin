@@ -20,6 +20,23 @@ class Properties extends Model
 		return $this->hasMany(PropertyListings::class, 'property_id');
 	}
 
+	public function features()
+	{
+		return $this->hasManyThrough(
+			Features::class,
+			PropertyFeatures::class,
+			'property_id',
+			'id',
+			'id',
+			'feature_id'
+		);
+	}
+
+	public function featuresPivot()
+	{
+		return $this->hasMany(PropertyFeatures::class, 'property_id');
+	}
+
 	public function syncListings(array $listings)
 	{
 		$this->listings()->whereNotIn('type', array_keys($listings))->delete();
@@ -43,6 +60,26 @@ class Properties extends Model
 				}
 			}
 		}
+	}
+
+	public function syncFeatures(array $featureIds)
+	{
+		$this->featuresPivot()->whereNotIn('feature_id', $featureIds)->delete();
+
+		$timestamp = now();
+		$dataToInsert = collect($featureIds)
+			->diff($this->featuresPivot()->pluck('feature_id'))
+			->map(function($featureId) use($timestamp) {
+				return [
+					'feature_id' => $featureId,
+					'property_id' => $this->id,
+					'created_at' => $timestamp,
+					'updated_at' => $timestamp
+				];
+			})
+			->toArray();
+
+		$this->featuresPivot()->insert($dataToInsert);
 	}
 
 	public function scopeSearch(Builder $query, string $string)

@@ -7,6 +7,7 @@ use App\Http\Resources\Api\Admin\RealEstate\PropertiesResource;
 use App\Models\Admin;
 use App\Models\Images;
 use App\Models\ModelImages;
+use App\Models\RealEstate\Features;
 use App\Models\RealEstate\Properties;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\Sanctum;
@@ -53,12 +54,14 @@ class PropertiesTest extends ApiTestCase
 						'order' => $index
 					];
 				})->toArray(),
+				'features' => Features::factory(3)->create()->pluck('id')->toArray(),
 			]),
 
 			// only for sale
 			$this->payload([
 				'listings' => ['SALE' => $this->faker->randomNumber(3)],
-				'images' => []
+				'images' => [],
+				'features' => [],
 			]),
 
 			// only for rent
@@ -71,7 +74,8 @@ class PropertiesTest extends ApiTestCase
 						'YEAR' => $this->faker->randomNumber(3),
 					],
 				],
-				'images' => []
+				'images' => [],
+				'features' => [],
 			]),
 
 			// only images
@@ -82,8 +86,15 @@ class PropertiesTest extends ApiTestCase
 						'order' => $index
 					];
 				})->toArray(),
+				'listings' => null,
+				'features' => [],
+			]),
 
-				'listings' => null
+			// only features
+			$this->payload([
+				'images' => [],
+				'listings' => null,
+				'features' => Features::factory(3)->create()->pluck('id')->toArray(),
 			]),
 		];
 
@@ -93,7 +104,8 @@ class PropertiesTest extends ApiTestCase
 				'listings' => [
 					'RENT' => [$term => $this->faker->randomNumber(3)],
 				],
-				'images' => []
+				'images' => [],
+				'features' => [],
 			]);
 		}
 
@@ -147,6 +159,13 @@ class PropertiesTest extends ApiTestCase
 					);
 					break;
 
+				case 'features':
+					$this->assertEquals(
+						$value,
+						$property->features->pluck('id')->toArray()
+					);
+					break;
+					
                 default:
                     $this->assertEquals($value, $property->{$key});
                     break;
