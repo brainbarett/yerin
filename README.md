@@ -6,7 +6,7 @@ Current progress can be seen at https://trello.com/b/W0JvYAlr/yerin
 
 | Screenshots |
 | ----------- |
-| <img src="./public/github/creating a property.png" alt="drawing" width="200"/>|
+| <img src="./public/github/creating a property.png" alt="drawing" />|
 
 ## Table of contents
 
