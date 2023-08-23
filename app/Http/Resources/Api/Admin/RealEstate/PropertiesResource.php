@@ -44,6 +44,8 @@ class PropertiesResource extends JsonResource
 				'state_id' => $this->location->state_id,
 				'country_id' => $this->location->country_id,
 			],
+
+			'features' => FeaturesResource::collection($this->features)->resolve(),
 			
 			'listings' => [
 				'SALE' => $this->listings->firstWhere('type', 'SALE')?->price,
