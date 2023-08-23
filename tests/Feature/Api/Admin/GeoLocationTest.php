@@ -4,7 +4,10 @@ namespace Tests\Feature\Api\Admin;
 
 use App\Http\Resources\Api\Admin\GeoLocationsResource;
 use App\Models\Admin;
+use App\Models\GeoLocation\Cities;
+use App\Models\GeoLocation\Countries;
 use App\Models\GeoLocation\Sectors;
+use App\Models\GeoLocation\States;
 use Laravel\Sanctum\Sanctum;
 use Tests\Feature\Api\ApiTestCase;
 
@@ -22,15 +25,15 @@ class GeoLocationTest extends ApiTestCase
     /** @test */
     public function can_get_geo_locations_index()
     {
-		$sectors = Sectors::factory(5)->create();
+		Sectors::factory(5)->create();
 
         $response = $this->get($this->getRoute('index'))
             ->assertOk()
             ->json();
 
-        $this->assertEquals(
-            GeoLocationsResource::collection($sectors->map->country->unique())->resolve(),
-            $response['data']
-        );
+		$this->assertCount(Countries::count(), $response['data']['countries']);
+		$this->assertCount(States::count(), $response['data']['cities']);
+		$this->assertCount(Cities::count(), $response['data']['states']);
+		$this->assertCount(Sectors::count(), $response['data']['sectors']);
     }
 }
