@@ -1,8 +1,12 @@
 # Yerin
 
-🏡 Real Estate CMS where agencies can manage their property listings. It currently in its early stages; not production ready.
+🏡 Real Estate CMS for agencies to manage their property listings. It currently in its early stages; not production ready.
 
 Current progress can be seen at https://trello.com/b/W0JvYAlr/yerin
+
+| Screenshots |
+| ----------- |
+| <img src="./public/github/creating a property.png" alt="drawing" width="200"/>|
 
 ## Table of contents
 
