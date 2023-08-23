@@ -48,8 +48,8 @@ class UpdateRequest extends FormRequest
 			'construction_year' => ['nullable', 'date_format:Y'],
 
 			'location_id' => ['required', 'integer', Rule::exists(Sectors::class, 'id')],
-			'latitude' => ['nullable', 'numeric', 'min:-90', 'max:90'],
-            'longitude' => ['nullable', 'numeric', 'min:-180', 'max:180'],
+			'latitude' => ['present', 'nullable', 'numeric', 'min:-90', 'max:90'],
+            'longitude' => ['present', 'nullable', 'numeric', 'min:-180', 'max:180'],
 
 			'listings' => ['present', 'nullable', 'array', 'min:1'],
 			'listings.*' => ['required', 'string', Rule::in(['RENT', 'SALE'])],
