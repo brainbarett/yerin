@@ -39,8 +39,10 @@ class PropertiesResource extends JsonResource
 			'latitude' => $this->latitude,
 			'longitude' => $this->longitude,
 			'location' => [
-				'id' => $this->location->id,
-				'name' => $this->location->name,
+				'sector_id' => $this->location->id,
+				'city_id' => $this->location->city_id,
+				'state_id' => $this->location->state_id,
+				'country_id' => $this->location->country_id,
 			],
 			
 			'listings' => [

@@ -19,7 +19,7 @@ class PropertiesController extends Controller
     {
 		$data = $request->validated();
 
-		$properties = Properties::with(['listings', 'images'])
+		$properties = Properties::with(['listings', 'images', 'location'])
 			->when(isset($data['search']) && !is_null($data['search']), function(Builder $query) use($data) {
 				return $query->search($data['search']);
 			})
