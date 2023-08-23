@@ -21,6 +21,10 @@
 				</div>
 
 				<div class="sidebar__item">
+					<a href="#location" class="sidebar__button">{{ $t('common.location') }}</a>
+				</div>
+
+				<div class="sidebar__item">
 					<a href="#listings" class="sidebar__button">{{
 						$t('routes.real-estate.properties.shared.form.sections.listings')
 					}}</a>
@@ -180,6 +184,46 @@
 				</div>
 			</div>
 
+			<div id="location" class="resource-form__section">
+				<div class="form__field-group lg:grid-cols-4">
+					<formulate-input
+						v-model="geoLocations.selectedCountryId"
+						type="select"
+						:options="geoLocations.countries"
+						:label="$t('common.country')"
+						validation="required"
+						:validation-name="$t('common.country')"
+					/>
+
+					<formulate-input
+						v-model="geoLocations.selectedStateId"
+						type="select"
+						:options="scopedStates"
+						:label="$t('common.state')"
+						validation="required"
+						:validation-name="$t('common.state')"
+					/>
+
+					<formulate-input
+						v-model="geoLocations.selectedCityId"
+						type="select"
+						:options="scopedCities"
+						:label="$t('common.city')"
+						validation="required"
+						:validation-name="$t('common.city')"
+					/>
+
+					<formulate-input
+						v-model="geoLocations.selectedSectorId"
+						type="select"
+						:options="scopedSectors"
+						:label="$t('common.sector')"
+						validation="required"
+						:validation-name="$t('common.sector')"
+					/>
+				</div>
+			</div>
+
 			<div id="listings" class="resource-form__section">
 				<div class="form__field-group">
 					<div class="grid gap-2 lg:grid-cols-10 items-center lg:gap-12">
@@ -268,8 +312,17 @@
 	import CKEditorSettings from '@/utils/ckeditor-settings'
 	import useLanguageStore from '@/stores/language'
 	import { propertyTypes, rentTerms } from '@/services/real-estate/properties'
+	import GeoLocationsApi from '@/services/geo-locations'
+	import { AxiosResponse } from 'axios'
+	import { ErrorResponse } from '@/services/http'
 
 	const ckeditor = CKEditorSettings
+
+	type DropdownOption = { value: number; label: string }
+	type DropdownCountry = DropdownOption
+	type DropdownState = DropdownOption & { country_id: number }
+	type DropdownCity = DropdownOption & { state_id: number }
+	type DropdownSector = DropdownOption & { city_id: number }
 
 	export default Vue.extend({
 		components: { Header, ImageUpload },
@@ -292,7 +345,38 @@
 					RENT: false as boolean,
 					SALE: false as boolean,
 				},
+				geoLocations: {
+					countries: [] as DropdownCountry[],
+					states: [] as DropdownState[],
+					cities: [] as DropdownCity[],
+					sectors: [] as DropdownSector[],
+
+					selectedCountryId: null as number | null,
+					selectedStateId: null as number | null,
+					selectedCityId: null as number | null,
+					selectedSectorId: null as number | null,
+				},
 			}
+		},
+
+		computed: {
+			scopedStates(): DropdownState[] {
+				return this.geoLocations.states.filter(
+					state => state.country_id == this.geoLocations.selectedCountryId,
+				)
+			},
+
+			scopedCities(): DropdownCity[] {
+				return this.geoLocations.cities.filter(
+					city => city.state_id == this.geoLocations.selectedStateId,
+				)
+			},
+
+			scopedSectors(): DropdownSector[] {
+				return this.geoLocations.sectors.filter(
+					sector => sector.city_id == this.geoLocations.selectedCityId,
+				)
+			},
 		},
 
 		watch: {
@@ -308,9 +392,22 @@
 					}
 				}
 			},
+
+			'geoLocations.selectedCountryId': function () {
+				this.geoLocations.selectedStateId = null
+			},
+			'geoLocations.selectedStateId': function () {
+				this.geoLocations.selectedCityId = null
+			},
+			'geoLocations.selectedCityId': function () {
+				this.geoLocations.selectedSectorId = null
+			},
+			'geoLocations.selectedSectorId': function (sectorId) {
+				this.form.location_id = sectorId
+			},
 		},
 
-		async mounted() {
+		created() {
 			this.form.images = []
 			this.form.listings = {
 				SALE: null,
@@ -322,6 +419,34 @@
 				},
 			}
 
+			GeoLocationsApi.index()
+				.then(res => {
+					const data = res.data.data
+
+					this.geoLocations.countries = data.countries.map(country => ({
+						label: country.name,
+						value: country.id,
+					}))
+					this.geoLocations.states = data.states.map(state => ({
+						country_id: state.country_id,
+						label: state.name,
+						value: state.id,
+					}))
+					this.geoLocations.cities = data.cities.map(city => ({
+						state_id: city.state_id,
+						label: city.name,
+						value: city.id,
+					}))
+					this.geoLocations.sectors = data.sectors.map(sector => ({
+						city_id: sector.city_id,
+						label: sector.name,
+						value: sector.id,
+					}))
+				})
+				.catch((res: AxiosResponse) => alert((res.data as ErrorResponse).message))
+		},
+
+		async mounted() {
 			await this.$nextTick()
 
 			this.enabledListingTypes.RENT = Object.values(this.form.listings.RENT).some(

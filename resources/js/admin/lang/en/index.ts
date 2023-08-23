@@ -25,6 +25,11 @@ export default {
 				'error-uploading': 'Error uploading {name} {error}',
 			},
 		},
+		country: 'Country',
+		state: 'State',
+		city: 'City',
+		sector: 'Sector',
+		location: 'Location',
 	},
 
 	menu: {

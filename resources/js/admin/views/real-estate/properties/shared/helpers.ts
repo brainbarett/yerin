@@ -29,5 +29,7 @@ export function parseOutboundPropertyForm(
 		available: data.available == 'true',
 		listings: Object.keys(listings).length ? listings : null,
 		images: data.images.map((image, i) => ({ id: image.id, order: i })),
+		latitude: null,
+		longitude: null,
 	}
 }

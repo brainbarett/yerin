@@ -60,6 +60,13 @@ export type Property = {
 	created_at: string
 	updated_at: string
 
+	latitude: number
+	longitude: number
+	location: {
+		id: number
+		name: string
+	}
+
 	listings: {
 		SALE: number | null
 		RENT: Record<(typeof rentTerms)[number], number | null>
@@ -73,8 +80,18 @@ export interface IndexRequest extends PaginateRequest {}
 
 export type StoreRequest = Omit<
 	Property,
-	'id' | 'listings' | 'images' | 'created_at' | 'updated_at'
+	| 'id'
+	| 'listings'
+	| 'images'
+	| 'created_at'
+	| 'updated_at'
+	| 'latitude'
+	| 'longitude'
+	| 'location'
 > & {
+	latitude: number | null
+	longitude: number | null
+	location_id: number
 	images: Array<{ id: number; order: number }>
 	listings: {
 		SALE?: number
