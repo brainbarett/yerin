@@ -19,6 +19,7 @@
 		<PropertyForm
 			:title="$t('routes.real-estate.properties.edit.title')"
 			:form="form"
+			:resource="resource"
 			@submit="save"
 		/>
 
@@ -126,7 +127,7 @@
 						const property = res.data.data as Property
 						const form: EditForm = {
 							...property,
-							location_id: property.location.id,
+							location_id: property.location.sector_id,
 							available: property.available ? 'true' : 'false',
 							description: property.description || '',
 						}

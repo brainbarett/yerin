@@ -63,8 +63,10 @@ export type Property = {
 	latitude: number
 	longitude: number
 	location: {
-		id: number
-		name: string
+		sector_id: number
+		city_id: number
+		state_id: number
+		country_id: number
 	}
 
 	listings: {

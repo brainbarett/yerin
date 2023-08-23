@@ -187,7 +187,7 @@
 			<div id="location" class="resource-form__section">
 				<div class="form__field-group lg:grid-cols-4">
 					<formulate-input
-						v-model="geoLocations.selectedCountryId"
+						v-model="selectedGeoLocations.countryId"
 						type="select"
 						:options="geoLocations.countries"
 						:label="$t('common.country')"
@@ -196,7 +196,7 @@
 					/>
 
 					<formulate-input
-						v-model="geoLocations.selectedStateId"
+						v-model="selectedGeoLocations.stateId"
 						type="select"
 						:options="scopedStates"
 						:label="$t('common.state')"
@@ -205,7 +205,7 @@
 					/>
 
 					<formulate-input
-						v-model="geoLocations.selectedCityId"
+						v-model="selectedGeoLocations.cityId"
 						type="select"
 						:options="scopedCities"
 						:label="$t('common.city')"
@@ -214,7 +214,7 @@
 					/>
 
 					<formulate-input
-						v-model="geoLocations.selectedSectorId"
+						v-model="selectedGeoLocations.sectorId"
 						type="select"
 						:options="scopedSectors"
 						:label="$t('common.sector')"
@@ -311,7 +311,7 @@
 	import { CreateForm, EditForm } from './types'
 	import CKEditorSettings from '@/utils/ckeditor-settings'
 	import useLanguageStore from '@/stores/language'
-	import { propertyTypes, rentTerms } from '@/services/real-estate/properties'
+	import { Property, propertyTypes, rentTerms } from '@/services/real-estate/properties'
 	import GeoLocationsApi from '@/services/geo-locations'
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse } from '@/services/http'
@@ -330,6 +330,10 @@
 		props: {
 			title: String,
 			form: Object as PropType<CreateForm | EditForm>,
+			resource: {
+				type: Object as PropType<Property>,
+				required: false,
+			},
 		},
 
 		data() {
@@ -350,11 +354,12 @@
 					states: [] as DropdownState[],
 					cities: [] as DropdownCity[],
 					sectors: [] as DropdownSector[],
-
-					selectedCountryId: null as number | null,
-					selectedStateId: null as number | null,
-					selectedCityId: null as number | null,
-					selectedSectorId: null as number | null,
+				},
+				selectedGeoLocations: {
+					countryId: null as number | null,
+					stateId: null as number | null,
+					cityId: null as number | null,
+					sectorId: null as number | null,
 				},
 			}
 		},
@@ -362,19 +367,19 @@
 		computed: {
 			scopedStates(): DropdownState[] {
 				return this.geoLocations.states.filter(
-					state => state.country_id == this.geoLocations.selectedCountryId,
+					state => state.country_id == this.selectedGeoLocations.countryId,
 				)
 			},
 
 			scopedCities(): DropdownCity[] {
 				return this.geoLocations.cities.filter(
-					city => city.state_id == this.geoLocations.selectedStateId,
+					city => city.state_id == this.selectedGeoLocations.stateId,
 				)
 			},
 
 			scopedSectors(): DropdownSector[] {
 				return this.geoLocations.sectors.filter(
-					sector => sector.city_id == this.geoLocations.selectedCityId,
+					sector => sector.city_id == this.selectedGeoLocations.cityId,
 				)
 			},
 		},
@@ -393,16 +398,34 @@
 				}
 			},
 
-			'geoLocations.selectedCountryId': function () {
-				this.geoLocations.selectedStateId = null
+			'selectedGeoLocations.countryId': function (countryId) {
+				if (
+					this.geoLocations.states.find(
+						state => state.value == this.selectedGeoLocations.stateId,
+					)?.country_id != countryId
+				) {
+					this.selectedGeoLocations.stateId = null
+				}
 			},
-			'geoLocations.selectedStateId': function () {
-				this.geoLocations.selectedCityId = null
+			'selectedGeoLocations.stateId': function (stateId) {
+				if (
+					this.geoLocations.cities.find(
+						city => city.value == this.selectedGeoLocations.cityId,
+					)?.state_id != stateId
+				) {
+					this.selectedGeoLocations.cityId = null
+				}
 			},
-			'geoLocations.selectedCityId': function () {
-				this.geoLocations.selectedSectorId = null
+			'selectedGeoLocations.cityId': function (cityId) {
+				if (
+					this.geoLocations.sectors.find(
+						sector => sector.value == this.selectedGeoLocations.sectorId,
+					)?.city_id != cityId
+				) {
+					this.selectedGeoLocations.sectorId = null
+				}
 			},
-			'geoLocations.selectedSectorId': function (sectorId) {
+			'selectedGeoLocations.sectorId': function (sectorId) {
 				this.form.location_id = sectorId
 			},
 		},
@@ -442,6 +465,15 @@
 						label: sector.name,
 						value: sector.id,
 					}))
+
+					if (this.resource) {
+						this.selectedGeoLocations = {
+							countryId: this.resource.location.country_id,
+							stateId: this.resource.location.state_id,
+							cityId: this.resource.location.city_id,
+							sectorId: this.resource.location.sector_id,
+						}
+					}
 				})
 				.catch((res: AxiosResponse) => alert((res.data as ErrorResponse).message))
 		},
