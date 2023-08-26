@@ -1,9 +1,7 @@
 import { StoreRequest, UpdateRequest } from '@/services/real-estate/properties'
-import { CreateForm, EditForm } from './types'
+import { PropertyForm } from './types'
 
-export function parseOutboundPropertyForm(
-	data: CreateForm | EditForm,
-): StoreRequest | UpdateRequest {
+export function parseOutboundPropertyForm(data: PropertyForm): StoreRequest | UpdateRequest {
 	// vue-formulate doesnt make '' = null on optional fields like listings price & rent
 	const listings: StoreRequest['listings'] = {}
 

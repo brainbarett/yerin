@@ -3,7 +3,7 @@ import { StoreRequest, rentTerms } from '@/services/real-estate/properties'
 
 type StringBoolean = 'true' | 'false'
 
-export type CreateForm = Omit<StoreRequest, 'available' | 'listings' | 'images'> & {
+export type PropertyForm = Omit<StoreRequest, 'available' | 'listings' | 'images'> & {
 	description: string | null
 	available: StringBoolean
 	images: Image[]
@@ -12,5 +12,3 @@ export type CreateForm = Omit<StoreRequest, 'available' | 'listings' | 'images'>
 		RENT: Record<(typeof rentTerms)[number], number | null>
 	}
 }
-
-export type EditForm = CreateForm

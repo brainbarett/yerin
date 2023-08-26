@@ -18,25 +18,28 @@
 
 		<PropertyForm
 			:title="$t('routes.real-estate.properties.edit.title')"
-			:form="form"
 			:resource="resource"
+			:formErrors="errors.formErrors"
+			:inputErrors="errors.inputErrors"
 			@submit="save"
-		/>
+		>
+			<template #default="{ submit }">
+				<div class="flex justify-end gap-4">
+					<Button
+						type="secondary"
+						@click="showDestroyModal = true"
+						destructive
+						:label="$t('common.form.delete')"
+					/>
 
-		<div class="flex justify-end gap-4">
-			<Button
-				type="secondary"
-				@click="showDestroyModal = true"
-				destructive
-				:label="$t('common.form.delete')"
-			/>
-
-			<Button
-				@click="$formulate.submit('main')"
-				:loading="loading.update"
-				:label="$t('common.form.create')"
-			/>
-		</div>
+					<Button
+						@click="submit"
+						:loading="loading.update"
+						:label="$t('common.form.create')"
+					/>
+				</div>
+			</template>
+		</PropertyForm>
 	</Layout>
 </template>
 
@@ -49,9 +52,9 @@
 	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
 	import { RouteParams } from '@/router'
 	import DeleteResourceModal from '@/components/modals/DeleteResourceModal.vue'
-	import { EditForm } from './shared/types'
 	import PropertyForm from './shared/PropertyForm.vue'
 	import { parseOutboundPropertyForm } from './shared/helpers'
+	import { PropertyForm as PropertyFormType } from './shared/types'
 
 	export default Vue.extend({
 		components: { Layout, Button, PropertyForm, DeleteResourceModal },
@@ -63,34 +66,26 @@
 					update: false,
 					destroy: false,
 				} as { [key: string]: boolean },
-				form: {} as EditForm,
+				errors: {
+					formErrors: [] as string[],
+					inputErrors: {} as { [field: string]: string[] },
+				},
 				showDestroyModal: false as boolean,
 			}
 		},
 
 		methods: {
-			async save() {
+			async save(form: PropertyFormType) {
 				this.loading.update = true
-				this.$formulate.resetValidation('main')
 
-				await PropertiesApi.update(this.resource.id, parseOutboundPropertyForm(this.form))
+				await PropertiesApi.update(this.resource.id, parseOutboundPropertyForm(form))
 					.then(res => this.$router.push({ name: 'real-estate.properties.index' }))
 					.catch((res: AxiosResponse) => {
-						let inputErrors = {}
-
 						if (res.status == 422) {
-							inputErrors = (res.data as ValidationErrorResponse).errors
+							this.errors.inputErrors = (res.data as ValidationErrorResponse).errors
 						}
 
-						this.$formulate.handle(
-							{
-								formErrors: [(res.data as ErrorResponse).message],
-								inputErrors,
-							},
-							'main',
-						)
-
-						document.getElementById('content__scroll-box')!.scrollTo({ top: 0 })
+						this.errors.formErrors = [(res.data as ErrorResponse).message]
 					})
 
 				this.loading.update = false
@@ -124,16 +119,7 @@
 			await PropertiesApi.show(to.params.id as unknown as number)
 				.then(res =>
 					next((vm: any) => {
-						const property = res.data.data as Property
-						const form: EditForm = {
-							...property,
-							location_id: property.location.sector_id,
-							available: property.available ? 'true' : 'false',
-							description: property.description || '',
-						}
-
-						vm.resource = property
-						vm.form = form
+						vm.resource = res.data.data
 					}),
 				)
 				.catch((res: AxiosResponse) =>

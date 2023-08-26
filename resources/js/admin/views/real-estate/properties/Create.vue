@@ -2,16 +2,19 @@
 	<Layout>
 		<PropertyForm
 			:title="$t('routes.real-estate.properties.create.title')"
-			:form="form"
+			:formErrors="errors.formErrors"
+			:inputErrors="errors.inputErrors"
 			@submit="save"
-		/>
-
-		<Button
-			@click="$formulate.submit('main')"
-			class="ml-auto"
-			:loading="loading"
-			:label="$t('common.form.create')"
-		/>
+		>
+			<template #default="{ submit }">
+				<Button
+					@click="submit"
+					class="ml-auto"
+					:loading="loading"
+					:label="$t('common.form.create')"
+				/>
+			</template>
+		</PropertyForm>
 	</Layout>
 </template>
 
@@ -23,7 +26,7 @@
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
 	import PropertyForm from './shared/PropertyForm.vue'
-	import { CreateForm } from './shared/types'
+	import { PropertyForm as PropertyFormType } from './shared/types'
 	import { parseOutboundPropertyForm } from './shared/helpers'
 
 	export default Vue.extend({
@@ -32,33 +35,25 @@
 		data() {
 			return {
 				loading: false as boolean,
-				form: {} as CreateForm,
+				errors: {
+					formErrors: [] as string[],
+					inputErrors: {} as { [field: string]: string[] },
+				},
 			}
 		},
 
 		methods: {
-			async save() {
+			async save(form: PropertyFormType) {
 				this.loading = true
-				this.$formulate.resetValidation('main')
 
-				await PropertiesApi.store(parseOutboundPropertyForm(this.form))
+				await PropertiesApi.store(parseOutboundPropertyForm(form))
 					.then(res => this.$router.push({ name: 'real-estate.properties.index' }))
 					.catch((res: AxiosResponse) => {
-						let inputErrors = {}
-
 						if (res.status == 422) {
-							inputErrors = (res.data as ValidationErrorResponse).errors
+							this.errors.inputErrors = (res.data as ValidationErrorResponse).errors
 						}
 
-						this.$formulate.handle(
-							{
-								formErrors: [(res.data as ErrorResponse).message],
-								inputErrors,
-							},
-							'main',
-						)
-
-						document.getElementById('content__scroll-box')!.scrollTo({ top: 0 })
+						this.errors.formErrors = [(res.data as ErrorResponse).message]
 					})
 
 				this.loading = false
