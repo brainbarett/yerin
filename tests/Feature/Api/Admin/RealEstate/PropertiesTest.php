@@ -160,7 +160,7 @@ class PropertiesTest extends ApiTestCase
 					break;
 
 				case 'features':
-					$this->assertEquals(
+					$this->assertEqualsCanonicalizing(
 						$value,
 						$property->features->pluck('id')->toArray()
 					);

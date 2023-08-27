@@ -41,7 +41,7 @@ class FeaturesTest extends ApiTestCase
             ->json();
 
         $this->assertEquals(
-            FeaturesResource::collection($features)->resolve(),
+            FeaturesResource::collection($features->sortBy('name'))->resolve(),
             $response['data']
         );
 	}
