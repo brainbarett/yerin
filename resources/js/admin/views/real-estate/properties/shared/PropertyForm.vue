@@ -18,6 +18,12 @@
 					</div>
 
 					<div class="sidebar__item">
+						<a href="#amenities" class="sidebar__button">{{
+							$t('routes.real-estate.properties.shared.form.sections.amenities')
+						}}</a>
+					</div>
+
+					<div class="sidebar__item">
 						<a href="#images" class="sidebar__button">{{
 							$t('routes.real-estate.properties.shared.form.sections.images')
 						}}</a>
@@ -200,6 +206,51 @@
 					</div>
 				</div>
 
+				<div id="features" class="resource-form__section">
+					<div class="form__field-group">
+						<div>
+							<label class="input-label">{{
+								$t('routes.real-estate.properties.shared.form.sections.amenities')
+							}}</label>
+							<div class="flex items-center gap-2">
+								<select ref="featureSelector" class="input-field">
+									<option
+										v-for="(feature, index) in remainingFeatures"
+										:key="index"
+										:value="feature.id"
+									>
+										{{ feature.name }}
+									</option>
+								</select>
+
+								<Button
+									:label="$t('common.form.add')"
+									@click="addFeature"
+									:disabled="!remainingFeatures.length"
+								/>
+							</div>
+						</div>
+					</div>
+
+					<div v-if="form.features.length" class="form__field-group lg:grid-cols-4">
+						<template v-if="features.length">
+							<div
+								v-for="(feature, index) in form.features"
+								:key="index"
+								class="flex justify-between items-center gap-2 border-b border-gray-300 pb-1 w-full overflow-hidden"
+							>
+								<span class="overflow-hidden whitespace-nowrap text-ellipsis">{{
+									features.find(element => element.id == feature).name
+								}}</span>
+
+								<button type="button" @click="form.features.splice(index, 1)">
+									<icon name="x" set="solid" class="h-5 w-5" />
+								</button>
+							</div>
+						</template>
+					</div>
+				</div>
+
 				<div id="images" class="resource-form__section">
 					<div class="form__field-group">
 						<ImageUpload :images="form.images" />
@@ -343,6 +394,8 @@
 	import { ErrorResponse } from '@/services/http'
 	import { PropertyForm } from './types'
 	import { Image } from '@/services/images'
+	import FeaturesApi, { Feature } from '@/services/real-estate/features'
+	import Button from '@/components/Button.vue'
 
 	const ckeditor = CKEditorSettings
 
@@ -353,7 +406,7 @@
 	type DropdownSector = DropdownOption & { city_id: number }
 
 	export default Vue.extend({
-		components: { Header, ImageUpload },
+		components: { Header, ImageUpload, Button },
 
 		props: {
 			title: String,
@@ -375,6 +428,7 @@
 			return {
 				form: {
 					images: [] as Image[],
+					features: [] as number[],
 					listings: {
 						SALE: null,
 						RENT: {
@@ -406,6 +460,7 @@
 					cityId: null as number | null,
 					sectorId: null as number | null,
 				},
+				features: [] as Feature[],
 			}
 		},
 
@@ -426,6 +481,10 @@
 				return this.geoLocations.sectors.filter(
 					sector => sector.city_id == this.selectedGeoLocations.cityId,
 				)
+			},
+
+			remainingFeatures(): Feature[] {
+				return this.features.filter(feature => !this.form.features.includes(feature.id))
 			},
 		},
 
@@ -476,6 +535,12 @@
 		},
 
 		methods: {
+			addFeature() {
+				this.form.features.unshift(
+					Number((this.$refs.featureSelector as HTMLSelectElement).value),
+				)
+			},
+
 			submit() {
 				this.$formulate.resetValidation('main')
 				this.$emit('submit', this.form)
@@ -517,6 +582,16 @@
 					}
 				})
 				.catch((res: AxiosResponse) => alert((res.data as ErrorResponse).message))
+
+			FeaturesApi.index()
+				.then(res => {
+					this.features = res.data.data
+
+					if (this.resource) {
+						this.form.features = this.resource.features.map(feature => feature.id)
+					}
+				})
+				.catch((res: AxiosResponse) => alert((res.data as ErrorResponse).message))
 		},
 
 		async mounted() {
@@ -528,6 +603,7 @@
 					location_id: this.resource.location.sector_id,
 					available: this.resource.available ? 'true' : 'false',
 					description: this.resource.description || '',
+					features: this.resource.features.map(feature => feature.id),
 				}
 
 				this.enabledListingTypes.RENT = Object.values(this.form.listings.RENT).some(

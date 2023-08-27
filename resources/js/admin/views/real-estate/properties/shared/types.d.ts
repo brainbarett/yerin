@@ -11,4 +11,5 @@ export type PropertyForm = Omit<StoreRequest, 'available' | 'listings' | 'images
 		SALE: number | null
 		RENT: Record<(typeof rentTerms)[number], number | null>
 	}
+	features: number[]
 }

@@ -8,6 +8,7 @@ export default {
 			logout: 'Cerrar sesión',
 		},
 		form: {
+			add: 'Añadir',
 			update: 'Actualizar',
 			updating: 'Actualizando',
 			create: 'Crear',
@@ -148,6 +149,7 @@ export default {
 						},
 						sections: {
 							'basic-info': 'Información basica',
+							amenities: 'Amenidades',
 							images: 'Imagenes',
 							listings: 'Anuncios',
 						},

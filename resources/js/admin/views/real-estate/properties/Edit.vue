@@ -35,7 +35,7 @@
 					<Button
 						@click="submit"
 						:loading="loading.update"
-						:label="$t('common.form.create')"
+						:label="$t('common.form.update')"
 					/>
 				</div>
 			</template>

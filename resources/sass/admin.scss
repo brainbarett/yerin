@@ -96,6 +96,10 @@ body,
 	@apply block mb-1 text-sm;
 }
 
+.input-field {
+	@apply box-border block w-full px-3 py-2 text-sm bg-white border border-gray-300 rounded h-9;
+}
+
 .formulate-input {
 	.formulate-input-label {
 		@extend .input-label;
@@ -107,7 +111,7 @@ body,
 		input,
 		textarea,
 		select {
-			@apply box-border block w-full px-3 py-2 text-sm bg-white border border-gray-300 rounded h-9;
+			@extend .input-field;
 		}
 
 		input:disabled,
