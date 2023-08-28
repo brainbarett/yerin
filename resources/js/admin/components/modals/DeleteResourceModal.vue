@@ -8,11 +8,11 @@
 					{{ $t('modals.delete-resource.type-confirm-to-delete') }}
 				</p>
 
-				<div class="relative inline-block h-[42px]">
+				<div class="relative inline-block h-[42px] w-full">
 					<input
 						v-model="confirmation"
 						type="text"
-						class="box-border px-3 py-2 bg-white border border-gray-300 rounded"
+						class="box-border px-3 py-2 bg-white border border-gray-300 rounded w-full"
 						:disabled="loading"
 					/>
 					<button

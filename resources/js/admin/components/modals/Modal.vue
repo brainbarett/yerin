@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="box-border absolute top-0 left-0 z-10 flex items-center justify-center w-full h-full p-8"
+		class="box-border fixed top-0 left-0 z-10 flex items-center justify-center w-full h-full p-8"
 		style="background: rgba(0, 0, 0, 0.3)"
 	>
 		<div
