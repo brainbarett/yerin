@@ -40,7 +40,7 @@
 					</div>
 				</div>
 
-				<formulate-errors />
+				<formulate-errors class="scroll-mt-14 md:scroll-m-0" />
 			</div>
 
 			<div class="flex flex-col w-full">

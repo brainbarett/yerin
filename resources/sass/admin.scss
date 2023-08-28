@@ -79,7 +79,7 @@ body,
 }
 
 .resource-form__section {
-	@apply box-border grid w-full gap-12 p-4 my-4 bg-white rounded shadow;
+	@apply box-border grid w-full gap-12 p-4 my-4 bg-white rounded shadow scroll-mt-14 md:scroll-m-0;
 }
 
 .formulate-form {
