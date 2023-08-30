@@ -532,6 +532,13 @@
 			'selectedGeoLocations.sectorId': function (sectorId) {
 				this.form.location_id = sectorId
 			},
+
+			formErrors: async function (errors: string[]) {
+				if (errors.length) {
+					await this.$nextTick()
+					document.querySelector('.formulate-form-errors')!.scrollIntoView()
+				}
+			},
 		},
 
 		methods: {
