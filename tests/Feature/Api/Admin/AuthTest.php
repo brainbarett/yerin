@@ -14,7 +14,7 @@ class AuthTest extends ApiTestCase
 	/** @test */
     public function can_login()
     {
-        $admin = Admin::factory()->create();
+        $admin = Admin::factory()->create(['password' => 'password']);
         
         $response = $this->post($this->getRoute('login'), ['email' => $admin->email, 'password' => 'password'])
             ->assertOk()
