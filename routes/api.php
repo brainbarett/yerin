@@ -27,7 +27,9 @@ Route::prefix('admin')
 			Route::post('logout', 'AuthController@logout')->name('logout');
 		});
 
-		Route::apiResource('admin', 'AdminController');
+		Route::apiResource('admin', 'AdminController')->except('update');
+		Route::put('admin/{admin}', 'AdminController@update')->name('admin.update');
+		Route::patch('admin/{admin}', 'AdminController@patch')->name('admin.patch');
 
 		Route::post('images', 'ImagesController@upload')->name('images.upload');
 		Route::delete('images/{image}', 'ImagesController@destroy')->name('images.destroy');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Admin\Admin\DestroyRequest;
+use App\Http\Requests\Api\Admin\Admin\PatchRequest;
 use App\Http\Requests\Api\Admin\Admin\StoreRequest;
 use App\Http\Requests\Api\Admin\Admin\UpdateRequest;
 use App\Http\Resources\Api\Admin\AdminResource;
@@ -35,6 +36,13 @@ class AdminController extends Controller
 
         return AdminResource::make($admin->refresh());
     }
+
+	public function patch(PatchRequest $request, Admin $admin)
+	{
+		$admin->update($request->validated());
+
+		return AdminResource::make($admin->refresh());
+	}
 
 	public function destroy(DestroyRequest $request, Admin $admin)
     {

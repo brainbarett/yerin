@@ -86,7 +86,6 @@ class AdminTest extends ApiTestCase
     public function can_update_an_admin()
     {
         $admin = Admin::factory()->create();
-
         $payload = $this->payload();
 
         $this->put($this->getRoute('update', $admin->id), $payload)
@@ -94,6 +93,18 @@ class AdminTest extends ApiTestCase
 			
         $this->assertModelAttributes($admin->refresh(), $payload);
     }
+
+	/** @test */
+	public function can_update_an_admin_password()
+	{
+		$admin = Admin::factory()->create();
+		$payload = ['password' => $this->faker->sentence];
+
+		$this->patch($this->getRoute('patch', $admin->id), $payload)
+			->assertOk();
+
+		$this->assertModelAttributes($admin->refresh(), $payload);
+	}
 
 	/** @test */
     public function can_destroy_an_admin()
