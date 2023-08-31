@@ -31,6 +31,9 @@
 
 					case 'blue':
 						return '!border-t-sky-700'
+
+					case 'black':
+						return '!border-t-gray-900'
 				}
 			},
 		},
