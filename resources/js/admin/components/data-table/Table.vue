@@ -6,7 +6,7 @@
 
 		<Searchbar v-if="searchable.length" :loading="loading" @search="searchTerm = $event" />
 
-		<div class="data-table-scroll-container">
+		<div ref="scrollableContainer" class="data-table-scroll-container">
 			<table class="data-table">
 				<thead>
 					<tr>
@@ -131,6 +131,12 @@
 					to,
 					total,
 				}
+			},
+		},
+
+		watch: {
+			processedRows: function () {
+				;(this.$refs.scrollableContainer as HTMLElement).scrollTo({ top: 0 })
 			},
 		},
 	})

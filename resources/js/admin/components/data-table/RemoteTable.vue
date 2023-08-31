@@ -12,7 +12,7 @@
 			@search="search($event)"
 		/>
 
-		<div class="data-table-scroll-container">
+		<div ref="scrollableContainer" class="data-table-scroll-container">
 			<table class="data-table">
 				<thead>
 					<tr>
@@ -123,7 +123,10 @@
 					.catch((res: AxiosResponse) =>
 						this.$emit('error', (res.data as ErrorResponse).message),
 					)
-					.finally(() => (this.loading = false))
+					.finally(() => {
+						this.loading = false
+						;(this.$refs.scrollableContainer as HTMLElement).scrollTo({ top: 0 })
+					})
 			},
 
 			search(string: string) {
