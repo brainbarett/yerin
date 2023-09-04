@@ -43,24 +43,6 @@
 					validation="required"
 				/>
 			</div>
-
-			<div class="form__field-group md:grid-cols-2">
-				<formulate-input
-					name="password"
-					:validation-name="$t('common.form.fields.password')"
-					type="password"
-					:label="$t('common.form.fields.password')"
-					placeholder="(unchanged)"
-					validation="optional"
-				/>
-				<formulate-input
-					name="password_confirm"
-					:validation-name="$t('routes.admin.shared.form.fields.password-confirmation')"
-					type="password"
-					:label="$t('routes.admin.shared.form.fields.password-confirmation')"
-					:validation="`${form.password ? 'required' : 'optional'}|confirm`"
-				/>
-			</div>
 		</formulate-form>
 
 		<div class="flex items-center justify-end gap-4">
@@ -94,8 +76,6 @@
 	type Form = {
 		name: string
 		email: string
-		password?: string
-		password_confirm?: string
 		language: Language
 	}
 

@@ -1,5 +1,47 @@
 <template>
 	<Layout :vh="true">
+		<Modal
+			v-if="updatePasswordForm.visible"
+			:title="`${$t('common.form.updating')}: ${updatePasswordForm.admin.name}`"
+			@close="closeUpdatePasswordForm"
+		>
+			<formulate-form @submit="updatePassword" name="update-password">
+				<div class="form__field-group md:grid-cols-2">
+					<formulate-input
+						v-model="updatePasswordForm.password"
+						name="password"
+						:validation-name="$t('common.form.fields.password')"
+						type="password"
+						:label="$t('common.form.fields.password')"
+						validation="required"
+					/>
+					<formulate-input
+						v-model="updatePasswordForm.password_confirm"
+						name="password_confirm"
+						:validation-name="
+							$t('routes.admin.shared.form.fields.password-confirmation')
+						"
+						type="password"
+						:label="$t('routes.admin.shared.form.fields.password-confirmation')"
+						validation="required|confirm"
+					/>
+				</div>
+
+				<div class="flex items-center justify-end gap-4 mt-5">
+					<Button
+						type="terciary"
+						@click="closeUpdatePasswordForm"
+						:label="$t('common.form.cancel')"
+					/>
+					<Button
+						:loading="updatePasswordForm.loading"
+						@click="$formulate.submit('update-password')"
+						:label="$t('common.form.update')"
+					/>
+				</div>
+			</formulate-form>
+		</Modal>
+
 		<div class="flex flex-col h-full">
 			<Header :title="$t('routes.admin.index.title')">
 				<template #extra-content>
@@ -25,6 +67,7 @@
 				:columns="columns"
 				:rows="rows"
 				class="mt-3 h-full overflow-hidden"
+				hasActions
 			>
 				<template #row="{ row, field }">
 					<router-link
@@ -33,6 +76,27 @@
 					>
 						{{ row[field] }}
 					</router-link>
+				</template>
+
+				<template #row-actions="{ row }">
+					<v-dropdown placement="left" class="w-fit ml-auto">
+						<button type="button" class="rounded p-1 bg-gray-100 block ml-auto">
+							<icon name="dots-horizontal" set="outline" class="h-5 w-5" />
+						</button>
+
+						<template #popper="{ hide }">
+							<button
+								type="button"
+								class="text-gray-600 text-sm p-2 hover:bg-[#f9f9f9]"
+								@click="
+									hide()
+									showUpdatePasswordForm(row)
+								"
+							>
+								{{ $t('common.form.change-password') }}
+							</button>
+						</template>
+					</v-dropdown>
 				</template>
 			</DataGrid>
 		</div>
@@ -51,9 +115,10 @@
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse } from '@/services/http'
 	import { RouteParams } from '@/router'
+	import Modal from '@/components/modals/Modal.vue'
 
 	export default Vue.extend({
-		components: { Layout, Header, Button, DataGrid, EmbeddedNotification },
+		components: { Layout, Header, Button, DataGrid, EmbeddedNotification, Modal },
 
 		data() {
 			const columns: Column<keyof Admin>[] = [
@@ -74,7 +139,50 @@
 				columns,
 				rows: [] as Admin[],
 				errors: [] as RouteParams['error'][],
+				updatePasswordForm: {
+					visible: false,
+					admin: null as null | Admin,
+					loading: false,
+					password: '' as string,
+					password_confirm: '' as string,
+				},
 			}
+		},
+
+		methods: {
+			showUpdatePasswordForm(admin: Admin) {
+				this.updatePasswordForm.visible = true
+				this.updatePasswordForm.admin = admin
+			},
+
+			closeUpdatePasswordForm() {
+				this.updatePasswordForm.visible = false
+				this.updatePasswordForm.admin = null
+				this.$formulate.reset('update-password')
+			},
+
+			updatePassword() {
+				this.updatePasswordForm.loading = true
+				this.$formulate.resetValidation('update-password')
+
+				AdminApi.updatePassword(
+					this.updatePasswordForm.admin!.id,
+					this.updatePasswordForm.password,
+				)
+					.then(() => {
+						this.closeUpdatePasswordForm()
+						alert('password successfuly updated')
+					})
+					.catch((res: AxiosResponse) => {
+						this.$formulate.handle(
+							{
+								formErrors: [(res.data as ErrorResponse).message],
+							},
+							'update-password',
+						)
+					})
+					.finally(() => (this.updatePasswordForm.loading = false))
+			},
 		},
 
 		created() {

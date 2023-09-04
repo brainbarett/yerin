@@ -14,6 +14,9 @@ export default {
 			create: 'Create',
 			creating: 'Creating',
 			delete: 'Delete',
+			save: 'Save',
+			saving: 'Saving',
+			cancel: 'Cancel',
 			fields: {
 				name: 'Name',
 				password: 'Password',
@@ -25,6 +28,7 @@ export default {
 				upload: 'Upload Images',
 				'error-uploading': 'Error uploading {name} {error}',
 			},
+			'change-password': 'Change password',
 		},
 		country: 'Country',
 		state: 'State',
@@ -96,6 +100,9 @@ export default {
 				form: {
 					fields: {
 						'password-confirmation': 'Password confirmation',
+					},
+					messages: {
+						'password-successfully-updated': 'Password successfully updated',
 					},
 				},
 			},

@@ -17,6 +17,8 @@
 						>
 							{{ column.label }}
 						</th>
+
+						<th v-if="hasActions"></th>
 					</tr>
 				</thead>
 
@@ -26,6 +28,10 @@
 							<slot name="row" :row="row" :field="column.field" :column="column">
 								{{ row[column.field] }}
 							</slot>
+						</td>
+
+						<td v-if="hasActions">
+							<slot name="row-actions" :row="row" />
 						</td>
 					</tr>
 				</tbody>
@@ -80,6 +86,11 @@
 			perPage: {
 				type: Number,
 				default: 25,
+			},
+
+			hasActions: {
+				type: Boolean,
+				default: false,
 			},
 		},
 

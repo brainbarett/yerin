@@ -59,6 +59,14 @@
 	}
 
 	.button.secondary {
+		@apply text-gray-900 bg-gray-100;
+	}
+
+	.button.terciary {
+		@apply text-gray-900 bg-transparent;
+	}
+
+	.button.destructive {
 		@apply text-red-400 bg-transparent;
 	}
 

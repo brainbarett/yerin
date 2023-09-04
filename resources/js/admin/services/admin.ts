@@ -20,6 +20,10 @@ export default {
 		return http.put(`${baseUrl}/${id}`, data)
 	},
 
+	updatePassword(id: number, password: string) {
+		return http.patch(`${baseUrl}/${id}`, { password })
+	},
+
 	destroy(id: number) {
 		return http.delete(`${baseUrl}/${id}`)
 	},

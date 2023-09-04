@@ -14,6 +14,9 @@ export default {
 			create: 'Crear',
 			creating: 'Creando',
 			delete: 'Delete',
+			save: 'Guardar',
+			saving: 'Guardando',
+			cancel: 'Cancelar',
 			fields: {
 				name: 'Nombre',
 				password: 'Contraseña',
@@ -25,6 +28,7 @@ export default {
 				upload: 'Subir Imagenes',
 				'error-uploading': 'Error al subir {name} {error}',
 			},
+			'change-password': 'Cambiar contraseña',
 		},
 		country: 'Pais',
 		state: 'Estado',
@@ -97,6 +101,9 @@ export default {
 					fields: {
 						'password-confirmation': 'Confirmación de contraseña',
 					},
+				},
+				messages: {
+					'password-successfully-updated': 'Contraseña cambiada con éxito',
 				},
 			},
 		},
