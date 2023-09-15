@@ -1,5 +1,5 @@
 <template>
-	<Layout :vh="true">
+	<Layout vh>
 		<div class="flex flex-col h-full">
 			<Header :title="$t('routes.real-estate.properties.index.title')">
 				<template #extra-content>
@@ -71,7 +71,7 @@
 
 <script lang="ts">
 	import Vue from 'vue'
-	import Layout from '@/layouts/Main.vue'
+	import { Layout } from '@/layouts/main'
 	import Header from '@/components/Header.vue'
 	import Button from '@/components/Button.vue'
 	import { Column, RemoteApi } from '@/components/data-table/types'

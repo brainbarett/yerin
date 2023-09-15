@@ -14,7 +14,6 @@ export default defineStore('ui', {
 		language: null as Language | null,
 		queuedAlerts: [] as Alert[],
 	}),
-	persist: true,
 
 	actions: {
 		setLanguage(language: Language) {
@@ -41,6 +40,10 @@ export default defineStore('ui', {
 		fireQueuedAlerts() {
 			this.queuedAlerts.forEach(alert => this.fireAlert(alert))
 			this.queuedAlerts = []
+		},
+
+		lockScroll(lock: boolean) {
+			document.body.style.overflow = lock ? 'hidden' : 'unset'
 		},
 	},
 })

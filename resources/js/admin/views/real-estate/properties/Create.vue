@@ -20,7 +20,7 @@
 
 <script lang="ts">
 	import Vue from 'vue'
-	import Layout from '@/layouts/Main.vue'
+	import { Layout } from '@/layouts/main'
 	import Button from '@/components/Button.vue'
 	import PropertiesApi from '@/services/real-estate/properties'
 	import { AxiosResponse } from 'axios'
