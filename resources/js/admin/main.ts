@@ -44,6 +44,17 @@ import 'floating-vue/dist/style.css'
 import FloatingVue from 'floating-vue'
 Vue.use(FloatingVue)
 
+import Toast from 'vue-toastification'
+import 'vue-toastification/dist/index.css'
+Vue.use(Toast, {
+	icon: false,
+	timeout: false,
+	draggable: false,
+	closeOnClick: false,
+	closeButton: false,
+	position: 'top-center',
+})
+
 import router from './router'
 export default new Vue({
 	el: '#app',
