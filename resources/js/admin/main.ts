@@ -19,7 +19,6 @@ import Toast from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
 Vue.use(Toast, {
 	icon: false,
-	timeout: false,
 	draggable: false,
 	closeOnClick: false,
 	closeButton: false,
