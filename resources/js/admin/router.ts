@@ -5,6 +5,7 @@ import Login from '@/views/auth/Login.vue'
 import admin from '@/routes/admin'
 import realEstate from '@/routes/real-estate'
 import useAuthStore from '@/stores/auth'
+import useUiStore from '@/stores/ui'
 
 const router = new VueRouter({
 	mode: 'history',
@@ -29,10 +30,14 @@ const router = new VueRouter({
 // consider using middleware
 router.beforeEach(async (to, from, next) => {
 	const authStore = useAuthStore()
+	const uiStore = useUiStore()
 
 	await AuthApi.isAuthenticated()
 		.then(res => authStore.setUser(res.data.data))
 		.catch(res => authStore.clearUser())
+
+	uiStore.clearAlerts()
+	uiStore.fireQueuedAlerts()
 
 	if (!authStore.user && to.name != 'auth.login') {
 		return next({ name: 'auth.login' })
@@ -46,7 +51,3 @@ router.beforeEach(async (to, from, next) => {
 })
 
 export default router
-
-export type RouteParams = {
-	error?: { title: string; description: string }
-}

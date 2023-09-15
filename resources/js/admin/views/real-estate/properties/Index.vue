@@ -11,23 +11,15 @@
 				</template>
 			</Header>
 
-			<EmbeddedNotification
-				v-for="(error, index) in errors"
-				:key="index"
-				type="error"
-				:title="error.title"
-				:description="error.description"
-				class="mt-3"
-			/>
-
 			<DataGrid
 				:api="apiForDataGrid"
 				:columns="columns"
 				:paginate="true"
 				@error="
-					errors.push({
+					fireAlert({
 						title: $t('routes.real-estate.properties.index.error-fetching-data'),
 						description: $event,
+						type: 'error',
 					})
 				"
 				class="mt-3 h-full overflow-hidden"
@@ -84,12 +76,12 @@
 	import Button from '@/components/Button.vue'
 	import { Column, RemoteApi } from '@/components/data-table/types'
 	import { default as DataGrid } from '@/components/data-table/RemoteTable.vue'
-	import EmbeddedNotification from '@/components/EmbeddedNotification.vue'
 	import PropertiesApi, { propertyTypes, Property } from '@/services/real-estate/properties'
-	import { RouteParams } from '@/router'
+	import useUiStore from '@/stores/ui'
+	import { mapActions } from 'pinia'
 
 	export default Vue.extend({
-		components: { Layout, Header, Button, DataGrid, EmbeddedNotification },
+		components: { Layout, Header, Button, DataGrid },
 
 		data() {
 			const columns: Column<keyof Property>[] = [
@@ -120,7 +112,6 @@
 
 			return {
 				columns,
-				errors: [] as RouteParams['error'][],
 				propertyTypes: propertyTypes.reduce(
 					(obj, type) => ({
 						...obj,
@@ -132,15 +123,11 @@
 		},
 
 		methods: {
+			...mapActions(useUiStore, ['fireAlert']),
+
 			apiForDataGrid(filters: Parameters<RemoteApi>[0]): ReturnType<RemoteApi> {
 				return PropertiesApi.paginate(filters)
 			},
-		},
-
-		created() {
-			if ('error' in (this.$route.params as RouteParams)) {
-				this.errors.push((this.$route.params as RouteParams).error)
-			}
 		},
 	})
 </script>

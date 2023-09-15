@@ -12,6 +12,7 @@ export type Alert = {
 export default defineStore('ui', {
 	state: () => ({
 		language: null as Language | null,
+		queuedAlerts: [] as Alert[],
 	}),
 	persist: true,
 
@@ -31,6 +32,15 @@ export default defineStore('ui', {
 
 		clearAlerts() {
 			app.$toast.clear()
+		},
+
+		queueAlert(alert: Alert) {
+			this.queuedAlerts.push(alert)
+		},
+
+		fireQueuedAlerts() {
+			this.queuedAlerts.forEach(alert => this.fireAlert(alert))
+			this.queuedAlerts = []
 		},
 	},
 })

@@ -70,8 +70,9 @@
 	import AdminApi, { Admin, Language, UpdateRequest } from '@/services/admin'
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
-	import { RouteParams } from '@/router'
 	import DeleteResourceModal from '@/components/modals/DeleteResourceModal.vue'
+	import useUiStore from '@/stores/ui'
+	import { mapActions } from 'pinia'
 
 	type Form = {
 		name: string
@@ -99,6 +100,8 @@
 		},
 
 		methods: {
+			...mapActions(useUiStore, ['fireAlert', 'queueAlert']),
+
 			async save(form: Form) {
 				this.loading.update = true
 				this.$formulate.resetValidation('main')
@@ -106,7 +109,7 @@
 				const parsedFormData: UpdateRequest = form
 				await AdminApi.update(this.resource.id, parsedFormData)
 					.then(res => this.$router.push({ name: 'admin.index' }))
-					.catch((res: AxiosResponse) => {
+					.catch((res: AxiosResponse<ErrorResponse>) => {
 						let inputErrors = {}
 
 						if (res.status == 422) {
@@ -115,7 +118,7 @@
 
 						this.$formulate.handle(
 							{
-								formErrors: [(res.data as ErrorResponse).message],
+								formErrors: [res.data.message],
 								inputErrors,
 							},
 							'main',
@@ -127,22 +130,18 @@
 
 			async destroy() {
 				this.loading.destroy = true
+
 				await AdminApi.destroy(this.resource.id)
 					.then(res => this.$router.push({ name: 'admin.index' }))
-					.catch((res: AxiosResponse<ErrorResponse>) =>
-						this.$router.push({
-							name: 'admin.index',
-							/** @ts-ignore */
-							params: {
-								error: {
-									title: this.$t('routes.admin.edit.error-deleting-account', {
-										name: this.resource.name,
-									}),
-									description: res.data.message,
-								},
-							} as RouteParams,
-						}),
-					)
+					.catch((res: AxiosResponse<ErrorResponse>) => {
+						this.fireAlert({
+							title: <string>this.$t('routes.admin.edit.error-deleting-account', {
+								name: this.resource.name,
+							}),
+							description: res.data.message,
+							type: 'error',
+						})
+					})
 
 				this.loading.destroy = false
 			},
@@ -159,18 +158,18 @@
 						vm.form = form
 					})
 				})
-				.catch((res: AxiosResponse) =>
-					next((vm: any) =>
-						vm.$router.push({
-							name: 'admin.index',
-							params: {
-								error: {
-									title: this.$tc('routes.admin.edit.error-fetching-account'),
-									description: (res.data as ErrorResponse).message,
-								},
-							} as RouteParams,
-						}),
-					),
+				.catch((res: AxiosResponse<ErrorResponse>) =>
+					next((vm: any) => {
+						const uiStore = useUiStore()
+
+						uiStore.queueAlert({
+							title: vm.$tc('routes.admin.edit.error-fetching-account'),
+							description: res.data.message,
+							type: 'error',
+						})
+
+						vm.$router.push({ name: 'admin.index' })
+					}),
 				)
 		},
 	})

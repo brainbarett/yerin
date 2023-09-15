@@ -588,7 +588,7 @@
 						}
 					}
 				})
-				.catch((res: AxiosResponse) => alert((res.data as ErrorResponse).message))
+				.catch((res: AxiosResponse<ErrorResponse>) => alert(res.data.message))
 
 			FeaturesApi.index()
 				.then(res => {
@@ -598,7 +598,7 @@
 						this.form.features = this.resource.features.map(feature => feature.id)
 					}
 				})
-				.catch((res: AxiosResponse) => alert((res.data as ErrorResponse).message))
+				.catch((res: AxiosResponse<ErrorResponse>) => alert(res.data.message))
 		},
 
 		async mounted() {

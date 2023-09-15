@@ -50,11 +50,12 @@
 	import PropertiesApi, { Property } from '@/services/real-estate/properties'
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
-	import { RouteParams } from '@/router'
 	import DeleteResourceModal from '@/components/modals/DeleteResourceModal.vue'
 	import PropertyForm from './shared/PropertyForm.vue'
 	import { parseOutboundPropertyForm } from './shared/helpers'
 	import { PropertyForm as PropertyFormType } from './shared/types'
+	import useUiStore from '@/stores/ui'
+	import { mapActions } from 'pinia'
 
 	export default Vue.extend({
 		components: { Layout, Button, PropertyForm, DeleteResourceModal },
@@ -75,17 +76,19 @@
 		},
 
 		methods: {
+			...mapActions(useUiStore, ['fireAlert', 'queueAlert']),
+
 			async save(form: PropertyFormType) {
 				this.loading.update = true
 
 				await PropertiesApi.update(this.resource.id, parseOutboundPropertyForm(form))
 					.then(res => this.$router.push({ name: 'real-estate.properties.index' }))
-					.catch((res: AxiosResponse) => {
+					.catch((res: AxiosResponse<ErrorResponse>) => {
 						if (res.status == 422) {
 							this.errors.inputErrors = (res.data as ValidationErrorResponse).errors
 						}
 
-						this.errors.formErrors = [(res.data as ErrorResponse).message]
+						this.errors.formErrors = [res.data.message]
 					})
 
 				this.loading.update = false
@@ -93,25 +96,23 @@
 
 			async destroy() {
 				this.loading.destroy = true
+
 				await PropertiesApi.destroy(this.resource.id)
 					.then(res => this.$router.push({ name: 'real-estate.properties.index' }))
 					.catch((res: AxiosResponse<ErrorResponse>) =>
-						this.$router.push({
-							name: 'real-estate.properties.index',
-							/** @ts-ignore */
-							params: {
-								error: {
-									title: this.$t(
-										'routes.real-estate.properties.edit.error-deleting-account',
-										{
-											name: this.resource.name,
-										},
-									),
-									description: res.data.message,
+						this.fireAlert({
+							title: <string>this.$t(
+								'routes.real-estate.properties.edit.error-deleting-account',
+								{
+									name: this.resource.name,
 								},
-							} as RouteParams,
+							),
+							description: res.data.message,
+							type: 'error',
 						}),
 					)
+
+				this.loading.destroy = false
 			},
 		},
 
@@ -122,20 +123,22 @@
 						vm.resource = res.data.data
 					}),
 				)
-				.catch((res: AxiosResponse) =>
-					next((vm: any) =>
+				.catch((res: AxiosResponse<ErrorResponse>) =>
+					next((vm: any) => {
+						const uiStore = useUiStore()
+
+						uiStore.queueAlert({
+							title: vm.$tc(
+								'routes.real-estate.properties.edit.error-fetching-account',
+							),
+							description: res.data.message,
+							type: 'error',
+						})
+
 						vm.$router.push({
 							name: 'real-estate.properties.index',
-							params: {
-								error: {
-									title: this.$tc(
-										'routes.real-estate.properties.edit.error-fetching-account',
-									),
-									description: (res.data as ErrorResponse).message,
-								},
-							} as RouteParams,
-						}),
-					),
+						})
+					}),
 				)
 		},
 	})

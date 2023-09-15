@@ -53,15 +53,6 @@
 				</template>
 			</Header>
 
-			<EmbeddedNotification
-				v-for="(error, index) in errors"
-				:key="index"
-				type="error"
-				:title="error.title"
-				:description="error.description"
-				class="mt-3"
-			/>
-
 			<DataGrid
 				:loading="loading"
 				:columns="columns"
@@ -110,15 +101,15 @@
 	import Button from '@/components/Button.vue'
 	import { Column } from '@/components/data-table/types'
 	import { default as DataGrid } from '@/components/data-table/Table.vue'
-	import EmbeddedNotification from '@/components/EmbeddedNotification.vue'
 	import AdminApi, { Admin } from '@/services/admin'
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse } from '@/services/http'
-	import { RouteParams } from '@/router'
 	import Modal from '@/components/modals/Modal.vue'
+	import useUiStore from '@/stores/ui'
+	import { mapActions } from 'pinia'
 
 	export default Vue.extend({
-		components: { Layout, Header, Button, DataGrid, EmbeddedNotification, Modal },
+		components: { Layout, Header, Button, DataGrid, Modal },
 
 		data() {
 			const columns: Column<keyof Admin>[] = [
@@ -138,7 +129,6 @@
 				loading: false,
 				columns,
 				rows: [] as Admin[],
-				errors: [] as RouteParams['error'][],
 				updatePasswordForm: {
 					visible: false,
 					admin: null as null | Admin,
@@ -150,6 +140,8 @@
 		},
 
 		methods: {
+			...mapActions(useUiStore, ['fireAlert']),
+
 			showUpdatePasswordForm(admin: Admin) {
 				this.updatePasswordForm.visible = true
 				this.updatePasswordForm.admin = admin
@@ -173,10 +165,10 @@
 						this.closeUpdatePasswordForm()
 						alert('password successfuly updated')
 					})
-					.catch((res: AxiosResponse) => {
+					.catch((res: AxiosResponse<ErrorResponse>) => {
 						this.$formulate.handle(
 							{
-								formErrors: [(res.data as ErrorResponse).message],
+								formErrors: [res.data.message],
 							},
 							'update-password',
 						)
@@ -190,17 +182,14 @@
 
 			AdminApi.index()
 				.then(res => (this.rows = res.data.data))
-				.catch((res: AxiosResponse) =>
-					this.errors.push({
+				.catch((res: AxiosResponse<ErrorResponse>) =>
+					this.fireAlert({
 						title: this.$tc('routes.admin.index.error-fetching-data'),
-						description: (res.data as ErrorResponse).message,
+						description: res.data.message,
+						type: 'error',
 					}),
 				)
 				.finally(() => (this.loading = false))
-
-			if ('error' in (this.$route.params as RouteParams)) {
-				this.errors.push((this.$route.params as RouteParams).error)
-			}
 		},
 	})
 </script>
