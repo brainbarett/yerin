@@ -1,8 +1,5 @@
 import Vue from 'vue'
 
-import VueRouter from 'vue-router'
-Vue.use(VueRouter)
-
 // @ts-ignore
 import VIcon from 'vue-tailwind-icons'
 Vue.use(VIcon)
@@ -14,11 +11,29 @@ Vue.use(CKEditor)
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
 Vue.component('loading-spinner', LoadingSpinner)
 
+import 'floating-vue/dist/style.css'
+import FloatingVue from 'floating-vue'
+Vue.use(FloatingVue)
+
+import Toast from 'vue-toastification'
+import 'vue-toastification/dist/index.css'
+Vue.use(Toast, {
+	icon: false,
+	timeout: false,
+	draggable: false,
+	closeOnClick: false,
+	closeButton: false,
+	position: 'top-center',
+})
+
 import { createPinia, PiniaVuePlugin } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 Vue.use(PiniaVuePlugin)
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
+
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
 
 import VueI18n from 'vue-i18n'
 import translations from '@/lang'
@@ -39,21 +54,6 @@ declare module 'vue/types/vue' {
 		$formulate: FormulateGlobalInstance
 	}
 }
-
-import 'floating-vue/dist/style.css'
-import FloatingVue from 'floating-vue'
-Vue.use(FloatingVue)
-
-import Toast from 'vue-toastification'
-import 'vue-toastification/dist/index.css'
-Vue.use(Toast, {
-	icon: false,
-	timeout: false,
-	draggable: false,
-	closeOnClick: false,
-	closeButton: false,
-	position: 'top-center',
-})
 
 import router from './router'
 export default new Vue({

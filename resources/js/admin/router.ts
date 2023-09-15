@@ -26,19 +26,23 @@ const router = new VueRouter({
 	],
 })
 
-router.beforeEach((to, from, next) => {
-	if (to.name == 'auth.login') {
-		AuthApi.isAuthenticated()
-			.then(res => next('/'))
-			.catch(res => next())
-	} else {
-		AuthApi.isAuthenticated()
-			.then(res => {
-				useAuthStore().setUser(res.data.data)
-				next()
-			})
-			.catch(res => next({ name: 'auth.login' }))
+// consider using middleware
+router.beforeEach(async (to, from, next) => {
+	const authStore = useAuthStore()
+
+	await AuthApi.isAuthenticated()
+		.then(res => authStore.setUser(res.data.data))
+		.catch(res => authStore.clearUser())
+
+	if (!authStore.user && to.name != 'auth.login') {
+		return next({ name: 'auth.login' })
 	}
+
+	if (authStore.user && to.name == 'auth.login') {
+		return next('/')
+	}
+
+	return next()
 })
 
 export default router

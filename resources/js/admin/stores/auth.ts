@@ -4,7 +4,7 @@ import useUiStore from '@/stores/ui'
 
 export default defineStore('auth', {
 	state: () => ({
-		user: undefined as Admin | undefined,
+		user: null as Admin | null,
 	}),
 	persist: true,
 
@@ -12,6 +12,10 @@ export default defineStore('auth', {
 		setUser(user: Admin) {
 			this.user = user
 			useUiStore().setLanguage(this.user.language)
+		},
+
+		clearUser() {
+			this.user = null
 		},
 	},
 })
