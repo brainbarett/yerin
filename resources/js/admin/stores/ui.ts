@@ -2,9 +2,9 @@ import { Language } from '@/services/admin'
 import app, { i18n } from '@/main'
 import { defineStore } from 'pinia'
 
-export default defineStore('language', {
+export default defineStore('ui', {
 	state: () => ({
-		language: undefined as Language | undefined,
+		language: null as Language | null,
 	}),
 	persist: true,
 

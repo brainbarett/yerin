@@ -387,7 +387,7 @@
 	import Header from '@/components/Header.vue'
 	import ImageUpload from '@/components/form-fields/ImageUpload.vue'
 	import CKEditorSettings from '@/utils/ckeditor-settings'
-	import useLanguageStore from '@/stores/language'
+	import useUiStore from '@/stores/ui'
 	import { Property, propertyTypes, rentTerms } from '@/services/real-estate/properties'
 	import GeoLocationsApi from '@/services/geo-locations'
 	import { AxiosResponse } from 'axios'
@@ -423,7 +423,7 @@
 		},
 
 		data() {
-			ckeditor.config.language = useLanguageStore().language
+			ckeditor.config.language = useUiStore().language
 
 			return {
 				form: {

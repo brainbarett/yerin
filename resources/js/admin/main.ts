@@ -53,5 +53,5 @@ export default new Vue({
 	i18n,
 })
 
-import useLanguageStore from '@/stores/language'
-useLanguageStore().setLanguage(useLanguageStore().language || 'en')
+import useUiStore from '@/stores/ui'
+useUiStore().setLanguage(useUiStore().language || 'en')

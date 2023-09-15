@@ -66,7 +66,7 @@
 	import AuthApi, { LoginRequest } from '@/services/auth'
 	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
 	import { AxiosResponse } from 'axios'
-	import useLanguageStore from '@/stores/language'
+	import useUiStore from '@/stores/ui'
 	import { mapActions } from 'pinia'
 
 	export default Vue.extend({
@@ -75,7 +75,10 @@
 		data() {
 			return {
 				loading: false as Boolean,
-				form: {} as LoginRequest,
+				form: {
+					email: 'admin@test.com',
+					password: 'password',
+				} as LoginRequest,
 			}
 		},
 
@@ -105,7 +108,7 @@
 				this.loading = false
 			},
 
-			...mapActions(useLanguageStore, ['setLanguage']),
+			...mapActions(useUiStore, ['setLanguage']),
 		},
 	})
 </script>
