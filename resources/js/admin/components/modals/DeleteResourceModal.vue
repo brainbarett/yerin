@@ -21,7 +21,7 @@
 						class="box-border absolute h-8 px-3 py-1 text-white -translate-y-1/2 bg-red-500 rounded top-1/2 right-1"
 						:disabled="loading"
 					>
-						<loading-spinner v-if="loading" size="s" />
+						<loading-spinner v-if="loading" size="sm" />
 						<template v-else>{{ $t('common.form.delete') }}</template>
 					</button>
 				</div>

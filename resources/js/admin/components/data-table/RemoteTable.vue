@@ -1,7 +1,7 @@
 <template>
 	<div class="data-table-container">
 		<div v-if="loading" class="data-table__loader">
-			<loading-spinner size="m" color="black" />
+			<loading-spinner color="black" />
 		</div>
 
 		<Searchbar

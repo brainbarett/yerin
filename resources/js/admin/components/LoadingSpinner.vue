@@ -1,30 +1,32 @@
 <template>
 	<div class="loading-spinner" :class="`loading-spinner--` + size">
-		<div :class="colorClass"></div>
-		<div :class="colorClass"></div>
-		<div :class="colorClass"></div>
-		<div :class="colorClass"></div>
+		<div :class="colorObject"></div>
+		<div :class="colorObject"></div>
+		<div :class="colorObject"></div>
+		<div :class="colorObject"></div>
 	</div>
 </template>
 
 <script lang="ts">
+	/* todo: this should be an svg with acceleration */
+
 	import Vue, { PropType } from 'vue'
 
 	export default Vue.extend({
 		props: {
 			size: {
-				type: String as PropType<'xs' | 's' | 'm' | 'l'>,
-				default: 'm',
+				type: String as PropType<'xs' | 'sm' | 'base' | 'lg'>,
+				default: 'base',
 			},
 
 			color: {
-				type: String as PropType<'white' | 'blue' | 'black'>,
+				type: String as PropType<'white' | 'blue' | 'black' | 'gray'>,
 				default: 'white',
 			},
 		},
 
 		computed: {
-			colorClass() {
+			colorObject() {
 				switch (this.color) {
 					case 'white':
 						return '!border-t-white'
@@ -34,6 +36,9 @@
 
 					case 'black':
 						return '!border-t-gray-900'
+
+					case 'gray':
+						return '!border-t-gray-500'
 				}
 			},
 		},
@@ -79,7 +84,7 @@
 			}
 		}
 
-		&--s {
+		&--sm {
 			width: 20px;
 			height: 20px;
 
@@ -90,7 +95,7 @@
 			}
 		}
 
-		&--m {
+		&--base {
 			width: 40px;
 			height: 40px;
 
@@ -101,7 +106,7 @@
 			}
 		}
 
-		&--l {
+		&--lg {
 			width: 80px;
 			height: 80px;
 

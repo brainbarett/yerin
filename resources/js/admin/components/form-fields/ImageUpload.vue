@@ -48,7 +48,7 @@
 					</template>
 
 					<div v-else class="gallery-item__container">
-						<loading-spinner size="m" color="black" />
+						<loading-spinner color="black" />
 					</div>
 				</div>
 			</div>
