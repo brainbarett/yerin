@@ -47,15 +47,16 @@
 
 		<div class="flex items-center justify-end gap-4">
 			<Button
-				type="secondary"
+				category="secondary"
+				variant="danger"
 				@click="showDestroyModal = true"
-				destructive
 				:label="$t('common.form.delete')"
 			/>
 
 			<Button
 				@click="$formulate.submit('main')"
 				:loading="loading.update"
+				:disabled="loading.update"
 				:label="$t('common.form.create')"
 			/>
 		</div>

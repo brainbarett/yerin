@@ -26,15 +26,16 @@
 			<template #default="{ submit }">
 				<div class="flex justify-end gap-4">
 					<Button
-						type="secondary"
+						category="secondary"
+						variant="danger"
 						@click="showDestroyModal = true"
-						destructive
 						:label="$t('common.form.delete')"
 					/>
 
 					<Button
 						@click="submit"
 						:loading="loading.update"
+						:disabled="loading.update"
 						:label="$t('common.form.update')"
 					/>
 				</div>

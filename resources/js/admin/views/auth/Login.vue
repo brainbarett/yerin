@@ -43,11 +43,11 @@
 				<Button
 					@click="$formulate.submit('main')"
 					:loading="loading"
+					:disabled="loading"
 					:label="$t('common.auth.login')"
-					icon-right="arrow-right"
-					class="w-full uppercase"
+					icon="arrow-right"
+					class="w-full"
 				/>
-
 				<formulate-errors class="mt-2 text-center" />
 			</formulate-form>
 		</div>

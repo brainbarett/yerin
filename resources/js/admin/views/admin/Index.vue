@@ -29,12 +29,13 @@
 
 				<div class="flex items-center justify-end gap-4 mt-5">
 					<Button
-						type="terciary"
+						category="terciary"
 						@click="closeUpdatePasswordForm"
 						:label="$t('common.form.cancel')"
 					/>
 					<Button
 						:loading="updatePasswordForm.loading"
+						:disabled="updatePasswordForm.loading"
 						@click="$formulate.submit('update-password')"
 						:label="$t('common.form.update')"
 					/>

@@ -52,6 +52,7 @@
 			@click="$formulate.submit('main')"
 			class="ml-auto"
 			:loading="loading"
+			:disabled="loading"
 			:label="$t('common.form.create')"
 		/>
 	</Layout>

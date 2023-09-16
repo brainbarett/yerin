@@ -11,6 +11,7 @@
 					@click="submit"
 					class="ml-auto"
 					:loading="loading"
+					:disabled="loading"
 					:label="$t('common.form.create')"
 				/>
 			</template>

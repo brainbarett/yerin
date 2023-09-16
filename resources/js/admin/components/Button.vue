@@ -1,15 +1,15 @@
 <template>
-	<router-link v-if="to" :to="to" class="button primary">{{ label }}</router-link>
+	<router-link v-if="to" :to="to" :class="classObject">{{ label }}</router-link>
 
-	<button v-else type="button" @click="$emit('click')" :class="btnClass" :disabled="loading">
+	<button v-else type="button" @click="$emit('click')" :class="classObject" :disabled="disabled">
 		{{ label }}
 		<icon
-			v-if="iconRight"
-			:name="iconRight.name || iconRight"
-			:set="iconRight.set || 'outline'"
+			v-if="icon"
+			:name="icon.name || icon"
+			:set="icon.set || 'outline'"
 			class="w-5 h-5 ml-2"
 		/>
-		<loading-spinner v-if="loading" size="xs" color="white" class="floating-spinner" />
+		<loading-spinner v-if="loading" size="xs" color="gray" class="floating-spinner" />
 	</button>
 </template>
 
@@ -19,14 +19,18 @@
 	export default Vue.extend({
 		props: {
 			to: Object,
-			type: {
-				type: String as PropType<'primary' | 'secondary'>,
+			category: {
+				type: String as PropType<'primary' | 'secondary' | 'tertiary'>,
 				default: 'primary',
+			},
+			variant: {
+				type: String as PropType<'confirm' | 'danger'>,
+				default: 'confirm',
 			},
 			label: String,
 			loading: Boolean,
-			destructive: Boolean,
-			iconRight: {
+			disabled: Boolean,
+			icon: {
 				type: [String, Object] as PropType<
 					string | { name: string; set: 'outline' | 'solid' | 'zondicons' }
 				>,
@@ -34,16 +38,16 @@
 		},
 
 		computed: {
-			btnClass() {
-				/** refactor */
-				const obj = {
-					'opacity-70': this.loading,
-					destructive: this.destructive,
-					button: true,
-				} as any
-				obj[this.type] = true
-
-				return obj
+			classObject() {
+				return this.loading || this.disabled
+					? ['button', 'unusable']
+					: [
+							'button',
+							this.category,
+							this.variant,
+							{ loading: this.loading },
+							{ disabled: this.disabled },
+					  ]
 			},
 		},
 	})
@@ -51,23 +55,31 @@
 
 <style lang="scss" scoped>
 	.button {
-		@apply min-w-[100px] box-border px-4 py-2 text-sm text-neutral-400 rounded flex items-center justify-center relative;
+		@apply min-w-[100px] box-border px-4 py-2 text-sm rounded flex items-center justify-center relative border border-transparent;
 	}
 
-	.button.primary {
+	.confirm.primary {
 		@apply text-white bg-gray-900;
 	}
-
-	.button.secondary {
-		@apply text-gray-900 bg-gray-100;
+	.confirm.secondary {
+		@apply text-gray-900 bg-gray-200;
 	}
-
-	.button.terciary {
+	.confirm.tertiary {
 		@apply text-gray-900 bg-transparent;
 	}
 
-	.button.destructive {
-		@apply text-red-400 bg-transparent;
+	.danger.primary {
+		@apply text-white bg-rose-600;
+	}
+	.danger.secondary {
+		@apply bg-transparent border text-rose-600 border-rose-600;
+	}
+	.danger.tertiary {
+		@apply bg-transparent text-rose-600;
+	}
+
+	.unusable {
+		@apply text-gray-500 bg-gray-100 border-gray-300;
 	}
 
 	.floating-spinner {
