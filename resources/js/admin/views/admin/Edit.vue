@@ -57,7 +57,7 @@
 				@click="$formulate.submit('main')"
 				:loading="loading.update"
 				:disabled="loading.update"
-				:label="$t('common.form.create')"
+				:label="$t('common.form.update')"
 			/>
 		</div>
 	</Layout>
