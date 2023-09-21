@@ -49,8 +49,11 @@
 	import { PropType } from 'vue/types/v3-component-props'
 	import { NavigationMenu } from './types'
 	import useAuthStore from '@/stores/auth'
-	import { mapState } from 'pinia'
+	import { mapActions, mapState } from 'pinia'
 	import AuthApi from '@/services/auth'
+	import useUiStore from '@/stores/ui'
+	import { AxiosResponse } from 'axios'
+	import { ErrorResponse } from '@/services/http'
 
 	export default Vue.extend({
 		props: {
@@ -64,10 +67,17 @@
 		},
 
 		methods: {
+			...mapActions(useUiStore, ['fireAlert']),
+
 			logout() {
 				AuthApi.logout()
-					.then(res => this.$router.push({ name: 'auth.login' }))
-					.catch(res => alert(res.message))
+					.then(() => this.$router.push({ name: 'auth.login' }))
+					.catch((res: AxiosResponse<ErrorResponse>) =>
+						this.fireAlert({
+							title: res.data.message,
+							type: 'error',
+						}),
+					)
 			},
 		},
 	})

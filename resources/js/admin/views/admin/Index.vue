@@ -85,7 +85,7 @@
 									showUpdatePasswordForm(row)
 								"
 							>
-								{{ $t('common.form.change-password') }}
+								{{ $t('common.form.update-password') }}
 							</button>
 						</template>
 					</v-dropdown>
@@ -164,7 +164,10 @@
 				)
 					.then(() => {
 						this.closeUpdatePasswordForm()
-						alert('password successfuly updated')
+						this.fireAlert({
+							title: this.$tc('common.form.update-password-success'),
+							type: 'info',
+						})
 					})
 					.catch((res: AxiosResponse<ErrorResponse>) => {
 						this.$formulate.handle(

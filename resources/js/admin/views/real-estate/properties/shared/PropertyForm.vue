@@ -396,6 +396,7 @@
 	import { Image } from '@/services/images'
 	import FeaturesApi, { Feature } from '@/services/real-estate/features'
 	import Button from '@/components/Button.vue'
+	import { mapActions } from 'pinia'
 
 	const ckeditor = CKEditorSettings
 
@@ -542,6 +543,8 @@
 		},
 
 		methods: {
+			...mapActions(useUiStore, ['fireAlert']),
+
 			addFeature() {
 				this.form.features.unshift(
 					Number((this.$refs.featureSelector as HTMLSelectElement).value),
@@ -588,7 +591,12 @@
 						}
 					}
 				})
-				.catch((res: AxiosResponse<ErrorResponse>) => alert(res.data.message))
+				.catch((res: AxiosResponse<ErrorResponse>) =>
+					this.fireAlert({
+						title: res.data.message,
+						type: 'error',
+					}),
+				)
 
 			FeaturesApi.index()
 				.then(res => {
@@ -598,7 +606,12 @@
 						this.form.features = this.resource.features.map(feature => feature.id)
 					}
 				})
-				.catch((res: AxiosResponse<ErrorResponse>) => alert(res.data.message))
+				.catch((res: AxiosResponse<ErrorResponse>) =>
+					this.fireAlert({
+						title: res.data.message,
+						type: 'error',
+					}),
+				)
 		},
 
 		async mounted() {
