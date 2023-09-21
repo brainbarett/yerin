@@ -83,7 +83,7 @@
 				this.loading.update = true
 
 				await PropertiesApi.update(this.resource.id, parseOutboundPropertyForm(form))
-					.then(res => this.$router.push({ name: 'real-estate.properties.index' }))
+					.then(() => this.$router.push({ name: 'real-estate.properties.index' }))
 					.catch((res: AxiosResponse<ErrorResponse>) => {
 						if (res.status == 422) {
 							this.errors.inputErrors = (res.data as ValidationErrorResponse).errors
@@ -99,7 +99,7 @@
 				this.loading.destroy = true
 
 				await PropertiesApi.destroy(this.resource.id)
-					.then(res => this.$router.push({ name: 'real-estate.properties.index' }))
+					.then(() => this.$router.push({ name: 'real-estate.properties.index' }))
 					.catch((res: AxiosResponse<ErrorResponse>) =>
 						this.fireAlert({
 							title: <string>this.$t(

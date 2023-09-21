@@ -34,7 +34,7 @@ router.beforeEach(async (to, from, next) => {
 
 	await AuthApi.isAuthenticated()
 		.then(res => authStore.setUser(res.data.data))
-		.catch(res => authStore.clearUser())
+		.catch(() => authStore.clearUser())
 
 	uiStore.clearAlerts()
 	uiStore.fireQueuedAlerts()

@@ -15,4 +15,4 @@ export type PaginationMeta = Omit<PaginatedResponse['meta'], 'path'> & {
 
 export type RemoteApi = (
 	filters: PaginationRequest & SearchRequest,
-) => AxiosPromise<Response<Object[]> | PaginatedResponse>
+) => AxiosPromise<Response<Array<{ [field: string]: any }>> | PaginatedResponse>

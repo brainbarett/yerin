@@ -18,7 +18,7 @@ http.interceptors.response.use(
 
 export default http
 
-export interface Response<TEntity = Object | Object[]> {
+export interface Response<TEntity = { [field: string]: any } | Array<{ [field: string]: any }>> {
 	data: TEntity
 }
 
@@ -32,7 +32,7 @@ export interface SearchRequest {
 	search?: string
 }
 
-export interface PaginatedResponse<TEntity = Object> extends Response {
+export interface PaginatedResponse<TEntity = { [field: string]: any }> extends Response {
 	data: TEntity[]
 
 	links: {
