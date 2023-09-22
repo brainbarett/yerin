@@ -97,4 +97,15 @@ class RolesTest extends ApiTestCase
             $role->permissions()->pluck('id')->toArray()
         );
     }
+
+	/** @test */
+    public function can_destroy_a_role()
+    {
+        $roleId = Roles::factory()->create()->id;
+
+        $this->delete($this->getRoute('destroy', $roleId))
+            ->assertStatus(204);
+
+        $this->assertNull(Roles::find($roleId));
+    }
 }

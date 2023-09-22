@@ -53,7 +53,16 @@ class RolesController extends Controller
         return response()->json([], 204);
     }
 
-	public function upstore(array $data, Roles $role = null): Roles
+	public function destroy(Roles $role)
+    {
+		abort_if($role->system_role, 403, __('cant-delete-system-role'));
+		
+        $role->delete();
+
+        return response()->json([], 204);
+    }
+
+	private function upstore(array $data, Roles $role = null): Roles
 	{
 		if(is_null($role)) {
 			$role = new Roles();
