@@ -42,7 +42,7 @@
 > ⚠️ WARNING: running this command will drop all tables from the specified database
 
 ```
-> php artisan migrate:fresh --seed
+> php artisan migrate:fresh --seed --seeder=DemoSeeder
 ```
 
 5. Run the server
