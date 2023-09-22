@@ -19,10 +19,5 @@ class RolesSeeder extends Seeder
 			'system_role' => true,
 			'super_admin' => true,
 		]);
-
-		Roles::firstOrCreate([
-			'name' => 'Staff',
-			'default' => true,
-		]);
     }
 }
