@@ -5,7 +5,6 @@ namespace Tests\Feature\Api\Admin;
 use App\Http\Resources\Api\Admin\AdminResource;
 use App\Models\Admin;
 use App\Models\Roles;
-use Database\Seeders\RolesSeeder;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\Sanctum;
 use Tests\Feature\Api\ApiTestCase;
@@ -19,9 +18,7 @@ class AdminTest extends ApiTestCase
 	public function setUp(): void
 	{
 		parent::setUp();
-		
-		$this->seed(RolesSeeder::class);
-		
+
 		$this->admin = Admin::factory()->asSuperAdmin()->create();
 
 		Sanctum::actingAs($this->admin, ['*'], 'admin');

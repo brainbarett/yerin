@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\Admin\RealEstate;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Admin\RealEstate\Properties\DestroyRequest;
 use App\Http\Requests\Api\Admin\RealEstate\Properties\IndexRequest;
+use App\Http\Requests\Api\Admin\RealEstate\Properties\ShowRequest;
 use App\Http\Requests\Api\Admin\RealEstate\Properties\StoreRequest;
 use App\Http\Requests\Api\Admin\RealEstate\Properties\UpdateRequest;
 use App\Http\Resources\Api\Admin\RealEstate\PropertiesResource;
@@ -32,7 +34,7 @@ class PropertiesController extends Controller
         );
     }
 
-	public function show(Properties $property)
+	public function show(ShowRequest $request, Properties $property)
     {
         return PropertiesResource::make($property);
     }
@@ -71,7 +73,7 @@ class PropertiesController extends Controller
 		return PropertiesResource::make($property->refresh());
 	}
 
-	public function destroy(Properties $property)
+	public function destroy(DestroyRequest $request, Properties $property)
     {
         $property->delete();
 

@@ -5,7 +5,7 @@ namespace App\Http\Requests\Api\Admin\RealEstate\Properties;
 use App\Enums\Permissions\RealEstate\Properties as PropertiesPermissions;
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexRequest extends FormRequest
+class DestroyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class IndexRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can(PropertiesPermissions::READ());
+        return $this->user()->can(PropertiesPermissions::DELETE());
     }
 
     /**
@@ -25,15 +25,7 @@ class IndexRequest extends FormRequest
     public function rules()
     {
         return [
-			'search' => ['nullable', 'string'],
-            'paginate' => ['boolean'],
-            'page' => ['required_if:paginate,true', 'integer', 'min:1'],
-			'per_page' => ['nullable', 'integer', 'min:1']
+            //
         ];
-    }
-
-	public function validated($key = null, $default = null)
-    {
-        return parent::validated() + ['paginate' => false];
     }
 }

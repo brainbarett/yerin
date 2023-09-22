@@ -25,7 +25,7 @@ class PropertiesTest extends ApiTestCase
 		
 		Storage::fake('uploads');
 		
-		$this->admin = Admin::factory()->create();
+		$this->admin = Admin::factory()->asSuperAdmin()->create();
 		Sanctum::actingAs($this->admin, ['*'], 'admin');
 	}
 

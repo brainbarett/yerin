@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\Admin\RealEstate\Properties;
 
+use App\Enums\Permissions\RealEstate\Properties as PropertiesPermissions;
 use App\Enums\RealEstate\PropertyTypes;
 use App\Enums\RealEstate\RentTerms;
 use App\Models\GeoLocation\Sectors;
@@ -20,7 +21,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user()->can(PropertiesPermissions::WRITE());
     }
 
     /**
