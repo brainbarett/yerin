@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\Roles;
 use Illuminate\Database\Seeder;
 
 class DemoSeeder extends Seeder
@@ -14,7 +15,7 @@ class DemoSeeder extends Seeder
      */
     public function run()
     {
-        Admin::create([
+        $admin = Admin::create([
 			'email' => 'admin@test.com',
 			'password' => 'password',
 			'language' => 'en',
@@ -24,5 +25,7 @@ class DemoSeeder extends Seeder
 		$this->call([
 			DatabaseSeeder::class,
 		]);
+
+		$admin->assignRole(Roles::where('super_admin', true)->firstOrFail());
     }
 }
