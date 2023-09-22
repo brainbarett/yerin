@@ -16,7 +16,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->roles()->where('super_admin', true)->exists();
+        return true;
     }
 
     /**

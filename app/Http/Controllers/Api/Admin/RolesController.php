@@ -3,16 +3,27 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Admin\Roles\IndexRequest;
 use App\Http\Requests\Api\Admin\Roles\StoreRequest;
 use App\Http\Resources\Api\Admin\RolesResource;
 use App\Models\Roles;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class RolesController extends Controller
 {
-	public function index(IndexRequest $request)
+	public function __construct()
+    {
+		$this->middleware(function ($request, $next) {
+			if($request->user()->roles()->where('super_admin', true)->doesntExist()) {
+				throw new AuthorizationException;
+			}
+
+			return $next($request);
+		});
+	}
+
+	public function index()
     {
         return RolesResource::collection(Roles::all());
     }
