@@ -7,6 +7,7 @@ use App\Http\Resources\Api\Admin\ImagesResource;
 use App\Models\Images;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ImagesController extends Controller
 {
@@ -31,6 +32,8 @@ class ImagesController extends Controller
 
 	public function destroy(Images $image)
     {
+		abort(403);
+
         $image->delete();
 
         return response()->json([], 204);
