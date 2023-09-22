@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DemoSeeder extends Seeder
@@ -20,6 +19,10 @@ class DemoSeeder extends Seeder
 			'password' => 'password',
 			'language' => 'en',
 			'name' => 'Test Admin'
+		]);
+
+		$this->call([
+			DatabaseSeeder::class,
 		]);
     }
 }

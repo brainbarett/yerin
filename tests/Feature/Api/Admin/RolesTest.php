@@ -1,0 +1,53 @@
+<?php
+
+namespace Tests\Feature\Api\Admin;
+
+use App\Models\Admin;
+use App\Models\Permissions;
+use App\Models\Roles;
+use Database\Seeders\RolesSeeder;
+use Laravel\Sanctum\Sanctum;
+use Tests\Feature\Api\ApiTestCase;
+
+class RolesTest extends ApiTestCase
+{
+	private Admin $admin;
+	
+    protected string $baseRouteName = 'api.admin.roles';
+
+	public function setUp(): void
+	{
+		parent::setUp();
+		
+		$this->seed(RolesSeeder::class);
+		
+		$this->admin = Admin::factory()->asSuperAdmin()->create();
+
+		Sanctum::actingAs($this->admin, ['*'], 'admin');
+	}
+
+	private function payload(array $attributes = [])
+    {
+        return $attributes + [
+            'name' => $this->faker->unique()->name,
+            'permissions' => Permissions::factory(3)->create()->pluck('id')->toArray()
+        ];
+    }
+
+	/** @test */
+	public function can_create_new_roles()
+	{
+		$payload = $this->payload();
+		
+		$response = $this->post($this->getRoute('store'), $payload)
+			->assertStatus(201)
+			->json();
+
+		$role = Roles::findOrFail($response['data']['id']);
+		$this->assertEquals($payload['name'], $role->name);
+		$this->assertEqualsCanonicalizing(
+			$payload['permissions'],
+			$role->permissions()->pluck('id')->toArray()
+		);
+	}
+}

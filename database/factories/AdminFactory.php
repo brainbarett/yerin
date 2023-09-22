@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Admin;
+use App\Models\Roles;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -20,5 +22,12 @@ class AdminFactory extends Factory
             'password' => $this->faker->unique()->word,
 			'language' => 'en'
         ];
+    }
+
+	public function asSuperAdmin()
+    {
+        return $this->afterCreating(function(Admin $admin) {
+            $admin->assignRole(Roles::where('super_admin', true)->firstOrFail());
+        });
     }
 }

@@ -27,6 +27,8 @@ Route::prefix('admin')
 			Route::post('logout', 'AuthController@logout')->name('logout');
 		});
 
+		Route::apiResource('roles', 'RolesController')->only('store');
+
 		Route::apiResource('admin', 'AdminController')->except('update');
 		Route::put('admin/{admin}', 'AdminController@update')->name('admin.update');
 		Route::patch('admin/{admin}', 'AdminController@patch')->name('admin.patch');
