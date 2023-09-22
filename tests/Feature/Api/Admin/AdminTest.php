@@ -4,6 +4,7 @@ namespace Tests\Feature\Api\Admin;
 
 use App\Http\Resources\Api\Admin\AdminResource;
 use App\Models\Admin;
+use App\Models\Roles;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\Sanctum;
 use Tests\Feature\Api\ApiTestCase;
@@ -35,6 +36,10 @@ class AdminTest extends ApiTestCase
                 case 'password':
                     $this->assertTrue(Hash::check($value, $admin->{$attribute}));
                     break;
+
+				case 'role':
+					$this->assertTrue($admin->roles()->where('id', $value)->exists());
+					break;
                 
                 default:
                     $this->assertEquals($value, $admin->{$attribute});
@@ -72,7 +77,7 @@ class AdminTest extends ApiTestCase
 	/** @test */
     public function can_create_a_new_admin()
     {
-        $payload = $this->payload();
+        $payload = $this->payload(['role' => Roles::factory()->create()->id]);
 
         $response = $this->post($this->getRoute('store'), $payload)
             ->assertStatus(201)
@@ -86,7 +91,7 @@ class AdminTest extends ApiTestCase
     public function can_update_an_admin()
     {
         $admin = Admin::factory()->create();
-        $payload = $this->payload();
+        $payload = $this->payload(['role' => Roles::factory()->create()->id]);
 
         $this->put($this->getRoute('update', $admin->id), $payload)
             ->assertOk();

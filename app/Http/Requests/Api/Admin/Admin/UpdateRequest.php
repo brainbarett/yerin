@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\Admin\Admin;
 
 use App\Models\Admin;
+use App\Models\Roles;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -30,6 +31,7 @@ class UpdateRequest extends FormRequest
             'name' => ['required', 'string'],
             'password' => ['string'],
 			'language' => [Rule::in(config('app.accepted_languages'))],
+			'role' => ['required', Rule::exists(Roles::class, 'id')]
         ];
     }
 }
