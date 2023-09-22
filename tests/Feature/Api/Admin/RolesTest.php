@@ -79,4 +79,22 @@ class RolesTest extends ApiTestCase
 			$role->permissions()->pluck('id')->toArray()
 		);
 	}
+
+	/** @test */
+    public function can_update_a_role()
+    {
+        $role = Roles::factory()->create();
+
+        $payload = $this->payload();
+
+        $this->put($this->getRoute('update', $role->id), $payload)
+            ->assertStatus(204);
+
+        $role->refresh();
+        $this->assertEquals($payload['name'], $role->name);
+        $this->assertEqualsCanonicalizing(
+            $payload['permissions'],
+            $role->permissions()->pluck('id')->toArray()
+        );
+    }
 }

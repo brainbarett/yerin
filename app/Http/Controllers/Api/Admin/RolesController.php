@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Admin\Roles\StoreRequest;
+use App\Http\Requests\Api\Admin\Roles\UpdateRequest;
 use App\Http\Resources\Api\Admin\RolesResource;
 use App\Models\Roles;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class RolesController extends Controller
@@ -37,14 +39,31 @@ class RolesController extends Controller
     {
         $data = $request->validated();
 
-        $role = DB::transaction(function() use($data) {
-            $role = Roles::create(['name' => $data['name']]);
+		$role = $this->upstore($data);
 
+        return RolesResource::make($role);
+    }
+
+	public function update(UpdateRequest $request, Roles $role)
+    {
+        $data = $request->validated();
+
+		$this->upstore($data, $role);
+
+        return response()->json([], 204);
+    }
+
+	public function upstore(array $data, Roles $role = null): Roles
+	{
+		if(is_null($role)) {
+			$role = new Roles();
+		}
+
+		return DB::transaction(function() use($data, $role) {
+			$role->fill(Arr::except($data, 'permissions'))->save();
             $role->syncPermissions($data['permissions']);
 
             return $role;
         });
-
-        return RolesResource::make($role);
-    }
+	}
 }
