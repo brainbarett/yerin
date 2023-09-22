@@ -13,9 +13,12 @@ class DestroyRequest extends FormRequest
      */
     public function authorize()
     {
-		abort_if(auth('admin')->id() == $this->route('admin')->id, 403, __('messages.cant-delete-self'));
+        return $this->user()->roles()->where('super_admin', true)->exists();
+    }
 
-		return true;
+	protected function prepareForValidation()
+    {
+        abort_if($this->user()->id == $this->route('admin')->id, 403, __('messages.cant-delete-self'));
     }
 
     /**

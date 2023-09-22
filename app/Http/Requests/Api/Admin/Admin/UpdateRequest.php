@@ -16,7 +16,9 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+		$user = $this->user();
+
+        return $user->roles()->where('super_admin', true)->exists() || $user->id == $this->route('admin')->id;
     }
 
     /**
