@@ -52,6 +52,18 @@ class RolesTest extends ApiTestCase
     }
 
 	/** @test */
+    public function can_get_specific_role()
+    {
+        $role = Roles::factory()->create();
+
+        $response = $this->get($this->getRoute('show', $role->id))
+            ->assertOk()
+            ->json();
+
+        $this->assertEquals(RolesResource::make($role)->resolve(), $response['data']);
+    }
+
+	/** @test */
 	public function can_create_new_roles()
 	{
 		$payload = $this->payload();

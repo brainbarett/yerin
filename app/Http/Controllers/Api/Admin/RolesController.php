@@ -27,6 +27,11 @@ class RolesController extends Controller
     {
         return RolesResource::collection(Roles::all());
     }
+
+	public function show(Roles $role)
+    {
+        return RolesResource::make($role);
+    }
 	
     public function store(StoreRequest $request)
     {
