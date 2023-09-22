@@ -16,7 +16,7 @@ class FeaturesTest extends ApiTestCase
 	{
 		parent::setUp();
 		
-		Sanctum::actingAs(Admin::factory()->create(), ['*'], 'admin');
+		Sanctum::actingAs(Admin::factory()->asSuperAdmin()->create(), ['*'], 'admin');
 	}
 
 	private function payload(array $attributes = [])

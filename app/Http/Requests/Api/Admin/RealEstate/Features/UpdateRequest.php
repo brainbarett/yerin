@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\Admin\RealEstate\Features;
 
+use App\Enums\Permissions\RealEstate\Features as FeaturesPermissions;
 use App\Models\RealEstate\Features;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -15,7 +16,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user()->can(FeaturesPermissions::WRITE());
     }
 
     /**
