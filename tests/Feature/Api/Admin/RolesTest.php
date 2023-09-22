@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api\Admin;
 
+use App\Http\Resources\Api\Admin\RolesResource;
 use App\Models\Admin;
 use App\Models\Permissions;
 use App\Models\Roles;
@@ -32,6 +33,22 @@ class RolesTest extends ApiTestCase
             'name' => $this->faker->unique()->name,
             'permissions' => Permissions::factory(3)->create()->pluck('id')->toArray()
         ];
+    }
+
+	/** @test */
+    public function can_get_roles_index()
+    {
+		$roles = Roles::all()
+			->merge(Roles::factory(3)->create());
+			
+		$response = $this->get($this->getRoute('index'))
+            ->assertOk()
+            ->json();
+			
+        $this->assertEqualsCanonicalizing(
+            RolesResource::collection($roles)->resolve(),
+            $response['data']
+        );
     }
 
 	/** @test */

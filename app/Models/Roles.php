@@ -8,4 +8,6 @@ use Spatie\Permission\Models\Role as SpatieRoles;
 class Roles extends SpatieRoles
 {
     use HasFactory;
+
+	protected $with = ['permissions'];
 }
