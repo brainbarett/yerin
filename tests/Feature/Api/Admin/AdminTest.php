@@ -29,7 +29,7 @@ class AdminTest extends ApiTestCase
 
 	private function payload(array $attributes = [])
     {
-        return $attributes + Admin::factory()->raw();
+        return $attributes + Admin::factory()->raw() + ['role' => Roles::factory()->create()->id];
     }
 
 	private function assertModelAttributes(Admin $admin, array $attributes)
@@ -80,7 +80,7 @@ class AdminTest extends ApiTestCase
 	/** @test */
     public function can_create_a_new_admin()
     {
-        $payload = $this->payload(['role' => Roles::factory()->create()->id]);
+        $payload = $this->payload();
 
         $response = $this->post($this->getRoute('store'), $payload)
             ->assertStatus(201)
@@ -94,7 +94,7 @@ class AdminTest extends ApiTestCase
     public function can_update_an_admin()
     {
         $admin = Admin::factory()->create();
-        $payload = $this->payload(['role' => Roles::factory()->create()->id]);
+        $payload = $this->payload();
 
         $this->put($this->getRoute('update', $admin->id), $payload)
             ->assertOk();

@@ -24,10 +24,17 @@ class AdminFactory extends Factory
         ];
     }
 
+	public function configure()
+    {
+        return $this->afterCreating(function(Admin $admin) {
+			$admin->syncRoles(Roles::factory()->create());
+        });
+    }
+
 	public function asSuperAdmin()
     {
         return $this->afterCreating(function(Admin $admin) {
-            $admin->assignRole(Roles::where('super_admin', true)->firstOrFail());
+            $admin->syncRoles(Roles::where('super_admin', true)->firstOrFail());
         });
     }
 }

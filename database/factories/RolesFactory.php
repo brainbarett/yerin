@@ -26,9 +26,7 @@ class RolesFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function(Roles $role) {
-			foreach(Permissions::factory(3)->create() as $permission) {
-				$role->givePermissionTo($permission);
-			}
+			$role->givePermissionTo(Permissions::factory()->create());
         });
     }
 }

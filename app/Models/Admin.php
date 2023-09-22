@@ -22,6 +22,8 @@ class Admin extends Authenticatable
         'remember_token',
     ];
 
+	protected $with = ['roles'];
+
 	protected function password(): Attribute
 	{
 		return Attribute::make(
