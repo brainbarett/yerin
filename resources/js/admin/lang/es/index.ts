@@ -43,6 +43,7 @@ export default {
 		properties: 'Propiedades',
 		'real-estate': 'Bienes Raices',
 		system: 'Sistema',
+		roles: 'Roles',
 	},
 
 	'real-estate': {
@@ -106,6 +107,14 @@ export default {
 				messages: {
 					'password-successfully-updated': 'Contraseña cambiada con éxito',
 				},
+			},
+		},
+
+		roles: {
+			index: {
+				title: 'Gestionar Roles y Permisos',
+				'add-role-btn': 'Añadir un Rol',
+				'error-fetching-data': 'Error cargando data de la tabla',
 			},
 		},
 

@@ -43,6 +43,7 @@ export default {
 		properties: 'Properties',
 		'real-estate': 'Real Estate',
 		system: 'System',
+		roles: 'Roles',
 	},
 
 	'real-estate': {
@@ -106,6 +107,14 @@ export default {
 						'password-successfully-updated': 'Password successfully updated',
 					},
 				},
+			},
+		},
+
+		roles: {
+			index: {
+				title: 'Manage Roles and Permissions',
+				'add-role-btn': 'Add a Role',
+				'error-fetching-data': 'Error fetching table data',
 			},
 		},
 

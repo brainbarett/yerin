@@ -50,6 +50,12 @@
 							icon: 'user-group',
 							active: this.$route.name?.startsWith('admin.'),
 						},
+						{
+							label: this.$tc('menu.roles'),
+							routerLocation: { name: 'roles.index' },
+							icon: 'key',
+							active: this.$route.name?.startsWith('roles.'),
+						},
 					],
 				},
 			]

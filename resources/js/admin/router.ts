@@ -3,6 +3,7 @@ import AuthApi from '@/services/auth'
 import Dashboard from '@/views/Dashboard.vue'
 import Login from '@/views/auth/Login.vue'
 import admin from '@/routes/admin'
+import roles from '@/routes/roles'
 import realEstate from '@/routes/real-estate'
 import useAuthStore from '@/stores/auth'
 import useUiStore from '@/stores/ui'
@@ -23,6 +24,7 @@ const router = new VueRouter({
 		},
 
 		...admin,
+		...roles,
 		...realEstate,
 	],
 })
