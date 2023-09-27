@@ -17,6 +17,8 @@ class RolesResource extends JsonResource
         return [
 			'id' => $this->id,
 			'name' => $this->name,
+			'super_admin' => (bool)$this->super_admin,
+			'system_role' => (bool)$this->system_role,
 			'permissions' => $this->permissions->map(function($permission) {
 				return [
 					'id' => $permission->id,
