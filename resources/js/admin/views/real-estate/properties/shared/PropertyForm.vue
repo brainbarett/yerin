@@ -19,7 +19,7 @@
 
 					<div class="sidebar__item">
 						<a href="#amenities" class="sidebar__button">{{
-							$t('routes.real-estate.properties.shared.form.sections.amenities')
+							$t('routes.real-estate.properties.shared.form.sections.features')
 						}}</a>
 					</div>
 
@@ -210,7 +210,7 @@
 					<div class="form__field-group">
 						<div>
 							<label class="input-label">{{
-								$t('routes.real-estate.properties.shared.form.sections.amenities')
+								$t('routes.real-estate.properties.shared.form.sections.features')
 							}}</label>
 							<div class="flex items-center gap-2">
 								<select ref="featureSelector" class="input-field">

@@ -166,7 +166,7 @@ export default {
 						},
 						sections: {
 							'basic-info': 'Información basica',
-							amenities: 'Amenidades',
+							features: 'Amenidades',
 							images: 'Imagenes',
 							listings: 'Anuncios',
 						},
