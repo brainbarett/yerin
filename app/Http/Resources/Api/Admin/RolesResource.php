@@ -19,12 +19,7 @@ class RolesResource extends JsonResource
 			'name' => $this->name,
 			'super_admin' => (bool)$this->super_admin,
 			'system_role' => (bool)$this->system_role,
-			'permissions' => $this->permissions->map(function($permission) {
-				return [
-					'id' => $permission->id,
-					'name' => $permission->name
-				];
-			})->toArray()
+			'permissions' => $this->permissions->pluck('name')->toArray()
 		];
     }
 }

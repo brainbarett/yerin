@@ -28,7 +28,7 @@ class RolesTest extends ApiTestCase
     {
         return $attributes + [
             'name' => $this->faker->unique()->name,
-            'permissions' => Permissions::factory(3)->create()->pluck('id')->toArray()
+            'permissions' => Permissions::factory(3)->create()->pluck('name')->toArray()
         ];
     }
 
@@ -73,7 +73,7 @@ class RolesTest extends ApiTestCase
 		$this->assertEquals($payload['name'], $role->name);
 		$this->assertEqualsCanonicalizing(
 			$payload['permissions'],
-			$role->permissions()->pluck('id')->toArray()
+			$role->permissions()->pluck('name')->toArray()
 		);
 	}
 
@@ -91,7 +91,7 @@ class RolesTest extends ApiTestCase
         $this->assertEquals($payload['name'], $role->name);
         $this->assertEqualsCanonicalizing(
             $payload['permissions'],
-            $role->permissions()->pluck('id')->toArray()
+            $role->permissions()->pluck('name')->toArray()
         );
     }
 

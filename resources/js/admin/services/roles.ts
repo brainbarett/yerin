@@ -12,7 +12,7 @@ export default {
 export type Role = {
 	id: number
 	name: string
-	permissions: { [key: string]: { id: number; name: string } }
+	permissions: string[]
 	system_role: boolean
 	super_admin: boolean
 }
