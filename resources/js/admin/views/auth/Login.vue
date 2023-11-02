@@ -2,7 +2,7 @@
 	<div
 		class="box-border flex flex-col items-center justify-center w-full min-h-full p-6 bg-gray-100"
 	>
-		<div class="bg-white rounded shadow-md max-w-full w-[400px]">
+		<div class="bg-white rounded shadow-md max-w-full w-[400px] overflow-hidden">
 			<div class="pb-28 relative">
 				<div class="h-28 bg-gray-600"></div>
 				<div
