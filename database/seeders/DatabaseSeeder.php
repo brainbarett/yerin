@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
 		DB::transaction(function() {
 			$this->call([
+				PermissionsSeeder::class,
 				RolesSeeder::class,
 			]);
 		});
