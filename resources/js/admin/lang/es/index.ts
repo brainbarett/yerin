@@ -122,6 +122,15 @@ export default {
 				title: 'Crear un Rol',
 			},
 
+			edit: {
+				title: 'Editar Rol',
+				'error-fetching-role': 'Error cargando data',
+				'error-deleting-role': "Error eliminando '{name}'",
+				'attempting-to-delete-role':
+					'Estás intentando eliminar <span class="underline">{name}</span>',
+				'delete-role-modal-title': 'Eliminar Rol',
+			},
+
 			shared: {
 				permissions: {
 					view: 'Ver',

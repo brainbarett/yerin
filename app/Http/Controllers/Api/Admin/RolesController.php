@@ -70,7 +70,10 @@ class RolesController extends Controller
 
 		return DB::transaction(function() use($data, $role) {
 			$role->fill(Arr::except($data, 'permissions'))->save();
-            $role->syncPermissions($data['permissions']);
+
+			if(!$role->super_admin) {
+				$role->syncPermissions($data['permissions']);
+			}
 
             return $role;
         });

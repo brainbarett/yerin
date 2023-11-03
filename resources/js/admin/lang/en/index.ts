@@ -122,6 +122,15 @@ export default {
 				title: 'Create a Role',
 			},
 
+			edit: {
+				title: 'Edit Role',
+				'error-fetching-role': 'Error fetching data',
+				'error-deleting-role': "Error deleting '{name}'",
+				'attempting-to-delete-role':
+					'You are attempting to delete <span class="underline">{name}</span>',
+				'delete-role-modal-title': 'Delete Role',
+			},
+
 			shared: {
 				permissions: {
 					view: 'View',

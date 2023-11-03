@@ -1,6 +1,7 @@
 import { RouteConfig } from 'vue-router'
 import Index from '@/views/roles/Index.vue'
 import Create from '@/views/roles/Create.vue'
+import Edit from '@/views/roles/Edit.vue'
 
 const routes: RouteConfig[] = [
 	{
@@ -13,6 +14,12 @@ const routes: RouteConfig[] = [
 		path: '/roles/create',
 		name: 'roles.create',
 		component: Create,
+	},
+
+	{
+		path: '/roles/:id',
+		name: 'roles.edit',
+		component: Edit,
 	},
 ]
 
