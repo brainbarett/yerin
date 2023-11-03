@@ -8,7 +8,7 @@
 		</div>
 
 		<Sidebar
-			:menu="menu"
+			:menu="authorizedMenu"
 			:class="
 				showSidebar
 					? 'flex w-screen h-[calc(100dvh-48px)] fixed top-12 z-50 left-0'
@@ -22,8 +22,10 @@
 	import Vue from 'vue'
 	import Sidebar from './Sidebar.vue'
 	import { NavigationMenu } from './types'
-	import { mapActions } from 'pinia'
+	import { mapActions, mapState } from 'pinia'
 	import useUiStore from '@/stores/ui'
+	import useAuthStore from '@/stores/auth'
+	import permissions from '@/permissions'
 
 	export default Vue.extend({
 		components: { Sidebar },
@@ -38,11 +40,13 @@
 							routerLocation: { name: 'real-estate.properties.index' },
 							icon: 'home',
 							active: this.$route.name?.startsWith('real-estate.properties.'),
+							show: user => user.can(permissions.realEstate.properties.read),
 						},
 					],
 				},
 				{
 					label: this.$tc('menu.system'),
+					show: user => user.isSuperAdmin,
 					items: [
 						{
 							label: this.$tc('menu.admin-accounts'),
@@ -64,6 +68,28 @@
 				menu,
 				showSidebar: false,
 			}
+		},
+
+		computed: {
+			...mapState(useAuthStore, ['user']),
+
+			authorizedMenu() {
+				const authorizedMenu: NavigationMenu = []
+
+				this.menu.forEach(group => {
+					if (!group.show || group.show(this.user!)) {
+						const items = group.items.filter(item => {
+							return item.show ? item.show(this.user!) : true
+						})
+
+						if (items.length) {
+							authorizedMenu.push({ ...group, items })
+						}
+					}
+				})
+
+				return authorizedMenu
+			},
 		},
 
 		methods: {
