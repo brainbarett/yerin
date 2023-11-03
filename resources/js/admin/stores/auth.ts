@@ -1,16 +1,19 @@
 import { defineStore } from 'pinia'
 import { Admin } from '@/services/admin'
 import useUiStore from '@/stores/ui'
+import { Authorizable, makeAuthorizable } from '@/utils/authorization'
+
+export type User = Admin & Authorizable
 
 export default defineStore('auth', {
 	state: () => ({
-		user: null as Admin | null,
+		user: null as User | null,
 	}),
 	persist: true,
 
 	actions: {
-		setUser(user: Admin) {
-			this.user = user
+		setUser(admin: Admin) {
+			this.user = makeAuthorizable(admin)
 			useUiStore().setLanguage(this.user.language)
 		},
 

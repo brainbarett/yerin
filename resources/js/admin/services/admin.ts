@@ -1,5 +1,6 @@
 import http, { Response } from './http'
 import { AxiosPromise } from 'axios'
+import { Role } from './roles'
 
 const baseUrl: string = '/admin'
 
@@ -36,6 +37,7 @@ export type Admin = {
 	name: string
 	email: string
 	language: Language
+	role: Role
 }
 
 export type StoreRequest = {
