@@ -18,6 +18,7 @@ mix.extend(
 )
 
 mix.disableNotifications()
+	.browserSync('http://127.0.0.1:8000')
 	.i18n()
 	.ts('resources/js/admin/main.ts', 'public/admin_panel/app.js')
 	.vue()
