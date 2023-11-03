@@ -7,6 +7,10 @@ export default {
 	index(): AxiosPromise<Response<Role[]>> {
 		return http.get(baseUrl)
 	},
+
+	store(data: StoreRequest): AxiosPromise<Response<Role>> {
+		return http.post(baseUrl, data)
+	},
 }
 
 export type Role = {
@@ -15,4 +19,9 @@ export type Role = {
 	permissions: string[]
 	system_role: boolean
 	super_admin: boolean
+}
+
+export type StoreRequest = {
+	name: string
+	permissions: string[] | null
 }

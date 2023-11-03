@@ -44,6 +44,7 @@ export default {
 		'real-estate': 'Bienes Raices',
 		system: 'Sistema',
 		roles: 'Roles',
+		features: 'Amenidades',
 	},
 
 	'real-estate': {
@@ -115,6 +116,23 @@ export default {
 				title: 'Gestionar Roles y Permisos',
 				'add-role-btn': 'Añadir un Rol',
 				'error-fetching-data': 'Error cargando data de la tabla',
+			},
+
+			create: {
+				title: 'Crear un Rol',
+			},
+
+			shared: {
+				permissions: {
+					view: 'Ver',
+					write: 'Escribir',
+					delete: 'Eliminar',
+				},
+				form: {
+					fields: {
+						permissions: 'Permisos',
+					},
+				},
 			},
 		},
 

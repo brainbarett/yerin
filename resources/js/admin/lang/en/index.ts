@@ -44,6 +44,7 @@ export default {
 		'real-estate': 'Real Estate',
 		system: 'System',
 		roles: 'Roles',
+		features: 'Amenities',
 	},
 
 	'real-estate': {
@@ -115,6 +116,23 @@ export default {
 				title: 'Manage Roles and Permissions',
 				'add-role-btn': 'Add a Role',
 				'error-fetching-data': 'Error fetching table data',
+			},
+
+			create: {
+				title: 'Create a Role',
+			},
+
+			shared: {
+				permissions: {
+					view: 'View',
+					write: 'Write',
+					delete: 'Delete',
+				},
+				form: {
+					fields: {
+						permissions: 'Permissions',
+					},
+				},
 			},
 		},
 
