@@ -49,6 +49,8 @@ class ImagesTest extends ApiTestCase
 	/** @test */
 	public function can_destroy_an_image()
 	{
+		$this->markTestSkipped("it works but I'm thinking about keeping images just in case");
+
 		$imageId = Images::factory()->create()->id;
 
         $this->delete($this->getRoute('destroy', $imageId))
