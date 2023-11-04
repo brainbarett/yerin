@@ -206,7 +206,7 @@
 					</div>
 				</div>
 
-				<div id="features" class="resource-form__section">
+				<div id="amenities" class="resource-form__section">
 					<div class="form__field-group">
 						<div>
 							<label class="input-label">{{
