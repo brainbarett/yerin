@@ -26,6 +26,7 @@
 			<template #default="{ submit }">
 				<div class="flex justify-end gap-4">
 					<Button
+						v-if="user.can($permissions.realEstate.properties.delete)"
 						category="secondary"
 						variant="danger"
 						@click="showDestroyModal = true"
@@ -56,7 +57,8 @@
 	import { parseOutboundPropertyForm } from './shared/helpers'
 	import { PropertyForm as PropertyFormType } from './shared/types'
 	import useUiStore from '@/stores/ui'
-	import { mapActions } from 'pinia'
+	import { mapActions, mapState } from 'pinia'
+	import useAuthStore from '@/stores/auth'
 
 	export default Vue.extend({
 		components: { Layout, Button, PropertyForm, DeleteResourceModal },
@@ -74,6 +76,10 @@
 				},
 				showDestroyModal: false as boolean,
 			}
+		},
+
+		computed: {
+			...mapState(useAuthStore, ['user']),
 		},
 
 		methods: {

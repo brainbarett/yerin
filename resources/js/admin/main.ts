@@ -54,6 +54,9 @@ declare module 'vue/types/vue' {
 	}
 }
 
+import permissions from './permissions'
+Vue.prototype.$permissions = permissions
+
 import router from './router'
 export default new Vue({
 	el: '#app',

@@ -2,7 +2,7 @@
 	<Layout vh>
 		<div class="flex flex-col h-full">
 			<Header :title="$t('routes.real-estate.properties.index.title')">
-				<template #extra-content>
+				<template #extra-content v-if="user.can($permissions.realEstate.properties.write)">
 					<Button
 						:to="{ name: 'real-estate.properties.create' }"
 						:label="$t('routes.real-estate.properties.index.add-property-btn')"
@@ -78,7 +78,8 @@
 	import { default as DataGrid } from '@/components/data-table/RemoteTable.vue'
 	import PropertiesApi, { propertyTypes, Property } from '@/services/real-estate/properties'
 	import useUiStore from '@/stores/ui'
-	import { mapActions } from 'pinia'
+	import { mapActions, mapState } from 'pinia'
+	import useAuthStore from '@/stores/auth'
 
 	export default Vue.extend({
 		components: { Layout, Header, Button, DataGrid },
@@ -113,13 +114,17 @@
 			return {
 				columns,
 				propertyTypes: propertyTypes.reduce(
-					(obj, type) => ({
-						...obj,
+					(types, type) => ({
+						...types,
 						[type]: this.$t(`real-estate.property-types.${type.toLowerCase()}`),
 					}),
 					{},
 				) as { [key in (typeof propertyTypes)[number]]: string },
 			}
+		},
+
+		computed: {
+			...mapState(useAuthStore, ['user']),
 		},
 
 		methods: {
