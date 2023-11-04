@@ -33,7 +33,7 @@ class UpdateRequest extends FormRequest
             'name' => ['required', 'string'],
             'password' => ['string'],
 			'language' => [Rule::in(config('app.accepted_languages'))],
-			'role' => ['required', Rule::exists(Roles::class, 'id')]
+			'role' => ['present', 'nullable', Rule::exists(Roles::class, 'id')]
         ];
     }
 }

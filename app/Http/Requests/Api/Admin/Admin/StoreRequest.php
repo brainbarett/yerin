@@ -31,7 +31,7 @@ class StoreRequest extends FormRequest
             'name' => ['required', 'string'],
             'password' => ['required', 'string'],
 			'language' => [Rule::in(config('app.accepted_languages'))],
-			'role' => ['required', Rule::exists(Roles::class, 'id')]
+			'role' => ['present', 'nullable', Rule::exists(Roles::class, 'id')]
         ];
     }
 }
