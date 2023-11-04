@@ -103,6 +103,7 @@ export default {
 				form: {
 					fields: {
 						'password-confirmation': 'Password confirmation',
+						role: 'Role',
 					},
 					messages: {
 						'password-successfully-updated': 'Password successfully updated',

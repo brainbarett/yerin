@@ -28,6 +28,14 @@
 					:label="$t('common.language')"
 					validation="required"
 				/>
+
+				<formulate-input
+					name="role"
+					type="select"
+					:options="roles"
+					:label="$t('routes.admin.shared.form.fields.role')"
+					:validation-name="$t('routes.admin.shared.form.fields.role')"
+				/>
 			</div>
 
 			<div class="form__field-group md:grid-cols-2">
@@ -66,6 +74,9 @@
 	import AdminApi, { Language, StoreRequest } from '@/services/admin'
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
+	import RolesApi from '@/services/roles'
+	import { mapActions } from 'pinia'
+	import useUiStore from '@/stores/ui'
 
 	type Form = {
 		name: string
@@ -73,6 +84,7 @@
 		password: string
 		password_confirm: string
 		language: Language
+		role: number | null
 	}
 
 	export default Vue.extend({
@@ -86,10 +98,13 @@
 					es: this.$t('common.spanish'),
 					en: this.$t('common.english'),
 				},
+				roles: [] as Array<{ label: string; value: number }>,
 			}
 		},
 
 		methods: {
+			...mapActions(useUiStore, ['fireAlert']),
+
 			async save(form: Form) {
 				this.loading = true
 				this.$formulate.resetValidation('main')
@@ -115,6 +130,22 @@
 
 				this.loading = false
 			},
+		},
+
+		created() {
+			RolesApi.index()
+				.then(res => {
+					this.roles = res.data.data.map(role => ({
+						value: role.id,
+						label: role.name,
+					}))
+				})
+				.catch((res: AxiosResponse<ErrorResponse>) =>
+					this.fireAlert({
+						title: res.data.message,
+						type: 'error',
+					}),
+				)
 		},
 	})
 </script>

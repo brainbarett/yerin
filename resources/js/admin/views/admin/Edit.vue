@@ -42,6 +42,14 @@
 					:label="$t('common.language')"
 					validation="required"
 				/>
+
+				<formulate-input
+					name="role"
+					type="select"
+					:options="roles"
+					:label="$t('routes.admin.shared.form.fields.role')"
+					:validation-name="$t('routes.admin.shared.form.fields.role')"
+				/>
 			</div>
 		</formulate-form>
 
@@ -74,11 +82,13 @@
 	import DeleteResourceModal from '@/components/modals/DeleteResourceModal.vue'
 	import useUiStore from '@/stores/ui'
 	import { mapActions } from 'pinia'
+	import RolesApi from '@/services/roles'
 
 	type Form = {
 		name: string
 		email: string
 		language: Language
+		role: number | null
 	}
 
 	export default Vue.extend({
@@ -97,6 +107,7 @@
 					en: this.$t('common.english'),
 				},
 				showDestroyModal: false as boolean,
+				roles: [] as Array<{ label: string; value: number }>,
 			}
 		},
 
@@ -148,12 +159,28 @@
 			},
 		},
 
+		created() {
+			RolesApi.index()
+				.then(res => {
+					this.roles = res.data.data.map(role => ({
+						value: role.id,
+						label: role.name,
+					}))
+				})
+				.catch((res: AxiosResponse<ErrorResponse>) =>
+					this.fireAlert({
+						title: res.data.message,
+						type: 'error',
+					}),
+				)
+		},
+
 		async beforeRouteEnter(to, from, next) {
 			await AdminApi.show(to.params.id as unknown as number)
 				.then(res => {
 					next((vm: any) => {
 						const admin = res.data.data
-						const form: Form = admin
+						const form: Form = { ...admin, role: admin.role.id }
 
 						vm.resource = admin
 						vm.form = form
