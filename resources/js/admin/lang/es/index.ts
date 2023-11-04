@@ -6,6 +6,7 @@ export default {
 		auth: {
 			login: 'Iniciar sesión',
 			logout: 'Cerrar sesión',
+			unauthorized: 'Acción no autorizada',
 		},
 		form: {
 			add: 'Añadir',

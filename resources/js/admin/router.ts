@@ -7,6 +7,7 @@ import roles from '@/routes/roles'
 import realEstate from '@/routes/real-estate'
 import useAuthStore from '@/stores/auth'
 import useUiStore from '@/stores/ui'
+import { i18n } from '@/main'
 
 const router = new VueRouter({
 	mode: 'history',
@@ -35,8 +36,12 @@ router.beforeEach(async (to, from, next) => {
 	const uiStore = useUiStore()
 
 	await AuthApi.isAuthenticated()
-		.then(res => authStore.setUser(res.data.data))
-		.catch(() => authStore.clearUser())
+		.then(res => {
+			authStore.setUser(res.data.data)
+		})
+		.catch(() => {
+			authStore.clearUser()
+		})
 
 	uiStore.clearAlerts()
 	uiStore.fireQueuedAlerts()
@@ -47,6 +52,13 @@ router.beforeEach(async (to, from, next) => {
 
 	if (authStore.user && to.name == 'auth.login') {
 		return next('/')
+	}
+
+	if (to.meta && Object.hasOwn(to.meta, 'authorize')) {
+		if (!to.meta!.authorize(authStore.user)) {
+			uiStore.queueAlert({ title: i18n.tc('common.auth.unauthorized'), type: 'warning' })
+			return next('/')
+		}
 	}
 
 	return next()

@@ -6,6 +6,7 @@ export default {
 		auth: {
 			login: 'Log in',
 			logout: 'Log out',
+			unauthorized: 'Unauthorized',
 		},
 		form: {
 			add: 'Add',
