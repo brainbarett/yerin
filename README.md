@@ -80,7 +80,7 @@ You can then run all the tests with
         -   ✅ Images
         -   ✅ Geographical locations
 
-    -   ⬜️ UI translations
+    -   ✅ UI translations
 
 -   Backlog
 
