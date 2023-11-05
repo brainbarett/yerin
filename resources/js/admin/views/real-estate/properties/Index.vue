@@ -25,8 +25,13 @@
 				class="mt-3 h-full overflow-hidden"
 			>
 				<template #row="{ row, field }">
-					<router-link
+					<component
 						v-if="field == 'name'"
+						:is="
+							user.can($permissions.realEstate.properties.write)
+								? 'router-link'
+								: 'span'
+						"
 						:to="{ name: 'real-estate.properties.edit', params: { id: row.id } }"
 						class="flex items-center"
 					>
@@ -41,7 +46,7 @@
 						</div>
 
 						{{ row[field] }}
-					</router-link>
+					</component>
 
 					<template v-else-if="field == 'type'">
 						{{ propertyTypes[row.type] }}
