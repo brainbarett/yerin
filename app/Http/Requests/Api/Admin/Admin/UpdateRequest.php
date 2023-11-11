@@ -31,7 +31,6 @@ class UpdateRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email', Rule::unique(Admin::class)->ignore($this->route('admin')->id)],
             'name' => ['required', 'string'],
-            'password' => ['string'],
 			'language' => [Rule::in(config('app.accepted_languages'))],
 			'role' => ['present', 'nullable', Rule::exists(Roles::class, 'id')]
         ];

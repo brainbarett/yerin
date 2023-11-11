@@ -47,4 +47,4 @@ export type StoreRequest = {
 	role: number | null
 }
 
-export type UpdateRequest = Omit<StoreRequest, 'password'> & { password?: string }
+export type UpdateRequest = Omit<StoreRequest, 'password'>

@@ -5,6 +5,7 @@ namespace Tests\Feature\Api\Admin;
 use App\Http\Resources\Api\Admin\AdminResource;
 use App\Models\Admin;
 use App\Models\Roles;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\Sanctum;
 use Tests\Feature\Api\ApiTestCase;
@@ -91,7 +92,7 @@ class AdminTest extends ApiTestCase
     public function can_update_an_admin()
     {
         $admin = Admin::factory()->create();
-        $payload = $this->payload();
+        $payload = Arr::except($this->payload(), 'password');
 
         $this->put($this->getRoute('update', $admin->id), $payload)
             ->assertOk();
