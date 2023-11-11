@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Api\Admin\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class PatchRequest extends FormRequest
 {
@@ -26,6 +28,15 @@ class PatchRequest extends FormRequest
     public function rules()
     {
         return [
+			'old_password' => [
+				Rule::requiredIf($this->route('admin')->id == $this->user()->id),
+				function ($attribute, $value, $fail) {
+					if(!Hash::check($value, $this->user()->password)) {
+						$fail(__('auth.password'));
+					}
+				},
+				'exclude'
+			],
             'password' => ['string'],
         ];
     }
