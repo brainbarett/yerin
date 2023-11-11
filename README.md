@@ -1,6 +1,6 @@
 # Yerin
 
-🏡 Real Estate CMS for agencies to manage their property listings. It currently in its early stages; not production ready.
+🏡 Real Estate CMS for agencies to manage their property listings. It's currently in its early stages; not production ready.
 
 > 📝 NOTE: Incremental migrations will start when v1.0.0 is released. Until then migration files will be modified.
 
