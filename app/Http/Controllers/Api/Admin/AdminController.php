@@ -61,7 +61,10 @@ class AdminController extends Controller
 
 		return DB::transaction(function() use($data, $admin) {
 			$admin->fill(Arr::except($data, 'role'))->save();
-            $admin->syncRoles($data['role']);
+			
+			if(isset($data['role'])) {
+				$admin->syncRoles($data['role']);
+			}
 
             return $admin;
         });
