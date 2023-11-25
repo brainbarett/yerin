@@ -78,6 +78,21 @@ export default {
 			login: {
 				title: 'Welcome back!',
 			},
+
+			profile: {
+				title: 'My Account',
+				'account-info': 'Account Info',
+				form: {
+					fields: {
+						'old-password': 'Current password',
+						'new-password': 'New password',
+						'confirm-new-password': 'New password confirmation',
+					},
+				},
+				messages: {
+					'update-account-info-success': 'Password successfully updated',
+				},
+			},
 		},
 
 		admin: {

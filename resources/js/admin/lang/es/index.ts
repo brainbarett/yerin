@@ -78,6 +78,21 @@ export default {
 			login: {
 				title: 'Bienvenid@!',
 			},
+
+			profile: {
+				title: 'Mi Cuenta',
+				'account-info': 'Informacion de la cuenta',
+				form: {
+					fields: {
+						'old-password': 'Contraseña actual',
+						'new-password': 'Nueva contraseña',
+						'confirm-new-password': 'Confirmación de contraseña',
+					},
+				},
+				messages: {
+					'update-account-info-success': 'Contraseña cambiada con éxito',
+				},
+			},
 		},
 
 		admin: {

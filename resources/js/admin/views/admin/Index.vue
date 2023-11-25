@@ -158,10 +158,9 @@
 				this.updatePasswordForm.loading = true
 				this.$formulate.resetValidation('update-password')
 
-				AdminApi.updatePassword(
-					this.updatePasswordForm.admin!.id,
-					this.updatePasswordForm.password,
-				)
+				AdminApi.updatePassword(this.updatePasswordForm.admin!.id, {
+					password: this.updatePasswordForm.password,
+				})
 					.then(() => {
 						this.closeUpdatePasswordForm()
 						this.fireAlert({

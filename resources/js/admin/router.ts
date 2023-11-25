@@ -8,6 +8,7 @@ import realEstate from '@/routes/real-estate'
 import useAuthStore from '@/stores/auth'
 import useUiStore from '@/stores/ui'
 import { i18n } from '@/main'
+import Profile from '@/views/auth/Profile.vue'
 
 const router = new VueRouter({
 	mode: 'history',
@@ -22,6 +23,12 @@ const router = new VueRouter({
 		{
 			path: '/',
 			component: Dashboard,
+		},
+
+		{
+			path: '/profile',
+			name: 'auth.profile',
+			component: Profile,
 		},
 
 		...admin,

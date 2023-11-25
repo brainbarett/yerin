@@ -30,12 +30,13 @@
 				</div>
 
 				<div class="sidebar__item border-t border-gray-300">
-					<div
+					<router-link
+						:to="{ name: 'auth.profile' }"
 						class="font-medium box-border flex items-center px-3 py-[6px] pt-3 text-sm text-gray-600"
 					>
 						<icon name="user-solid-circle" set="zondicons" class="w-5 h-5 mr-2" />
 						{{ user.name }}
-					</div>
+					</router-link>
 				</div>
 			</div>
 		</div>

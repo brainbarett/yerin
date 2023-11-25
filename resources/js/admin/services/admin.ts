@@ -21,8 +21,8 @@ export default {
 		return http.put(`${baseUrl}/${id}`, data)
 	},
 
-	updatePassword(id: number, password: string) {
-		return http.patch(`${baseUrl}/${id}`, { password })
+	updatePassword(id: number, data: { old_password?: string; password: string }) {
+		return http.patch(`${baseUrl}/${id}`, data)
 	},
 
 	destroy(id: number) {
@@ -47,4 +47,6 @@ export type StoreRequest = {
 	role: number | null
 }
 
-export type UpdateRequest = Omit<StoreRequest, 'password'>
+export type UpdateRequest = Omit<StoreRequest, 'password' | 'role'> & {
+	role?: number | null
+}
