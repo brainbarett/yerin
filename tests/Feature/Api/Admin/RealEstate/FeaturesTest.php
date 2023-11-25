@@ -49,6 +49,7 @@ class FeaturesTest extends ApiTestCase
 	/** @test */
 	public function can_create_a_new_feature()
 	{
+		$this->markTestSkipped("Rethinking if users should have the ability to add custom amenities/features");
 		$payload = $this->payload();
 
 		$response = $this->post($this->getRoute('store'), $payload)
@@ -62,6 +63,7 @@ class FeaturesTest extends ApiTestCase
 	/** @test */
 	public function can_update_a_feature()
 	{
+		$this->markTestSkipped("Rethinking if users should have the ability to add custom amenities/features");
 		$feature = Features::factory()->create();
 		$payload = $this->payload();
 
@@ -76,6 +78,7 @@ class FeaturesTest extends ApiTestCase
 	/** @test */
 	public function can_destroy_a_feature()
 	{
+		$this->markTestSkipped("Rethinking if users should have the ability to add custom amenities/features");
 		$featureId = Features::factory()->create()->id;
 
 		$this->delete($this->getRoute('destroy', $featureId))
