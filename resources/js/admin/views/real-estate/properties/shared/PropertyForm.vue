@@ -49,9 +49,6 @@
 						<formulate-input
 							v-model="form.type"
 							type="select"
-							:validation-name="
-								$t('routes.real-estate.properties.shared.form.fields.property-type')
-							"
 							:options="propertyTypes"
 							:label="
 								$t('routes.real-estate.properties.shared.form.fields.property-type')
@@ -62,9 +59,6 @@
 						<formulate-input
 							v-model="form.available"
 							type="radio"
-							:validation-name="
-								$t('routes.real-estate.properties.shared.form.fields.availability')
-							"
 							:options="[
 								{
 									value: 'true',
@@ -85,9 +79,6 @@
 						<formulate-input
 							v-model="form.reference"
 							type="text"
-							:validation-name="
-								$t('routes.real-estate.properties.shared.form.fields.reference')
-							"
 							:label="
 								$t('routes.real-estate.properties.shared.form.fields.reference')
 							"
@@ -97,7 +88,6 @@
 						<formulate-input
 							v-model="form.name"
 							type="text"
-							:validation-name="$t('common.form.fields.name')"
 							:label="$t('common.form.fields.name')"
 							validation="required"
 						/>
@@ -118,9 +108,6 @@
 						<formulate-input
 							v-model="form.bedrooms"
 							type="text"
-							:validation-name="
-								$t('routes.real-estate.properties.shared.form.fields.bedrooms')
-							"
 							:label="$t('routes.real-estate.properties.shared.form.fields.bedrooms')"
 							validation="required|number"
 						/>
@@ -128,11 +115,6 @@
 						<formulate-input
 							v-model="form.full_bathrooms"
 							type="text"
-							:validation-name="
-								$t(
-									'routes.real-estate.properties.shared.form.fields.full-bathrooms',
-								)
-							"
 							:label="
 								$t(
 									'routes.real-estate.properties.shared.form.fields.full-bathrooms',
@@ -144,11 +126,6 @@
 						<formulate-input
 							v-model="form.half_bathrooms"
 							type="text"
-							:validation-name="
-								$t(
-									'routes.real-estate.properties.shared.form.fields.half-bathrooms',
-								)
-							"
 							:label="
 								$t(
 									'routes.real-estate.properties.shared.form.fields.half-bathrooms',
@@ -162,9 +139,6 @@
 						<formulate-input
 							v-model="form.lot_area"
 							type="text"
-							:validation-name="
-								$t('routes.real-estate.properties.shared.form.fields.lot-area')
-							"
 							:label="
 								$t('routes.real-estate.properties.shared.form.fields.lot-area') +
 								'(m2)'
@@ -175,11 +149,6 @@
 						<formulate-input
 							v-model="form.construction_area"
 							type="text"
-							:validation-name="
-								$t(
-									'routes.real-estate.properties.shared.form.fields.construction-area',
-								)
-							"
 							:label="
 								$t(
 									'routes.real-estate.properties.shared.form.fields.construction-area',
@@ -191,11 +160,6 @@
 						<formulate-input
 							v-model="form.construction_year"
 							type="text"
-							:validation-name="
-								$t(
-									'routes.real-estate.properties.shared.form.fields.construction-year',
-								)
-							"
 							:label="
 								$t(
 									'routes.real-estate.properties.shared.form.fields.construction-year',
@@ -265,7 +229,6 @@
 							:options="geoLocations.countries"
 							:label="$t('common.country')"
 							validation="required"
-							:validation-name="$t('common.country')"
 						/>
 
 						<formulate-input
@@ -274,7 +237,6 @@
 							:options="scopedStates"
 							:label="$t('common.state')"
 							validation="required"
-							:validation-name="$t('common.state')"
 						/>
 
 						<formulate-input
@@ -283,7 +245,6 @@
 							:options="scopedCities"
 							:label="$t('common.city')"
 							validation="required"
-							:validation-name="$t('common.city')"
 						/>
 
 						<formulate-input
@@ -292,7 +253,6 @@
 							:options="scopedSectors"
 							:label="$t('common.sector')"
 							validation="required"
-							:validation-name="$t('common.sector')"
 						/>
 					</div>
 				</div>
@@ -357,11 +317,6 @@
 									:key="term"
 									v-model="form.listings.RENT[term]"
 									type="text"
-									:validation-name="
-										$t(
-											`routes.real-estate.properties.shared.form.fields.rent-${term.toLowerCase()}-price`,
-										)
-									"
 									validation="optional|number"
 									:disabled="!enabledListingTypes.RENT"
 									class="w-full"

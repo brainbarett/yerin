@@ -22,7 +22,6 @@
 			<div class="form__field-group md:grid-cols-3">
 				<formulate-input
 					name="name"
-					:validation-name="$t('common.form.fields.name')"
 					type="text"
 					:label="$t('common.form.fields.name')"
 					placeholder="Yerin Arelius"
@@ -30,7 +29,6 @@
 				/>
 				<formulate-input
 					name="email"
-					:validation-name="$t('common.form.fields.email')"
 					type="email"
 					:label="$t('common.form.fields.email')"
 					placeholder="example@email.com"
@@ -38,7 +36,6 @@
 				/>
 				<formulate-input
 					name="language"
-					:validation-name="$t('common.language')"
 					type="select"
 					:options="languages"
 					:label="$t('common.language')"
@@ -50,7 +47,6 @@
 					type="select"
 					:options="roles"
 					:label="$t('routes.admin.shared.form.fields.role')"
-					:validation-name="$t('routes.admin.shared.form.fields.role')"
 				/>
 			</div>
 		</formulate-form>

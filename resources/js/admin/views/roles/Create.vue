@@ -7,7 +7,6 @@
 				<div class="form__field-group">
 					<formulate-input
 						name="name"
-						:validation-name="$t('common.form.fields.name')"
 						type="text"
 						:label="$t('common.form.fields.name')"
 						placeholder="Monarch"

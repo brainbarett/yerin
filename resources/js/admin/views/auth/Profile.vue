@@ -13,21 +13,18 @@
 			<div class="form__field-group md:grid-cols-3">
 				<formulate-input
 					name="name"
-					:validation-name="$t('common.form.fields.name')"
 					type="text"
 					:label="$t('common.form.fields.name')"
 					validation="required"
 				/>
 				<formulate-input
 					name="email"
-					:validation-name="$t('common.form.fields.email')"
 					type="email"
 					:label="$t('common.form.fields.email')"
 					validation="required|email"
 				/>
 				<formulate-input
 					name="language"
-					:validation-name="$t('common.language')"
 					type="select"
 					:options="languages"
 					:label="$t('common.language')"
@@ -57,23 +54,18 @@
 			<div class="form__field-group md:grid-cols-3">
 				<formulate-input
 					name="old_password"
-					:validation-name="$t('routes.auth.profile.form.fields.old-password')"
 					type="password"
 					:label="$t('routes.auth.profile.form.fields.old-password')"
 					validation="required"
 				/>
 				<formulate-input
 					name="password"
-					:validation-name="$t('routes.auth.profile.form.fields.new-password')"
 					type="password"
 					:label="$t('routes.auth.profile.form.fields.new-password')"
 					validation="required"
 				/>
 				<formulate-input
 					name="password_confirm"
-					:validation-name="
-						$t('routes.auth.profile.form.fields.new-password-confirmation')
-					"
 					type="password"
 					:label="$t('routes.auth.profile.form.fields.new-password-confirmation')"
 					validation="required|confirm"

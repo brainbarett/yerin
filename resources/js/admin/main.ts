@@ -47,6 +47,7 @@ import VueFormulate, { FormulateGlobalInstance } from '@braid/vue-formulate'
 import { es } from '@braid/vue-formulate-i18n'
 Vue.use(VueFormulate, {
 	plugins: [es],
+	validationNameStrategy: ['validationName', 'label', 'name', 'type'],
 })
 declare module 'vue/types/vue' {
 	interface Vue {

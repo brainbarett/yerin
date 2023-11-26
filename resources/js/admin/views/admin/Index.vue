@@ -10,7 +10,6 @@
 					<formulate-input
 						v-model="updatePasswordForm.password"
 						name="password"
-						:validation-name="$t('routes.admin.shared.form.fields.new-password')"
 						type="password"
 						:label="$t('routes.admin.shared.form.fields.new-password')"
 						validation="required"
@@ -18,9 +17,6 @@
 					<formulate-input
 						v-model="updatePasswordForm.password_confirm"
 						name="password_confirm"
-						:validation-name="
-							$t('routes.admin.shared.form.fields.new-password-confirmation')
-						"
 						type="password"
 						:label="$t('routes.admin.shared.form.fields.new-password-confirmation')"
 						validation="required|confirm"
