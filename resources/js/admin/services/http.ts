@@ -1,4 +1,4 @@
-import { i18n } from '@/main'
+import { i18n } from '@/app'
 import axios, { AxiosError } from 'axios'
 
 const http = axios.create({

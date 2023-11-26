@@ -7,7 +7,7 @@ import roles from '@/routes/roles'
 import realEstate from '@/routes/real-estate'
 import useAuthStore from '@/stores/auth'
 import useUiStore from '@/stores/ui'
-import { i18n } from '@/main'
+import { i18n } from '@/app'
 import Profile from '@/views/auth/Profile.vue'
 
 const router = new VueRouter({
