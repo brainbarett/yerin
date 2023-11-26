@@ -118,19 +118,7 @@
 				await RolesApi.update(this.resource.id, parsedFormData)
 					.then(res => this.$router.push({ name: 'roles.index' }))
 					.catch((res: AxiosResponse<ErrorResponse>) => {
-						let inputErrors = {}
-
-						if (res.status == 422) {
-							inputErrors = (res.data as ValidationErrorResponse).errors
-						}
-
-						this.$formulate.handle(
-							{
-								formErrors: [res.data.message],
-								inputErrors,
-							},
-							'main',
-						)
+						this.$formulate.handleApi(res.data, 'main')
 					})
 
 				this.loading.update = false

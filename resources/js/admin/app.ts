@@ -45,8 +45,9 @@ export const i18n = new VueI18n({
 import VueFormulate, { FormulateGlobalInstance } from '@braid/vue-formulate'
 // @ts-ignore
 import { es } from '@braid/vue-formulate-i18n'
+import { formulateHandleApiPlugin } from './utils/formulate-handle-api'
 Vue.use(VueFormulate, {
-	plugins: [es],
+	plugins: [es, formulateHandleApiPlugin],
 	validationNameStrategy: ['validationName', 'label', 'name', 'type'],
 })
 

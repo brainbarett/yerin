@@ -154,19 +154,7 @@
 						this.setUser(res.data.data)
 					})
 					.catch((res: AxiosResponse<ErrorResponse>) => {
-						let inputErrors = {}
-
-						if (res.status == 422) {
-							inputErrors = (res.data as ValidationErrorResponse).errors
-						}
-
-						this.$formulate.handle(
-							{
-								formErrors: [res.data.message],
-								inputErrors,
-							},
-							'account-info',
-						)
+						this.$formulate.handleApi(res.data, 'account-info')
 					})
 
 				this.loading.accountInfo = false
@@ -188,19 +176,7 @@
 						this.$formulate.reset('change-password')
 					})
 					.catch((res: AxiosResponse<ErrorResponse>) => {
-						let inputErrors = {}
-
-						if (res.status == 422) {
-							inputErrors = (res.data as ValidationErrorResponse).errors
-						}
-
-						this.$formulate.handle(
-							{
-								formErrors: [res.data.message],
-								inputErrors,
-							},
-							'change-password',
-						)
+						this.$formulate.handleApi(res.data, 'change-password')
 					})
 
 				this.loading.changePassword = false

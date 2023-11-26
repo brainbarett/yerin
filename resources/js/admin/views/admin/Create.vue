@@ -106,20 +106,8 @@
 				const parsedFormData: StoreRequest = form
 				await AdminApi.store(parsedFormData)
 					.then(res => this.$router.push({ name: 'admin.index' }))
-					.catch((res: AxiosResponse) => {
-						let inputErrors = {}
-
-						if (res.status == 422) {
-							inputErrors = (res.data as ValidationErrorResponse).errors
-						}
-
-						this.$formulate.handle(
-							{
-								formErrors: [(res.data as ErrorResponse).message],
-								inputErrors,
-							},
-							'main',
-						)
+					.catch((res: AxiosResponse<ErrorResponse>) => {
+						this.$formulate.handleApi(res.data, 'main')
 					})
 
 				this.loading = false

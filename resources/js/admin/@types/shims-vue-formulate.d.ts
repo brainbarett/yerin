@@ -103,6 +103,12 @@ declare module '@braid/vue-formulate' {
 		setValues: <V>(formName: string, values: V) => void
 		submit: (formName: string) => void
 		setLocale: (locale: string) => void
+		handleApi: (
+			response:
+				| import('@/services/http').ErrorResponse
+				| import('@/services/http').ValidationErrorResponse,
+			formName: string,
+		) => void | typeof Error
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-empty-interface

@@ -89,20 +89,8 @@
 
 				await AuthApi.login(form)
 					.then(res => this.$router.push('/'))
-					.catch((res: AxiosResponse) => {
-						let inputErrors = {}
-
-						if (res.status == 422) {
-							inputErrors = (res.data as ValidationErrorResponse).errors
-						}
-
-						this.$formulate.handle(
-							{
-								formErrors: [(res.data as ErrorResponse).message],
-								inputErrors,
-							},
-							'main',
-						)
+					.catch((res: AxiosResponse<ErrorResponse>) => {
+						this.$formulate.handleApi(res.data, 'main')
 					})
 
 				this.loading = false

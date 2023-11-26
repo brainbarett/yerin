@@ -167,12 +167,7 @@
 						})
 					})
 					.catch((res: AxiosResponse<ErrorResponse>) => {
-						this.$formulate.handle(
-							{
-								formErrors: [res.data.message],
-							},
-							'update-password',
-						)
+						this.$formulate.handleApi(res.data, 'update-password')
 					})
 					.finally(() => (this.updatePasswordForm.loading = false))
 			},
