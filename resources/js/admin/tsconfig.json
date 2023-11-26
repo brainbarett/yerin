@@ -5,6 +5,7 @@
 		"strict": true,
 		"module": "es2020",
 		"moduleResolution": "node",
+		"typeRoots": ["../../../node_modules/@types", "./@types"],
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./*"]

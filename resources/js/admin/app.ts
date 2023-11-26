@@ -49,6 +49,8 @@ Vue.use(VueFormulate, {
 	plugins: [es],
 	validationNameStrategy: ['validationName', 'label', 'name', 'type'],
 })
+
+/* augmentation can only be declared here @see https://github.com/vuejs/vue/issues/12642 */
 declare module 'vue/types/vue' {
 	interface Vue {
 		$formulate: FormulateGlobalInstance

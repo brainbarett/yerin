@@ -1,10 +1,4 @@
-declare module '*.vue' {
-	import Vue from 'vue'
-	export default Vue
-}
-
 /** @see https://gist.github.com/IlCallo/cc9cacdec7d379c0fc9aa03dca14213c */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 declare module '@braid/vue-formulate' {
 	import { PluginObject } from 'vue'
 
