@@ -25,7 +25,7 @@
 				<div class="sidebar__item">
 					<button @click="logout()" type="button" class="sidebar__button">
 						<icon name="logout" set="outline" class="w-5 h-5 mr-2" />
-						{{ $t('common.auth.logout') }}
+						{{ $t('routes.auth.login.form.logout') }}
 					</button>
 				</div>
 

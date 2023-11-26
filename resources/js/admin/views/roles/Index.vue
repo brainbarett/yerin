@@ -5,7 +5,7 @@
 				<template #extra-content>
 					<Button
 						:to="{ name: 'roles.create' }"
-						:label="$t('routes.roles.index.add-role-btn')"
+						:label="$t('routes.roles.index.add-role')"
 						class="ml-auto"
 					/>
 				</template>
@@ -80,7 +80,7 @@
 				.then(res => (this.rows = res.data.data))
 				.catch((res: AxiosResponse<ErrorResponse>) =>
 					this.fireAlert({
-						title: this.$tc('routes.roles.index.error-fetching-data'),
+						title: this.$tc('common.error-fetching-data'),
 						description: res.data.message,
 						type: 'error',
 					}),

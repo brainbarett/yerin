@@ -5,7 +5,7 @@
 				<template #extra-content v-if="user.can($permissions.realEstate.properties.write)">
 					<Button
 						:to="{ name: 'real-estate.properties.create' }"
-						:label="$t('routes.real-estate.properties.index.add-property-btn')"
+						:label="$t('routes.real-estate.properties.index.add-property')"
 						class="ml-auto"
 					/>
 				</template>
@@ -17,7 +17,7 @@
 				:paginate="true"
 				@error="
 					fireAlert({
-						title: $t('routes.real-estate.properties.index.error-fetching-data'),
+						title: $t('common.error-fetching-data'),
 						description: $event,
 						type: 'error',
 					})

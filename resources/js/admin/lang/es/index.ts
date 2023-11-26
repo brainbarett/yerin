@@ -3,11 +3,9 @@ export default {
 		language: 'Lenguaje',
 		english: 'Ingles',
 		spanish: 'Español',
-		auth: {
-			login: 'Iniciar sesión',
-			logout: 'Cerrar sesión',
-			unauthorized: 'Acción no autorizada',
-		},
+		unauthorized: 'Acción no autorizada',
+		'error-fetching-data': 'Error cargando data',
+		'error-deleting-resource': "Error eliminando '{name}'",
 		form: {
 			add: 'Añadir',
 			update: 'Actualizar',
@@ -18,19 +16,16 @@ export default {
 			save: 'Guardar',
 			saving: 'Guardando',
 			cancel: 'Cancelar',
+			'upload-image': 'Subir Imagenes',
 			fields: {
 				name: 'Nombre',
-				password: 'Contraseña',
 				email: 'Correo',
 				description: 'Descripción',
 				images: 'Imagenes',
 			},
-			'image-upload': {
-				upload: 'Subir Imagenes',
-				'error-uploading': 'Error al subir {name} {error}',
+			messages: {
+				'error-uploading-image': "Error al subir '{name}' {error}",
 			},
-			'update-password': 'Cambiar contraseña',
-			'update-password-success': 'La contraseña fue cambiada con éxito',
 		},
 		country: 'Pais',
 		state: 'Estado',
@@ -67,9 +62,10 @@ export default {
 
 	modals: {
 		'delete-resource': {
+			'attempting-to-delete-resource':
+				'Estás intentando eliminar <span class="underline">{name}</span>',
 			'type-confirm-to-delete': "Por favor escribe 'confirmar' para eliminar",
 			'confirm-keyword': 'confirmar',
-			delete: 'ELIMINAR',
 		},
 	},
 
@@ -77,20 +73,29 @@ export default {
 		auth: {
 			login: {
 				title: 'Bienvenid@!',
+				form: {
+					fields: {
+						password: 'Contraseña',
+					},
+					login: 'Iniciar sesión',
+					logout: 'Cerrar sesión',
+				},
 			},
 
 			profile: {
 				title: 'Mi Cuenta',
 				'account-info': 'Informacion de la cuenta',
 				form: {
+					'update-password': 'Cambiar contraseña',
 					fields: {
 						'old-password': 'Contraseña actual',
 						'new-password': 'Nueva contraseña',
-						'confirm-new-password': 'Confirmación de contraseña',
+						'new-password-confirmation': 'Confirmación de contraseña',
 					},
-				},
-				messages: {
-					'update-account-info-success': 'Contraseña cambiada con éxito',
+					messages: {
+						'update-password-success': 'Contraseña cambiada con éxito',
+						'update-account-success': 'Cuenta actualizada con éxito',
+					},
 				},
 			},
 		},
@@ -98,8 +103,7 @@ export default {
 		admin: {
 			index: {
 				title: 'Gestionar Cuentas Admin',
-				'add-admin-btn': 'Añadir una Cuenta Admin',
-				'error-fetching-data': 'Error cargando data de la tabla',
+				'add-admin': 'Añadir una Cuenta Admin',
 			},
 
 			create: {
@@ -108,22 +112,22 @@ export default {
 
 			edit: {
 				title: 'Editar Cuenta Admin',
-				'error-fetching-account': 'Error cargando data',
-				'error-deleting-account': "Error eliminando '{name}'",
-				'attempting-to-delete-account':
-					'Estás intentando eliminar <span class="underline">{name}</span>',
 				'delete-account-modal-title': 'Eliminar Cuenta Admin',
 			},
 
 			shared: {
 				form: {
+					'update-password': 'Cambiar contraseña',
 					fields: {
+						password: 'Contraseña',
 						'password-confirmation': 'Confirmación de contraseña',
+						'new-password': 'Contraseña nueva',
+						'new-password-confirmation': 'Confirmación de contraseña',
 						role: 'Rol',
 					},
 				},
 				messages: {
-					'password-successfully-updated': 'Contraseña cambiada con éxito',
+					'update-password-success': 'Contraseña cambiada con éxito',
 				},
 			},
 		},
@@ -131,8 +135,7 @@ export default {
 		roles: {
 			index: {
 				title: 'Gestionar Roles y Permisos',
-				'add-role-btn': 'Añadir un Rol',
-				'error-fetching-data': 'Error cargando data de la tabla',
+				'add-role': 'Añadir un Rol',
 			},
 
 			create: {
@@ -141,10 +144,6 @@ export default {
 
 			edit: {
 				title: 'Editar Rol',
-				'error-fetching-role': 'Error cargando data',
-				'error-deleting-role': "Error eliminando '{name}'",
-				'attempting-to-delete-role':
-					'Estás intentando eliminar <span class="underline">{name}</span>',
 				'delete-role-modal-title': 'Eliminar Rol',
 			},
 
@@ -166,8 +165,7 @@ export default {
 			properties: {
 				index: {
 					title: 'Gestionar Propiedades',
-					'add-property-btn': 'Añadir una Propiedad',
-					'error-fetching-data': 'Error cargando data de la tabla',
+					'add-property': 'Añadir una Propiedad',
 				},
 
 				create: {
@@ -176,10 +174,6 @@ export default {
 
 				edit: {
 					title: 'Editar Propiedad',
-					'error-fetching-property': 'Error cargando data',
-					'error-deleting-property': "Error eliminando '{name}'",
-					'attempting-to-delete-property':
-						'Estás intentando eliminar <span class="underline">{name}</span>',
 					'delete-property-modal-title': 'Eliminar Propiedad',
 				},
 

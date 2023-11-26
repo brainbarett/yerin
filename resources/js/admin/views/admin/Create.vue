@@ -41,9 +41,9 @@
 			<div class="form__field-group md:grid-cols-2">
 				<formulate-input
 					name="password"
-					:validation-name="$t('common.form.fields.password')"
+					:validation-name="$t('routes.admin.shared.form.fields.password')"
 					type="password"
-					:label="$t('common.form.fields.password')"
+					:label="$t('routes.admin.shared.form.fields.password')"
 					validation="required"
 				/>
 				<formulate-input

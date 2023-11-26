@@ -33,7 +33,7 @@
 					<icon name="lock-closed" set="outline" class="login-form__input-icon" />
 					<formulate-input
 						name="password"
-						:validation-name="$t('common.form.fields.password')"
+						:validation-name="$t('routes.auth.login.form.fields.password')"
 						type="password"
 						validation="required"
 						@keyup.enter="$formulate.submit('main')"
@@ -44,7 +44,7 @@
 					@click="$formulate.submit('main')"
 					:loading="loading"
 					:disabled="loading"
-					:label="$t('common.auth.login')"
+					:label="$t('routes.auth.login.form.login')"
 					icon="arrow-right"
 					class="w-full"
 				/>

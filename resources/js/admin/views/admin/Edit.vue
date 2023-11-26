@@ -9,7 +9,9 @@
 		>
 			<p
 				v-html="
-					$t('routes.admin.edit.attempting-to-delete-account', { name: resource.name })
+					$t('modals.delete-resource.attempting-to-delete-resource', {
+						name: resource.name,
+					})
 				"
 			></p>
 		</DeleteResourceModal>
@@ -147,7 +149,7 @@
 					.then(res => this.$router.push({ name: 'admin.index' }))
 					.catch((res: AxiosResponse<ErrorResponse>) => {
 						this.fireAlert({
-							title: <string>this.$t('routes.admin.edit.error-deleting-account', {
+							title: <string>this.$t('common.error-deleting-resource', {
 								name: this.resource.name,
 							}),
 							description: res.data.message,
@@ -191,7 +193,7 @@
 						const uiStore = useUiStore()
 
 						uiStore.queueAlert({
-							title: vm.$tc('routes.admin.edit.error-fetching-account'),
+							title: vm.$tc('common.error-fetching-data'),
 							description: res.data.message,
 							type: 'error',
 						})

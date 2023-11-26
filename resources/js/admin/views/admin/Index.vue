@@ -10,19 +10,19 @@
 					<formulate-input
 						v-model="updatePasswordForm.password"
 						name="password"
-						:validation-name="$t('common.form.fields.password')"
+						:validation-name="$t('routes.admin.shared.form.fields.new-password')"
 						type="password"
-						:label="$t('common.form.fields.password')"
+						:label="$t('routes.admin.shared.form.fields.new-password')"
 						validation="required"
 					/>
 					<formulate-input
 						v-model="updatePasswordForm.password_confirm"
 						name="password_confirm"
 						:validation-name="
-							$t('routes.admin.shared.form.fields.password-confirmation')
+							$t('routes.admin.shared.form.fields.new-password-confirmation')
 						"
 						type="password"
-						:label="$t('routes.admin.shared.form.fields.password-confirmation')"
+						:label="$t('routes.admin.shared.form.fields.new-password-confirmation')"
 						validation="required|confirm"
 					/>
 				</div>
@@ -48,7 +48,7 @@
 				<template #extra-content>
 					<Button
 						:to="{ name: 'admin.create' }"
-						:label="$t('routes.admin.index.add-admin-btn')"
+						:label="$t('routes.admin.index.add-admin')"
 						class="ml-auto"
 					/>
 				</template>
@@ -85,7 +85,7 @@
 									showUpdatePasswordForm(row)
 								"
 							>
-								{{ $t('common.form.update-password') }}
+								{{ $t('routes.admin.shared.form.update-password') }}
 							</button>
 						</template>
 					</v-dropdown>
@@ -164,7 +164,9 @@
 					.then(() => {
 						this.closeUpdatePasswordForm()
 						this.fireAlert({
-							title: this.$tc('common.form.update-password-success'),
+							title: this.$tc(
+								'routes.admin.shared.form.messages.update-password-success',
+							),
 							type: 'info',
 						})
 					})
@@ -187,7 +189,7 @@
 				.then(res => (this.rows = res.data.data))
 				.catch((res: AxiosResponse<ErrorResponse>) =>
 					this.fireAlert({
-						title: this.$tc('routes.admin.index.error-fetching-data'),
+						title: this.$tc('common.error-fetching-data'),
 						description: res.data.message,
 						type: 'error',
 					}),

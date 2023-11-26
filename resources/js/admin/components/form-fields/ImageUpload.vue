@@ -17,7 +17,7 @@
 				type="button"
 				class="block w-full rounded p-2 bg-gray-100 border border-dashed border-gray-400 text-center font-medium text-sm uppercase cursor-pointer"
 			>
-				{{ $t('common.form.image-upload.upload') }}
+				{{ $t('common.form.upload-image') }}
 			</button>
 
 			<div v-if="pendingUploads.length" class="gallery">
@@ -137,7 +137,7 @@
 										: res.data.message
 
 								pendingUpload.failedReason = <string>this.$t(
-									'common.form.image-upload.error-uploading',
+									'common.form.messages.error-uploading-image',
 									{
 										name: image.name,
 										error: errorMessage,

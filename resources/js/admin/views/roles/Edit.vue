@@ -8,7 +8,11 @@
 			:loading="loading.destroy"
 		>
 			<p
-				v-html="$t('routes.roles.edit.attempting-to-delete-role', { name: resource.name })"
+				v-html="
+					$t('modals.delete-resource.attempting-to-delete-resource', {
+						name: resource.name,
+					})
+				"
 			></p>
 		</DeleteResourceModal>
 
@@ -140,7 +144,7 @@
 					.then(res => this.$router.push({ name: 'roles.index' }))
 					.catch((res: AxiosResponse<ErrorResponse>) => {
 						this.fireAlert({
-							title: <string>this.$t('routes.roles.edit.error-deleting-role', {
+							title: <string>this.$t('common.error-deleting-resource', {
 								name: this.resource.name,
 							}),
 							description: res.data.message,
@@ -168,7 +172,7 @@
 						const uiStore = useUiStore()
 
 						uiStore.queueAlert({
-							title: vm.$tc('routes.roles.edit.error-fetching-role'),
+							title: vm.$tc('common.error-fetching-data'),
 							description: res.data.message,
 							type: 'error',
 						})

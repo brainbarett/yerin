@@ -63,7 +63,7 @@ router.beforeEach(async (to, from, next) => {
 
 	if (to.meta && Object.hasOwn(to.meta, 'authorize')) {
 		if (!to.meta!.authorize(authStore.user)) {
-			uiStore.queueAlert({ title: i18n.tc('common.auth.unauthorized'), type: 'warning' })
+			uiStore.queueAlert({ title: i18n.tc('common.unauthorized'), type: 'warning' })
 			return next('/')
 		}
 	}

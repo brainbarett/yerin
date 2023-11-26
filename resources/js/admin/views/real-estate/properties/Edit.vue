@@ -9,7 +9,7 @@
 		>
 			<p
 				v-html="
-					$t('routes.real-estate.properties.edit.attempting-to-delete-property', {
+					$t('modals.delete-resource.attempting-to-delete-resource', {
 						name: resource.name,
 					})
 				"
@@ -108,12 +108,9 @@
 					.then(() => this.$router.push({ name: 'real-estate.properties.index' }))
 					.catch((res: AxiosResponse<ErrorResponse>) =>
 						this.fireAlert({
-							title: <string>this.$t(
-								'routes.real-estate.properties.edit.error-deleting-account',
-								{
-									name: this.resource.name,
-								},
-							),
+							title: <string>this.$t('common.error-deleting-resource', {
+								name: this.resource.name,
+							}),
 							description: res.data.message,
 							type: 'error',
 						}),
@@ -135,9 +132,7 @@
 						const uiStore = useUiStore()
 
 						uiStore.queueAlert({
-							title: vm.$tc(
-								'routes.real-estate.properties.edit.error-fetching-account',
-							),
+							title: vm.$tc('common.error-fetching-data'),
 							description: res.data.message,
 							type: 'error',
 						})

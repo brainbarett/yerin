@@ -3,11 +3,9 @@ export default {
 		language: 'Language',
 		english: 'English',
 		spanish: 'Spanish',
-		auth: {
-			login: 'Log in',
-			logout: 'Log out',
-			unauthorized: 'Unauthorized',
-		},
+		unauthorized: 'Unauthorized',
+		'error-fetching-data': 'Error fetching data',
+		'error-deleting-resource': "Error deleting '{name}'",
 		form: {
 			add: 'Add',
 			update: 'Update',
@@ -18,19 +16,16 @@ export default {
 			save: 'Save',
 			saving: 'Saving',
 			cancel: 'Cancel',
+			'upload-image': 'Upload Images',
 			fields: {
 				name: 'Name',
-				password: 'Password',
 				email: 'Email',
 				description: 'Description',
 				images: 'Images',
 			},
-			'image-upload': {
-				upload: 'Upload Images',
-				'error-uploading': 'Error uploading {name} {error}',
+			messages: {
+				'error-uploading-image': "Error uploading '{name}' {error}",
 			},
-			'update-password': 'Change password',
-			'update-password-success': 'Password update successful',
 		},
 		country: 'Country',
 		state: 'State',
@@ -67,9 +62,10 @@ export default {
 
 	modals: {
 		'delete-resource': {
+			'attempting-to-delete-resource':
+				'You are attempting to delete <span class="underline">{name}</span>',
 			'type-confirm-to-delete': "Please type 'confirm' to delete",
 			'confirm-keyword': 'confirm',
-			delete: 'DELETE',
 		},
 	},
 
@@ -77,20 +73,29 @@ export default {
 		auth: {
 			login: {
 				title: 'Welcome back!',
+				form: {
+					fields: {
+						password: 'Password',
+					},
+					login: 'Log in',
+					logout: 'Log out',
+				},
 			},
 
 			profile: {
 				title: 'My Account',
 				'account-info': 'Account Info',
 				form: {
+					'update-password': 'Change password',
 					fields: {
 						'old-password': 'Current password',
 						'new-password': 'New password',
-						'confirm-new-password': 'New password confirmation',
+						'new-password-confirmation': 'New password confirmation',
 					},
-				},
-				messages: {
-					'update-account-info-success': 'Password successfully updated',
+					messages: {
+						'update-password-success': 'Password update successful',
+						'update-account-success': 'Account info update successful',
+					},
 				},
 			},
 		},
@@ -98,8 +103,7 @@ export default {
 		admin: {
 			index: {
 				title: 'Manage Admin Accounts',
-				'add-admin-btn': 'Add an Admin Account',
-				'error-fetching-data': 'Error fetching table data',
+				'add-admin': 'Add an Admin Account',
 			},
 
 			create: {
@@ -108,21 +112,21 @@ export default {
 
 			edit: {
 				title: 'Edit Admin Account',
-				'error-fetching-account': 'Error fetching data',
-				'error-deleting-account': "Error deleting '{name}'",
-				'attempting-to-delete-account':
-					'You are attempting to delete <span class="underline">{name}</span>',
 				'delete-account-modal-title': 'Delete Admin Account',
 			},
 
 			shared: {
 				form: {
+					'update-password': 'Change password',
 					fields: {
+						password: 'Password',
 						'password-confirmation': 'Password confirmation',
+						'new-password': 'New password',
+						'new-password-confirmation': 'New password confirmation',
 						role: 'Role',
 					},
 					messages: {
-						'password-successfully-updated': 'Password successfully updated',
+						'update-password-success': 'Password update successful',
 					},
 				},
 			},
@@ -131,8 +135,7 @@ export default {
 		roles: {
 			index: {
 				title: 'Manage Roles and Permissions',
-				'add-role-btn': 'Add a Role',
-				'error-fetching-data': 'Error fetching table data',
+				'add-role': 'Add a Role',
 			},
 
 			create: {
@@ -141,10 +144,6 @@ export default {
 
 			edit: {
 				title: 'Edit Role',
-				'error-fetching-role': 'Error fetching data',
-				'error-deleting-role': "Error deleting '{name}'",
-				'attempting-to-delete-role':
-					'You are attempting to delete <span class="underline">{name}</span>',
 				'delete-role-modal-title': 'Delete Role',
 			},
 
@@ -166,8 +165,7 @@ export default {
 			properties: {
 				index: {
 					title: 'Manage Properties',
-					'add-property-btn': 'Add a Property',
-					'error-fetching-data': 'Error fetching table data',
+					'add-property': 'Add a Property',
 				},
 
 				create: {
@@ -176,10 +174,6 @@ export default {
 
 				edit: {
 					title: 'Edit Property',
-					'error-fetching-property': 'Error fetching data',
-					'error-deleting-property': "Error deleting '{name}'",
-					'attempting-to-delete-property':
-						'You are attempting to delete <span class="underline">{name}</span>',
 					'delete-property-modal-title': 'Delete Property',
 				},
 

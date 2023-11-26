@@ -52,7 +52,7 @@
 			name="change-password"
 			class="resource-form__section !gap-6"
 		>
-			<h2>{{ $t('common.form.update-password') }}</h2>
+			<h2>{{ $t('routes.auth.profile.form.update-password') }}</h2>
 
 			<div class="form__field-group md:grid-cols-3">
 				<formulate-input
@@ -71,9 +71,11 @@
 				/>
 				<formulate-input
 					name="password_confirm"
-					:validation-name="$t('routes.auth.profile.form.fields.confirm-new-password')"
+					:validation-name="
+						$t('routes.auth.profile.form.fields.new-password-confirmation')
+					"
 					type="password"
-					:label="$t('routes.auth.profile.form.fields.confirm-new-password')"
+					:label="$t('routes.auth.profile.form.fields.new-password-confirmation')"
 					validation="required|confirm"
 				/>
 			</div>
@@ -152,7 +154,7 @@
 					.then(res => {
 						this.fireAlert({
 							title: this.$tc(
-								'routes.auth.profile.messages.update-account-info-success',
+								'routes.auth.profile.form.messages.update-account-success',
 							),
 							type: 'info',
 						})
@@ -185,7 +187,9 @@
 				await AdminApi.updatePassword(this.user!.id, form)
 					.then(() => {
 						this.fireAlert({
-							title: this.$tc('common.form.update-password-success'),
+							title: this.$tc(
+								'routes.auth.profile.form.messages.update-password-success',
+							),
 							type: 'info',
 						})
 
