@@ -1,7 +1,7 @@
-import properties from './properties'
-import features from './features'
+import { featuresPermissions } from './features'
+import { propertiesPermissions } from './properties'
 
-export default {
-	features,
-	properties,
+export const realEstatePermissions = {
+	features: featuresPermissions,
+	properties: propertiesPermissions,
 }

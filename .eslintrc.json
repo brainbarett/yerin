@@ -1,27 +1,38 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:vue/vue3-essential"
-    ],
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "parser": "@typescript-eslint/parser",
-        "sourceType": "module"
-    },
-    "plugins": [
-        "@typescript-eslint",
-        "vue"
-    ],
-    "rules": {
+	"env": {
+		"browser": true,
+		"es2021": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:vue/vue3-essential"
+	],
+	"parserOptions": {
+		"ecmaVersion": "latest",
+		"parser": "@typescript-eslint/parser",
+		"sourceType": "module"
+	},
+	"plugins": ["@typescript-eslint", "vue", "eslint-plugin-import"],
+	"rules": {
+		"no-mixed-spaces-and-tabs": "off",
+		"no-extra-semi": "off",
 		"@typescript-eslint/ban-ts-comment": "off",
 		"@typescript-eslint/no-explicit-any": "off",
-		"import/no-anonymous-default-export": "off",
 		"vue/multi-word-component-names": "off",
-		"vue/no-reserved-component-names": "off"
-	}
+		"vue/no-reserved-component-names": "off",
+		"import/no-default-export": "error"
+	},
+	"overrides": [
+		{
+			"files": ["*.vue"],
+			"rules": { "import/no-default-export": "off" }
+		},
+		{
+			"files": ["*.ts", "*.vue"],
+			"rules": {
+				"no-undef": "off"
+			}
+		}
+	]
 }

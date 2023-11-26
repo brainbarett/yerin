@@ -1,5 +1,5 @@
-import realEstate from './real-estate'
+import { realEstatePermissions } from './real-estate'
 
-export default {
-	realEstate,
+export const permissions = {
+	realEstate: realEstatePermissions,
 }

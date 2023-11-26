@@ -26,7 +26,7 @@
 		},
 
 		computed: {
-			colorObject() {
+			colorObject(): string {
 				switch (this.color) {
 					case 'white':
 						return '!border-t-white'
@@ -39,6 +39,9 @@
 
 					case 'gray':
 						return '!border-t-gray-500'
+
+					default:
+						return 'invalid-color-object'
 				}
 			},
 		},

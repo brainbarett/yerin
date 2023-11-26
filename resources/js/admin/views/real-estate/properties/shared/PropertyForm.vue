@@ -6,7 +6,7 @@
 		name="main"
 		class="resource-form"
 	>
-		<div class="flex flex-col lg:flex-row items-start gap-6">
+		<div class="flex flex-col items-start gap-6 lg:flex-row">
 			<div class="sidebar">
 				<Header :title="title" :back="{ name: 'real-estate.properties.index' }" />
 
@@ -201,14 +201,14 @@
 							<div
 								v-for="(feature, index) in form.features"
 								:key="index"
-								class="flex justify-between items-center gap-2 border-b border-gray-300 pb-1 w-full overflow-hidden"
+								class="flex items-center justify-between w-full gap-2 pb-1 overflow-hidden border-b border-gray-300"
 							>
 								<span class="overflow-hidden whitespace-nowrap text-ellipsis">{{
 									features.find(element => element.id == feature).name
 								}}</span>
 
 								<button type="button" @click="form.features.splice(index, 1)">
-									<icon name="x" set="solid" class="h-5 w-5" />
+									<icon name="x" set="solid" class="w-5 h-5" />
 								</button>
 							</div>
 						</template>
@@ -259,17 +259,17 @@
 
 				<div id="listings" class="resource-form__section">
 					<div class="form__field-group">
-						<div class="grid gap-2 lg:grid-cols-10 items-center lg:gap-12">
-							<div class="lg:col-span-2 flex items-center gap-2">
+						<div class="grid items-center gap-2 lg:grid-cols-10 lg:gap-12">
+							<div class="flex items-center gap-2 lg:col-span-2">
 								<input
 									type="checkbox"
 									id="listing-type-sale-checkbox"
 									v-model="enabledListingTypes.SALE"
-									class="h-5 w-5 cursor-pointer"
+									class="w-5 h-5 cursor-pointer"
 								/>
 								<label
 									for="listing-type-sale-checkbox"
-									class="whitespace-nowrap cursor-pointer"
+									class="cursor-pointer whitespace-nowrap"
 									>{{
 										$t(
 											'routes.real-estate.properties.shared.form.fields.sale-price',
@@ -292,17 +292,17 @@
 							/>
 						</div>
 
-						<div class="grid gap-2 lg:grid-cols-10 items-center lg:gap-12">
-							<div class="lg:col-span-2 flex items-center gap-2">
+						<div class="grid items-center gap-2 lg:grid-cols-10 lg:gap-12">
+							<div class="flex items-center gap-2 lg:col-span-2">
 								<input
 									type="checkbox"
 									id="listing-type-rent-checkbox"
 									v-model="enabledListingTypes.RENT"
-									class="h-5 w-5 cursor-pointer"
+									class="w-5 h-5 cursor-pointer"
 								/>
 								<label
 									for="listing-type-rent-checkbox"
-									class="whitespace-nowrap cursor-pointer"
+									class="cursor-pointer whitespace-nowrap"
 									>{{
 										$t(
 											'routes.real-estate.properties.shared.form.fields.rent-terms',
@@ -341,15 +341,15 @@
 	import Vue, { PropType } from 'vue'
 	import Header from '@/components/Header.vue'
 	import ImageUpload from '@/components/form-fields/ImageUpload.vue'
-	import CKEditorSettings from '@/utils/ckeditor-settings'
-	import useUiStore from '@/stores/ui'
+	import { CKEditorSettings } from '@/utils/ckeditor-settings'
+	import { useUiStore } from '@/stores/ui'
 	import { Property, propertyTypes, rentTerms } from '@/services/real-estate/properties'
-	import GeoLocationsApi from '@/services/geo-locations'
+	import { GeoLocationsApi } from '@/services/geo-locations'
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse } from '@/services/http'
 	import { PropertyForm } from './types'
 	import { Image } from '@/services/images'
-	import FeaturesApi, { Feature } from '@/services/real-estate/features'
+	import { FeaturesApi, Feature } from '@/services/real-estate/features'
 	import Button from '@/components/Button.vue'
 	import { mapActions } from 'pinia'
 

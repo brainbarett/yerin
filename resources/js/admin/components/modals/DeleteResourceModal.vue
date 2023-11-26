@@ -12,7 +12,7 @@
 					<input
 						v-model="confirmation"
 						type="text"
-						class="box-border px-3 py-2 bg-white border border-gray-300 rounded w-full"
+						class="box-border w-full px-3 py-2 bg-white border border-gray-300 rounded"
 						:disabled="loading"
 					/>
 					<button

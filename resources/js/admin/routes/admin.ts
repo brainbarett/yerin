@@ -4,7 +4,7 @@ import Index from '@/views/admin/Index.vue'
 import Edit from '@/views/admin/Edit.vue'
 import { User } from '@/stores/auth'
 
-const routes: RouteConfig[] = [
+const adminRoutes: RouteConfig[] = [
 	{
 		path: '/admin-accounts',
 		name: 'admin.index',
@@ -33,4 +33,4 @@ const routes: RouteConfig[] = [
 	},
 ]
 
-export default routes
+export { adminRoutes }

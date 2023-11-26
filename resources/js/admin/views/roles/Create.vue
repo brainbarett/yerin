@@ -15,7 +15,7 @@
 				</div>
 			</div>
 
-			<div class="resource-form__section p-0">
+			<div class="p-0 resource-form__section">
 				<Permissions
 					:selected="form.permissions"
 					@add-permission="form.permissions.push($event)"
@@ -43,9 +43,9 @@
 	import { Layout } from '@/layouts/main'
 	import Header from '@/components/Header.vue'
 	import Button from '@/components/Button.vue'
-	import RolesApi, { StoreRequest } from '@/services/roles'
+	import { RolesApi, StoreRequest } from '@/services/roles'
 	import { AxiosResponse } from 'axios'
-	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
+	import { ErrorResponse } from '@/services/http'
 	import Permissions from './shared/Permissions.vue'
 
 	type Form = {

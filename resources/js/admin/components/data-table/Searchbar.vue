@@ -4,11 +4,11 @@
 			<icon
 				name="search"
 				set="zondicons"
-				class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
+				class="absolute w-4 h-4 text-gray-500 -translate-y-1/2 left-3 top-1/2"
 			/>
 
 			<input
-				class="bg-white border border-gray-300 rounded h-9 max-w-xs text-sm pl-9 pr-6"
+				class="max-w-xs pr-6 text-sm bg-white border border-gray-300 rounded h-9 pl-9"
 				type="text"
 				v-model="searchTerm"
 				@keyup="keyupSearch"
@@ -20,7 +20,7 @@
 				type="button"
 				v-if="searchTerm != ''"
 				@click="clearSearch"
-				class="h-full px-2 absolute right-0 top-0"
+				class="absolute top-0 right-0 h-full px-2"
 			>
 				<icon name="x" class="w-3 h-3 text-gray-500" />
 			</button>

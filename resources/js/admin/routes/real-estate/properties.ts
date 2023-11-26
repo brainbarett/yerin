@@ -3,9 +3,9 @@ import Index from '@/views/real-estate/properties/Index.vue'
 import Create from '@/views/real-estate/properties/Create.vue'
 import Edit from '@/views/real-estate/properties/Edit.vue'
 import { User } from '@/stores/auth'
-import permissions from '@/permissions'
+import { permissions } from '@/permissions'
 
-const routes: RouteConfig[] = [
+const propertiesRoutes: RouteConfig[] = [
 	{
 		path: '/real-estate/properties',
 		name: 'real-estate.properties.index',
@@ -32,4 +32,4 @@ const routes: RouteConfig[] = [
 	},
 ]
 
-export default routes
+export { propertiesRoutes }

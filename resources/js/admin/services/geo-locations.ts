@@ -1,9 +1,9 @@
-import http, { Response } from './http'
+import { http, Response } from './http'
 import { AxiosPromise } from 'axios'
 
 const baseUrl: string = '/geo-locations'
 
-export default {
+export const GeoLocationsApi = {
 	index(): AxiosPromise<Response<GeoLocations>> {
 		return http.get(baseUrl)
 	},

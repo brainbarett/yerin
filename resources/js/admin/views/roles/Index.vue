@@ -15,7 +15,7 @@
 				:loading="loading"
 				:columns="columns"
 				:rows="rows"
-				class="mt-3 h-full overflow-hidden"
+				class="h-full mt-3 overflow-hidden"
 			>
 				<template #row="{ row, field }">
 					<router-link
@@ -24,7 +24,7 @@
 					>
 						<span
 							v-if="row.super_admin"
-							class="text-xs px-2 font-bold rounded bg-amber-200 text-yellow-600 mr-2"
+							class="px-2 mr-2 text-xs font-bold text-yellow-600 rounded bg-amber-200"
 						>
 							Super Admin
 						</span>
@@ -44,10 +44,10 @@
 	import Button from '@/components/Button.vue'
 	import { Column } from '@/components/data-table/types'
 	import { default as DataGrid } from '@/components/data-table/Table.vue'
-	import RolesApi, { Role } from '@/services/roles'
+	import { RolesApi, Role } from '@/services/roles'
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse } from '@/services/http'
-	import useUiStore from '@/stores/ui'
+	import { useUiStore } from '@/stores/ui'
 	import { mapActions } from 'pinia'
 
 	export default Vue.extend({

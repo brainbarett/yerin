@@ -1,5 +1,5 @@
 import { Language } from '@/services/admin'
-import app, { i18n } from '@/app'
+import { app, i18n } from '@/app'
 import { defineStore } from 'pinia'
 import { default as AlertComponent } from '@/components/Alert.vue'
 
@@ -9,7 +9,7 @@ export type Alert = {
 	type: 'info' | 'warning' | 'error'
 }
 
-export default defineStore('ui', {
+export const useUiStore = defineStore('ui', {
 	state: () => ({
 		language: null as Language | null,
 		queuedAlerts: [] as Alert[],

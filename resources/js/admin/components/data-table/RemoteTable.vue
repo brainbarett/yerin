@@ -89,7 +89,7 @@
 			return {
 				searchTerm: '' as string,
 				page: 1,
-				rows: [] as Object[],
+				rows: [] as object[],
 				searchable: this.columns
 					.filter(column => column.searchable)
 					.map(column => column.field),

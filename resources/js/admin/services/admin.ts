@@ -1,10 +1,10 @@
-import http, { Response } from './http'
+import { http, Response } from './http'
 import { AxiosPromise } from 'axios'
 import { Role } from './roles'
 
 const baseUrl: string = '/admin'
 
-export default {
+export const AdminApi = {
 	index(): AxiosPromise<Response<Admin[]>> {
 		return http.get(baseUrl)
 	},

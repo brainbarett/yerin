@@ -1,11 +1,11 @@
-import http, { Response, PaginatedResponse, PaginationRequest, SearchRequest } from '../http'
+import { http, Response, PaginatedResponse, PaginationRequest, SearchRequest } from '../http'
 import { AxiosPromise } from 'axios'
 import { Image } from '../images'
 import { Feature } from './features'
 
 const baseUrl: string = '/real-estate/properties'
 
-export default {
+export const PropertiesApi = {
 	index<TResponse = Response<Property[]>>(filters: IndexRequest): AxiosPromise<TResponse> {
 		const query = new URLSearchParams()
 

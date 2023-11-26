@@ -23,7 +23,7 @@
 	import Vue from 'vue'
 	import { Layout } from '@/layouts/main'
 	import Button from '@/components/Button.vue'
-	import PropertiesApi from '@/services/real-estate/properties'
+	import { PropertiesApi } from '@/services/real-estate/properties'
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
 	import PropertyForm from './shared/PropertyForm.vue'

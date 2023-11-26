@@ -22,7 +22,7 @@
 						type: 'error',
 					})
 				"
-				class="mt-3 h-full overflow-hidden"
+				class="h-full mt-3 overflow-hidden"
 			>
 				<template #row="{ row, field }">
 					<component
@@ -54,7 +54,7 @@
 
 					<div v-else-if="field == 'available'" class="flex justify-center">
 						<span
-							class="block whitespace-nowrap text-xs text-center px-2 py-1 rounded text-white"
+							class="block px-2 py-1 text-xs text-center text-white rounded whitespace-nowrap"
 							:class="row.available ? 'bg-blue-500' : 'bg-gray-400'"
 						>
 							{{
@@ -81,10 +81,10 @@
 	import Button from '@/components/Button.vue'
 	import { Column, RemoteApi } from '@/components/data-table/types'
 	import { default as DataGrid } from '@/components/data-table/RemoteTable.vue'
-	import PropertiesApi, { propertyTypes, Property } from '@/services/real-estate/properties'
-	import useUiStore from '@/stores/ui'
+	import { PropertiesApi, propertyTypes, Property } from '@/services/real-estate/properties'
+	import { useUiStore } from '@/stores/ui'
 	import { mapActions, mapState } from 'pinia'
-	import useAuthStore from '@/stores/auth'
+	import { useAuthStore } from '@/stores/auth'
 
 	export default Vue.extend({
 		components: { Layout, Header, Button, DataGrid },

@@ -1,12 +1,12 @@
 import VueRouter from 'vue-router'
-import AuthApi from '@/services/auth'
+import { AuthApi } from '@/services/auth'
 import Dashboard from '@/views/Dashboard.vue'
 import Login from '@/views/auth/Login.vue'
-import admin from '@/routes/admin'
-import roles from '@/routes/roles'
-import realEstate from '@/routes/real-estate'
-import useAuthStore from '@/stores/auth'
-import useUiStore from '@/stores/ui'
+import { adminRoutes } from '@/routes/admin'
+import { rolesRoutes } from '@/routes/roles'
+import { realEstateRoutes } from '@/routes/real-estate'
+import { useAuthStore } from '@/stores/auth'
+import { useUiStore } from '@/stores/ui'
 import { i18n } from '@/app'
 import Profile from '@/views/auth/Profile.vue'
 
@@ -31,9 +31,9 @@ const router = new VueRouter({
 			component: Profile,
 		},
 
-		...admin,
-		...roles,
-		...realEstate,
+		...adminRoutes,
+		...rolesRoutes,
+		...realEstateRoutes,
 	],
 })
 
@@ -71,4 +71,4 @@ router.beforeEach(async (to, from, next) => {
 	return next()
 })
 
-export default router
+export { router }

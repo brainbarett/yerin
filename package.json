@@ -2,6 +2,7 @@
 	"private": true,
 	"scripts": {
 		"format": "prettier --write resources/js/",
+		"lint": "npx eslint resources/js/**",
 		"dev": "npm run mix",
 		"watch": "mix watch",
 		"watch-poll": "mix watch -- --watch-options-poll=1000",
@@ -20,6 +21,7 @@
 		"browser-sync": "^2.29.3",
 		"browser-sync-webpack-plugin": "^2.3.0",
 		"eslint": "^8.49.0",
+		"eslint-plugin-import": "^2.29.0",
 		"eslint-plugin-vue": "^9.17.0",
 		"floating-vue": "^1.0.0-beta.19",
 		"laravel-mix": "^6.0.6",

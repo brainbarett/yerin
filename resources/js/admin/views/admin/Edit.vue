@@ -74,13 +74,13 @@
 	import { Layout } from '@/layouts/main'
 	import Header from '@/components/Header.vue'
 	import Button from '@/components/Button.vue'
-	import AdminApi, { Admin, Language, UpdateRequest } from '@/services/admin'
+	import { AdminApi, Admin, Language, UpdateRequest } from '@/services/admin'
 	import { AxiosResponse } from 'axios'
-	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
+	import { ErrorResponse } from '@/services/http'
 	import DeleteResourceModal from '@/components/modals/DeleteResourceModal.vue'
-	import useUiStore from '@/stores/ui'
+	import { useUiStore } from '@/stores/ui'
 	import { mapActions } from 'pinia'
-	import RolesApi from '@/services/roles'
+	import { RolesApi } from '@/services/roles'
 
 	type Form = {
 		name: string
@@ -118,7 +118,7 @@
 
 				const parsedFormData: UpdateRequest = form
 				await AdminApi.update(this.resource.id, parsedFormData)
-					.then(res => this.$router.push({ name: 'admin.index' }))
+					.then(() => this.$router.push({ name: 'admin.index' }))
 					.catch((res: AxiosResponse<ErrorResponse>) => {
 						this.$formulate.handleApi(res.data, 'main')
 					})
@@ -130,7 +130,7 @@
 				this.loading.destroy = true
 
 				await AdminApi.destroy(this.resource.id)
-					.then(res => this.$router.push({ name: 'admin.index' }))
+					.then(() => this.$router.push({ name: 'admin.index' }))
 					.catch((res: AxiosResponse<ErrorResponse>) => {
 						this.fireAlert({
 							title: <string>this.$t('common.error-deleting-resource', {

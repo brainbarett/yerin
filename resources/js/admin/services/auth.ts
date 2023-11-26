@@ -1,10 +1,10 @@
 import { Admin } from './admin'
-import http, { Response } from './http'
+import { http, Response } from './http'
 import { AxiosPromise } from 'axios'
 
 const baseUrl: string = '/auth'
 
-export default {
+export const AuthApi = {
 	login(data: LoginRequest): AxiosPromise<Response<Admin>> {
 		return http.post(`${baseUrl}/login`, data)
 	},

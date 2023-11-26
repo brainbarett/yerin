@@ -49,16 +49,16 @@
 	import Vue from 'vue'
 	import { Layout } from '@/layouts/main'
 	import Button from '@/components/Button.vue'
-	import PropertiesApi, { Property } from '@/services/real-estate/properties'
+	import { PropertiesApi, Property } from '@/services/real-estate/properties'
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
 	import DeleteResourceModal from '@/components/modals/DeleteResourceModal.vue'
 	import PropertyForm from './shared/PropertyForm.vue'
 	import { parseOutboundPropertyForm } from './shared/helpers'
 	import { PropertyForm as PropertyFormType } from './shared/types'
-	import useUiStore from '@/stores/ui'
+	import { useUiStore } from '@/stores/ui'
 	import { mapActions, mapState } from 'pinia'
-	import useAuthStore from '@/stores/auth'
+	import { useAuthStore } from '@/stores/auth'
 
 	export default Vue.extend({
 		components: { Layout, Button, PropertyForm, DeleteResourceModal },

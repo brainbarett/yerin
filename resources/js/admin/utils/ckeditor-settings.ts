@@ -1,7 +1,7 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/es'
 
-export default {
+export const CKEditorSettings = {
 	editor: ClassicEditor,
 	config: {
 		// prettier-ignore

@@ -54,7 +54,7 @@
 				:loading="loading"
 				:columns="columns"
 				:rows="rows"
-				class="mt-3 h-full overflow-hidden"
+				class="h-full mt-3 overflow-hidden"
 				hasActions
 			>
 				<template #row="{ row, field }">
@@ -67,9 +67,9 @@
 				</template>
 
 				<template #row-actions="{ row }">
-					<v-dropdown placement="left" class="w-fit ml-auto">
-						<button type="button" class="rounded p-1 bg-gray-100 block ml-auto">
-							<icon name="dots-horizontal" set="outline" class="h-5 w-5" />
+					<v-dropdown placement="left" class="ml-auto w-fit">
+						<button type="button" class="block p-1 ml-auto bg-gray-100 rounded">
+							<icon name="dots-horizontal" set="outline" class="w-5 h-5" />
 						</button>
 
 						<template #popper="{ hide }">
@@ -98,11 +98,11 @@
 	import Button from '@/components/Button.vue'
 	import { Column } from '@/components/data-table/types'
 	import { default as DataGrid } from '@/components/data-table/Table.vue'
-	import AdminApi, { Admin } from '@/services/admin'
+	import { AdminApi, Admin } from '@/services/admin'
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse } from '@/services/http'
 	import Modal from '@/components/modals/Modal.vue'
-	import useUiStore from '@/stores/ui'
+	import { useUiStore } from '@/stores/ui'
 	import { mapActions } from 'pinia'
 
 	export default Vue.extend({

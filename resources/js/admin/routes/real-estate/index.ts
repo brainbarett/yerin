@@ -1,3 +1,3 @@
-import properties from './properties'
+import { propertiesRoutes } from './properties'
 
-export default [...properties]
+export const realEstateRoutes = [...propertiesRoutes]

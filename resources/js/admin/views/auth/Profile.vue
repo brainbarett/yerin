@@ -90,12 +90,12 @@
 	import { Layout } from '@/layouts/main'
 	import Header from '@/components/Header.vue'
 	import Button from '@/components/Button.vue'
-	import useAuthStore from '@/stores/auth'
+	import { useAuthStore } from '@/stores/auth'
 	import { mapActions, mapState } from 'pinia'
-	import AdminApi, { Language } from '@/services/admin'
+	import { AdminApi, Language } from '@/services/admin'
 	import { AxiosResponse } from 'axios'
-	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
-	import useUiStore from '@/stores/ui'
+	import { ErrorResponse } from '@/services/http'
+	import { useUiStore } from '@/stores/ui'
 
 	type AccountInfo = {
 		name: string

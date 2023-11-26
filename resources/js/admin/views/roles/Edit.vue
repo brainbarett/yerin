@@ -16,11 +16,11 @@
 			></p>
 		</DeleteResourceModal>
 
-		<div class="flex flex-col gap-2 items-start">
+		<div class="flex flex-col items-start gap-2">
 			<Header :title="$t('routes.roles.edit.title')" :back="{ name: 'roles.index' }" />
 			<span
 				v-if="resource.super_admin"
-				class="px-2 font-bold rounded bg-amber-200 text-yellow-600 mr-2"
+				class="px-2 mr-2 font-bold text-yellow-600 rounded bg-amber-200"
 			>
 				Super Admin
 			</span>
@@ -39,7 +39,7 @@
 				</div>
 			</div>
 
-			<div v-if="!resource.super_admin" class="resource-form__section p-0">
+			<div v-if="!resource.super_admin" class="p-0 resource-form__section">
 				<Permissions
 					:selected="form.permissions"
 					@add-permission="form.permissions.push($event)"
@@ -76,12 +76,12 @@
 	import { Layout } from '@/layouts/main'
 	import Header from '@/components/Header.vue'
 	import Button from '@/components/Button.vue'
-	import RolesApi, { Role, UpdateRequest } from '@/services/roles'
+	import { RolesApi, Role, UpdateRequest } from '@/services/roles'
 	import { AxiosResponse } from 'axios'
-	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
+	import { ErrorResponse } from '@/services/http'
 	import Permissions from './shared/Permissions.vue'
 	import DeleteResourceModal from '@/components/modals/DeleteResourceModal.vue'
-	import useUiStore from '@/stores/ui'
+	import { useUiStore } from '@/stores/ui'
 	import { mapActions } from 'pinia'
 
 	type Form = {
@@ -116,7 +116,7 @@
 
 				const parsedFormData: UpdateRequest = form
 				await RolesApi.update(this.resource.id, parsedFormData)
-					.then(res => this.$router.push({ name: 'roles.index' }))
+					.then(() => this.$router.push({ name: 'roles.index' }))
 					.catch((res: AxiosResponse<ErrorResponse>) => {
 						this.$formulate.handleApi(res.data, 'main')
 					})
@@ -128,7 +128,7 @@
 				this.loading.destroy = true
 
 				await RolesApi.destroy(this.resource.id)
-					.then(res => this.$router.push({ name: 'roles.index' }))
+					.then(() => this.$router.push({ name: 'roles.index' }))
 					.catch((res: AxiosResponse<ErrorResponse>) => {
 						this.fireAlert({
 							title: <string>this.$t('common.error-deleting-resource', {

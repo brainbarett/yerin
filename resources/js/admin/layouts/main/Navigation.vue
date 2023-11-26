@@ -23,9 +23,9 @@
 	import Sidebar from './Sidebar.vue'
 	import { NavigationMenu } from './types'
 	import { mapActions, mapState } from 'pinia'
-	import useUiStore from '@/stores/ui'
-	import useAuthStore from '@/stores/auth'
-	import permissions from '@/permissions'
+	import { useUiStore } from '@/stores/ui'
+	import { useAuthStore } from '@/stores/auth'
+	import { permissions } from '@/permissions'
 
 	export default Vue.extend({
 		components: { Sidebar },

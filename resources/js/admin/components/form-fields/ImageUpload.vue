@@ -2,7 +2,7 @@
 	<div>
 		<label class="input-label">{{ label || $t('common.form.fields.images') }}</label>
 
-		<div class="bg-gray-200 rounded box-border p-2 w-full">
+		<div class="box-border w-full p-2 bg-gray-200 rounded">
 			<input
 				ref="fileUploadInput"
 				type="file"
@@ -15,7 +15,7 @@
 			<button
 				@click="$refs.fileUploadInput.click()"
 				type="button"
-				class="block w-full rounded p-2 bg-gray-100 border border-dashed border-gray-400 text-center font-medium text-sm uppercase cursor-pointer"
+				class="block w-full p-2 text-sm font-medium text-center uppercase bg-gray-100 border border-gray-400 border-dashed rounded cursor-pointer"
 			>
 				{{ $t('common.form.upload-image') }}
 			</button>
@@ -35,7 +35,7 @@
 							<icon name="x" set="solid" />
 						</button>
 
-						<div class="gallery-item__container w-full box-border p-4">
+						<div class="box-border w-full p-4 gallery-item__container">
 							<icon
 								name="exclamation-solid"
 								set="zondicons"
@@ -69,7 +69,7 @@
 						</button>
 					</div>
 
-					<img :src="image.sizes.small" class="gallery-item__container cursor-pointer" />
+					<img :src="image.sizes.small" class="cursor-pointer gallery-item__container" />
 				</div>
 			</Draggable>
 		</div>
@@ -78,7 +78,7 @@
 
 <script lang="ts">
 	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
-	import ImagesApi, { Image } from '@/services/images'
+	import { ImagesApi, Image } from '@/services/images'
 	import { AxiosResponse } from 'axios'
 	import Vue, { PropType } from 'vue'
 	import Draggable from 'vuedraggable'

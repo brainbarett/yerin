@@ -117,5 +117,6 @@ declare module '@braid/vue-formulate' {
 	}
 
 	const VueFormulate: PluginObject<VueFormulateOptions>
+	// eslint-disable-next-line import/no-default-export
 	export default VueFormulate
 }

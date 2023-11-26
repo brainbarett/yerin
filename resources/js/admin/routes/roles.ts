@@ -4,7 +4,7 @@ import Create from '@/views/roles/Create.vue'
 import Edit from '@/views/roles/Edit.vue'
 import { User } from '@/stores/auth'
 
-const routes: RouteConfig[] = [
+const rolesRoutes: RouteConfig[] = [
 	{
 		path: '/roles',
 		name: 'roles.index',
@@ -33,4 +33,4 @@ const routes: RouteConfig[] = [
 	},
 ]
 
-export default routes
+export { rolesRoutes }

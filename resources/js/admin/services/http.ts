@@ -16,7 +16,7 @@ http.interceptors.response.use(
 	(error: AxiosError) => Promise.reject(error.response),
 )
 
-export default http
+export { http }
 
 export interface Response<TEntity = { [field: string]: any } | Array<{ [field: string]: any }>> {
 	data: TEntity

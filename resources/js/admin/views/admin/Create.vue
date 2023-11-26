@@ -65,12 +65,12 @@
 	import { Layout } from '@/layouts/main'
 	import Header from '@/components/Header.vue'
 	import Button from '@/components/Button.vue'
-	import AdminApi, { Language, StoreRequest } from '@/services/admin'
+	import { AdminApi, Language, StoreRequest } from '@/services/admin'
 	import { AxiosResponse } from 'axios'
-	import { ErrorResponse, ValidationErrorResponse } from '@/services/http'
-	import RolesApi from '@/services/roles'
+	import { ErrorResponse } from '@/services/http'
+	import { RolesApi } from '@/services/roles'
 	import { mapActions } from 'pinia'
-	import useUiStore from '@/stores/ui'
+	import { useUiStore } from '@/stores/ui'
 
 	type Form = {
 		name: string
@@ -105,7 +105,7 @@
 
 				const parsedFormData: StoreRequest = form
 				await AdminApi.store(parsedFormData)
-					.then(res => this.$router.push({ name: 'admin.index' }))
+					.then(() => this.$router.push({ name: 'admin.index' }))
 					.catch((res: AxiosResponse<ErrorResponse>) => {
 						this.$formulate.handleApi(res.data, 'main')
 					})

@@ -16,13 +16,13 @@
 				:key="index"
 				:class="{ hidden: index != activeFeature }"
 			>
-				<div class="grid lg:grid-cols-3 sm:grid-cols-2 gap-4">
+				<div class="grid gap-4 lg:grid-cols-3 sm:grid-cols-2">
 					<div
 						v-for="(entity, index) in domain.entities"
 						:key="index"
-						class="bg-gray-100 rounded overflow-hidden"
+						class="overflow-hidden bg-gray-100 rounded"
 					>
-						<span class="bg-gray-200 px-4 py-2 font-medium block text-sm">{{
+						<span class="block px-4 py-2 text-sm font-medium bg-gray-200">{{
 							entity.label
 						}}</span>
 						<ul class="flex flex-col gap-2 p-4">
@@ -33,7 +33,7 @@
 								<label class="flex items-center gap-2 cursor-pointer"
 									><input
 										type="checkbox"
-										class="h-5 w-5 cursor-pointer"
+										class="w-5 h-5 cursor-pointer"
 										@change="togglePermission(permissionKey)"
 										:checked="selected.includes(permissionKey)"
 									/>
@@ -50,7 +50,7 @@
 
 <script lang="ts">
 	import Vue, { PropType } from 'vue'
-	import permissions from '@/permissions'
+	import { permissions } from '@/permissions'
 
 	type Features = {
 		[domain: string]: {

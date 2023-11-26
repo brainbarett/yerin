@@ -10,8 +10,8 @@
 			<header class="flex items-center">
 				<span class="font-medium">{{ title }}</span>
 
-				<button @click="$emit('close')" type="button" class="ml-auto box-border">
-					<icon name="x" set="solid" class="h-6 w-6" />
+				<button @click="$emit('close')" type="button" class="box-border ml-auto">
+					<icon name="x" set="solid" class="w-6 h-6" />
 				</button>
 			</header>
 

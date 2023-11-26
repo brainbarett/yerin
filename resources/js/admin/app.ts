@@ -35,7 +35,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import VueI18n from 'vue-i18n'
-import translations from '@/lang'
+import { translations } from '@/lang'
 Vue.use(VueI18n)
 export const i18n = new VueI18n({
 	fallbackLocale: 'en',
@@ -58,11 +58,11 @@ declare module 'vue/types/vue' {
 	}
 }
 
-import permissions from './permissions'
+import { permissions } from './permissions'
 Vue.prototype.$permissions = permissions
 
-import router from './router'
-export default new Vue({
+import { router } from './router'
+export const app = new Vue({
 	el: '#app',
 	render: h => h('router-view'),
 	router,
@@ -70,5 +70,5 @@ export default new Vue({
 	i18n,
 })
 
-import useUiStore from '@/stores/ui'
+import { useUiStore } from '@/stores/ui'
 useUiStore().setLanguage(useUiStore().language || 'en')

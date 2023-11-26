@@ -49,10 +49,10 @@
 	import Vue from 'vue'
 	import { PropType } from 'vue/types/v3-component-props'
 	import { NavigationMenu } from './types'
-	import useAuthStore from '@/stores/auth'
+	import { useAuthStore } from '@/stores/auth'
 	import { mapActions, mapState } from 'pinia'
-	import AuthApi from '@/services/auth'
-	import useUiStore from '@/stores/ui'
+	import { AuthApi } from '@/services/auth'
+	import { useUiStore } from '@/stores/ui'
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse } from '@/services/http'
 

@@ -1,9 +1,9 @@
-import http, { Response } from './http'
+import { http, Response } from './http'
 import { AxiosPromise } from 'axios'
 
 const baseUrl: string = '/roles'
 
-export default {
+export const RolesApi = {
 	index(): AxiosPromise<Response<Role[]>> {
 		return http.get(baseUrl)
 	},

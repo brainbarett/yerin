@@ -1,10 +1,10 @@
 <template>
-	<div :class="type" class="bg-white border-l-4 rounded w-full flex gap-3 p-3">
+	<div :class="type" class="flex w-full gap-3 p-3 bg-white border-l-4 rounded">
 		<span class="box-border">
-			<icon :name="icon" set="outline" class="h-6 w-6 icon" />
+			<icon :name="icon" set="outline" class="w-6 h-6 icon" />
 		</span>
 
-		<div class="text-sm box-border" :class="{ 'flex items-center': !description }">
+		<div class="box-border text-sm" :class="{ 'flex items-center': !description }">
 			<h1 class="font-bold uppercase">{{ title }}</h1>
 			<p v-if="description">{{ description }}</p>
 		</div>
@@ -14,7 +14,7 @@
 			type="button"
 			class="self-start ml-auto cursor-pointer"
 		>
-			<icon name="x" set="solid" class="h-4 w-4" />
+			<icon name="x" set="solid" class="w-4 h-4" />
 		</button>
 	</div>
 </template>

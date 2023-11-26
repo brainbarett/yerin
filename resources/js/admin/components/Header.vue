@@ -1,6 +1,6 @@
 <template>
 	<div class="flex items-center">
-		<router-link v-if="back" :to="back" class="p-1 mr-2 bg-white rounded shadow self-start">
+		<router-link v-if="back" :to="back" class="self-start p-1 mr-2 bg-white rounded shadow">
 			<icon name="chevron-left" class="w-6 h-6" />
 		</router-link>
 
