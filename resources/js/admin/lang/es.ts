@@ -212,6 +212,17 @@ export default {
 					},
 				},
 			},
+
+			features: {
+				index: {
+					title: 'Gestionar Amenidades',
+					'add-feature': 'Añadir una Amenidad',
+					'delete-feature-modal-title': 'Eliminar Amenidad',
+					'create-amenity-success': 'Amenidad creada con éxito',
+					'update-amenity-success': 'Amenidad actualizada con éxito',
+					'destroy-amenity-success': 'Amenidad eliminada con éxito',
+				},
+			},
 		},
 	},
 }

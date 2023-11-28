@@ -1,6 +1,6 @@
 <template>
 	<div class="sticky top-0 z-50 md:z-0">
-		<div class="md:hidden flex items-center h-12 bg-gray-900 w-full px-3">
+		<div class="flex items-center w-full h-12 px-3 bg-gray-900 md:hidden">
 			<button type="button" class="flex items-center text-white" @click="toggleSidebar()">
 				<icon name="menu" set="outline" class="w-5 h-5 mr-2" />
 				Menu
@@ -41,6 +41,13 @@
 							icon: 'home',
 							active: this.$route.name?.startsWith('real-estate.properties.'),
 							show: user => user.can(permissions.realEstate.properties.read),
+						},
+						{
+							label: this.$tc('menu.features'),
+							routerLocation: { name: 'real-estate.features.index' },
+							icon: 'star',
+							active: this.$route.name?.startsWith('real-estate.features.'),
+							show: user => user.can(permissions.realEstate.features.read),
 						},
 					],
 				},

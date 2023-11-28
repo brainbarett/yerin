@@ -212,6 +212,17 @@ export default {
 					},
 				},
 			},
+
+			features: {
+				index: {
+					title: 'Manage Amenities',
+					'add-feature': 'Add Amenity',
+					'delete-feature-modal-title': 'Delete Amenity',
+					'create-amenity-success': 'Amenity successfully created',
+					'update-amenity-success': 'Amenity successfully updated',
+					'destroy-amenity-success': 'Amenity successfully deleted',
+				},
+			},
 		},
 	},
 }
