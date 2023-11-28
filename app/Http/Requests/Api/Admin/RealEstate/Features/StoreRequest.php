@@ -16,7 +16,6 @@ class StoreRequest extends FormRequest
      */
     public function authorize()
     {
-		abort(501);
         return $this->user()->can(FeaturesPermissions::WRITE());
     }
 

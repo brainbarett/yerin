@@ -94,6 +94,23 @@
 								),
 							},
 						},
+
+						features: {
+							label: this.$tc('menu.features'),
+							permissions: {
+								[permissions.realEstate.features.read]: this.$tc(
+									'routes.roles.shared.permissions.view',
+								),
+
+								[permissions.realEstate.features.write]: this.$tc(
+									'routes.roles.shared.permissions.write',
+								),
+
+								[permissions.realEstate.features.delete]: this.$tc(
+									'routes.roles.shared.permissions.delete',
+								),
+							},
+						},
 					},
 				},
 			}
