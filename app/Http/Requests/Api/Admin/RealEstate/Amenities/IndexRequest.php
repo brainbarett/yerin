@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Api\Admin\RealEstate\Features;
+namespace App\Http\Requests\Api\Admin\RealEstate\Amenities;
 
-use App\Enums\Permissions\RealEstate\Features as FeaturesPermissions;
+use App\Enums\Permissions\RealEstate\Amenities as AmenitiesPermissions;
+use App\Enums\Permissions\RealEstate\Properties as PropertiesPermissions;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DestroyRequest extends FormRequest
+class IndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +15,7 @@ class DestroyRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can(FeaturesPermissions::DELETE());
+        return $this->user()->canAny([AmenitiesPermissions::READ(), PropertiesPermissions::WRITE()]);
     }
 
     /**

@@ -19,7 +19,7 @@
 
 					<div class="sidebar__item">
 						<a href="#amenities" class="sidebar__button">{{
-							$t('routes.real-estate.properties.shared.form.sections.features')
+							$t('routes.real-estate.properties.shared.form.sections.amenities')
 						}}</a>
 					</div>
 
@@ -174,40 +174,40 @@
 					<div class="form__field-group">
 						<div>
 							<label class="input-label">{{
-								$t('routes.real-estate.properties.shared.form.sections.features')
+								$t('routes.real-estate.properties.shared.form.sections.amenities')
 							}}</label>
 							<div class="flex items-center gap-2">
-								<select ref="featureSelector" class="input-field">
+								<select ref="amenitySelector" class="input-field">
 									<option
-										v-for="(feature, index) in remainingFeatures"
+										v-for="(amenity, index) in remainingAmenities"
 										:key="index"
-										:value="feature.id"
+										:value="amenity.id"
 									>
-										{{ feature.name }}
+										{{ amenity.name }}
 									</option>
 								</select>
 
 								<Button
 									:label="$t('common.form.add')"
-									@click="addFeature"
-									:disabled="!remainingFeatures.length"
+									@click="addAmenity"
+									:disabled="!remainingAmenities.length"
 								/>
 							</div>
 						</div>
 					</div>
 
-					<div v-if="form.features.length" class="form__field-group lg:grid-cols-4">
-						<template v-if="features.length">
+					<div v-if="form.amenities.length" class="form__field-group lg:grid-cols-4">
+						<template v-if="amenities.length">
 							<div
-								v-for="(feature, index) in form.features"
+								v-for="(amenity, index) in form.amenities"
 								:key="index"
 								class="flex items-center justify-between w-full gap-2 pb-1 overflow-hidden border-b border-gray-300"
 							>
 								<span class="overflow-hidden whitespace-nowrap text-ellipsis">{{
-									features.find(element => element.id == feature).name
+									amenities.find(element => element.id == amenity).name
 								}}</span>
 
-								<button type="button" @click="form.features.splice(index, 1)">
+								<button type="button" @click="form.amenities.splice(index, 1)">
 									<icon name="x" set="solid" class="w-5 h-5" />
 								</button>
 							</div>
@@ -349,7 +349,7 @@
 	import { ErrorResponse } from '@/services/http'
 	import { PropertyForm } from './types'
 	import { Image } from '@/services/images'
-	import { FeaturesApi, Feature } from '@/services/real-estate/features'
+	import { AmenitiesApi, Amenity } from '@/services/real-estate/amenities'
 	import Button from '@/components/Button.vue'
 	import { mapActions } from 'pinia'
 
@@ -384,7 +384,7 @@
 			return {
 				form: {
 					images: [] as Image[],
-					features: [] as number[],
+					amenities: [] as number[],
 					listings: {
 						SALE: null,
 						RENT: {
@@ -416,7 +416,7 @@
 					cityId: null as number | null,
 					sectorId: null as number | null,
 				},
-				features: [] as Feature[],
+				amenities: [] as Amenity[],
 			}
 		},
 
@@ -439,8 +439,8 @@
 				)
 			},
 
-			remainingFeatures(): Feature[] {
-				return this.features.filter(feature => !this.form.features.includes(feature.id))
+			remainingAmenities(): Amenity[] {
+				return this.amenities.filter(amenity => !this.form.amenities.includes(amenity.id))
 			},
 		},
 
@@ -500,9 +500,9 @@
 		methods: {
 			...mapActions(useUiStore, ['fireAlert']),
 
-			addFeature() {
-				this.form.features.unshift(
-					Number((this.$refs.featureSelector as HTMLSelectElement).value),
+			addAmenity() {
+				this.form.amenities.unshift(
+					Number((this.$refs.amenitySelector as HTMLSelectElement).value),
 				)
 			},
 
@@ -553,12 +553,12 @@
 					}),
 				)
 
-			FeaturesApi.index()
+			AmenitiesApi.index()
 				.then(res => {
-					this.features = res.data.data
+					this.amenities = res.data.data
 
 					if (this.resource) {
-						this.form.features = this.resource.features.map(feature => feature.id)
+						this.form.amenities = this.resource.amenities.map(amenity => amenity.id)
 					}
 				})
 				.catch((res: AxiosResponse<ErrorResponse>) =>
@@ -578,7 +578,7 @@
 					location_id: this.resource.location.sector_id,
 					available: this.resource.available ? 'true' : 'false',
 					description: this.resource.description || '',
-					features: this.resource.features.map(feature => feature.id),
+					amenities: this.resource.amenities.map(amenity => amenity.id),
 				}
 
 				this.enabledListingTypes.RENT = Object.values(this.form.listings.RENT).some(

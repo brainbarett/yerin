@@ -41,7 +41,7 @@ export default {
 		'real-estate': 'Real Estate',
 		system: 'System',
 		roles: 'Roles',
-		features: 'Amenities',
+		amenities: 'Amenities',
 	},
 
 	'real-estate': {
@@ -205,7 +205,7 @@ export default {
 						},
 						sections: {
 							'basic-info': 'Basic info',
-							features: 'Amenities',
+							amenities: 'Amenities',
 							images: 'Images',
 							listings: 'Listings',
 						},
@@ -213,11 +213,11 @@ export default {
 				},
 			},
 
-			features: {
+			amenities: {
 				index: {
 					title: 'Manage Amenities',
-					'add-feature': 'Add Amenity',
-					'delete-feature-modal-title': 'Delete Amenity',
+					'add-amenity': 'Add Amenity',
+					'delete-amenity-modal-title': 'Delete Amenity',
 					'create-amenity-success': 'Amenity successfully created',
 					'update-amenity-success': 'Amenity successfully updated',
 					'destroy-amenity-success': 'Amenity successfully deleted',

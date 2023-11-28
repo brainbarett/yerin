@@ -62,7 +62,7 @@
 
 		<DeleteResourceModal
 			v-if="form.destroy.visible"
-			:title="$t('routes.real-estate.features.index.delete-feature-modal-title')"
+			:title="$t('routes.real-estate.amenities.index.delete-amenity-modal-title')"
 			@close="form.destroy.visible = false"
 			@confirm="destroy()"
 			:loading="form.destroy.loading"
@@ -77,10 +77,10 @@
 		</DeleteResourceModal>
 
 		<div class="flex flex-col h-full">
-			<Header :title="$t('routes.real-estate.features.index.title')">
+			<Header :title="$t('routes.real-estate.amenities.index.title')">
 				<template #extra-content>
 					<Button
-						:label="$t('routes.real-estate.features.index.add-feature')"
+						:label="$t('routes.real-estate.amenities.index.add-amenity')"
 						class="ml-auto"
 						@click="showCreateForm()"
 					/>
@@ -108,7 +108,7 @@
 	import { Layout } from '@/layouts/main'
 	import Header from '@/components/Header.vue'
 	import Button from '@/components/Button.vue'
-	import { FeaturesApi, Feature } from '@/services/real-estate/features'
+	import { AmenitiesApi, Amenity } from '@/services/real-estate/amenities'
 	import { default as DataGrid } from '@/components/data-table/Table.vue'
 	import Modal from '@/components/modals/Modal.vue'
 	import DeleteResourceModal from '@/components/modals/DeleteResourceModal.vue'
@@ -118,13 +118,13 @@
 	import { useUiStore } from '@/stores/ui'
 	import { mapActions } from 'pinia'
 
-	type FeatureForm = { name: string }
+	type AmenityForm = { name: string }
 
 	export default Vue.extend({
 		components: { Layout, Header, Button, DataGrid, Modal, DeleteResourceModal },
 
 		data() {
-			const columns: Column<keyof Feature>[] = [
+			const columns: Column<keyof Amenity>[] = [
 				{
 					label: this.$tc('common.form.fields.name'),
 					field: 'name',
@@ -135,27 +135,27 @@
 			return {
 				loadingTable: false,
 				columns,
-				rows: [] as Feature[],
+				rows: [] as Amenity[],
 				form: {
 					create: {
 						visible: false,
 						loading: false,
 						fields: {
 							name: '' as string,
-						} as FeatureForm,
+						} as AmenityForm,
 					},
 					update: {
 						visible: false,
 						loading: false,
 						fields: {
 							name: '' as string,
-						} as FeatureForm,
-						resource: {} as Feature,
+						} as AmenityForm,
+						resource: {} as Amenity,
 					},
 					destroy: {
 						visible: false,
 						loading: false,
-						resource: {} as Feature,
+						resource: {} as Amenity,
 					},
 				},
 			}
@@ -167,7 +167,7 @@
 			fetchTableData() {
 				this.loadingTable = true
 
-				FeaturesApi.index()
+				AmenitiesApi.index()
 					.then(res => (this.rows = res.data.data))
 					.catch((res: AxiosResponse<ErrorResponse>) =>
 						this.fireAlert({
@@ -185,26 +185,26 @@
 				this.form.create.visible = true
 			},
 
-			showUpdateForm(feature: Feature) {
-				this.form.update.resource = feature
-				this.form.update.fields.name = feature.name
+			showUpdateForm(amenity: Amenity) {
+				this.form.update.resource = amenity
+				this.form.update.fields.name = amenity.name
 				this.form.update.visible = true
 			},
 
-			showDestroyForm(feature: Feature) {
-				this.form.destroy.resource = feature
+			showDestroyForm(amenity: Amenity) {
+				this.form.destroy.resource = amenity
 				this.form.destroy.visible = true
 			},
 
-			async create(form: FeatureForm) {
+			async create(form: AmenityForm) {
 				this.form.create.loading = true
 
-				await FeaturesApi.store(form)
+				await AmenitiesApi.store(form)
 					.then(() => {
 						this.form.create.visible = false
 						this.fireAlert({
 							title: this.$tc(
-								'routes.real-estate.features.index.create-amenity-success',
+								'routes.real-estate.amenities.index.create-amenity-success',
 							),
 							type: 'info',
 						})
@@ -216,15 +216,15 @@
 
 				this.form.create.loading = false
 			},
-			async update(form: FeatureForm) {
+			async update(form: AmenityForm) {
 				this.form.update.loading = true
 
-				await FeaturesApi.update(this.form.update.resource.id, form)
+				await AmenitiesApi.update(this.form.update.resource.id, form)
 					.then(() => {
 						this.form.update.visible = false
 						this.fireAlert({
 							title: this.$tc(
-								'routes.real-estate.features.index.update-amenity-success',
+								'routes.real-estate.amenities.index.update-amenity-success',
 							),
 							type: 'info',
 						})
@@ -239,13 +239,13 @@
 			async destroy() {
 				this.form.destroy.loading = true
 
-				await FeaturesApi.destroy(this.form.destroy.resource.id)
+				await AmenitiesApi.destroy(this.form.destroy.resource.id)
 					.then(() => {
 						this.form.update.visible = false
 						this.form.destroy.visible = false
 						this.fireAlert({
 							title: this.$tc(
-								'routes.real-estate.features.index.destroy-amenity-success',
+								'routes.real-estate.amenities.index.destroy-amenity-success',
 							),
 							type: 'info',
 						})
@@ -268,3 +268,4 @@
 		},
 	})
 </script>
+@/services/real-estate/amenities

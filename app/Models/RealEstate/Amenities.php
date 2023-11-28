@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Features extends Model
+class Amenities extends Model
 {
     use HasFactory;
 
-	protected $table = 'real_estate_features';
+	protected $table = 'real_estate_amenities';
 	protected $guarded = [];
 
 	protected static function booted()

@@ -1,7 +1,7 @@
 import { http, Response, PaginatedResponse, PaginationRequest, SearchRequest } from '../http'
 import { AxiosPromise } from 'axios'
 import { Image } from '../images'
-import { Feature } from './features'
+import { Amenity } from './amenities'
 
 const baseUrl: string = '/real-estate/properties'
 
@@ -70,7 +70,7 @@ export type Property = {
 		country_id: number
 	}
 
-	features: Feature[]
+	amenities: Amenity[]
 
 	listings: {
 		SALE: number | null
@@ -93,12 +93,12 @@ export type StoreRequest = Omit<
 	| 'latitude'
 	| 'longitude'
 	| 'location'
-	| 'features'
+	| 'amenities'
 > & {
 	latitude: number | null
 	longitude: number | null
 	location_id: number
-	features: number[]
+	amenities: number[]
 	images: Array<{ id: number; order: number }>
 	listings: {
 		SALE?: number

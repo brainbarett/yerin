@@ -41,7 +41,7 @@ export default {
 		'real-estate': 'Bienes Raices',
 		system: 'Sistema',
 		roles: 'Roles',
-		features: 'Amenidades',
+		amenities: 'Amenidades',
 	},
 
 	'real-estate': {
@@ -205,7 +205,7 @@ export default {
 						},
 						sections: {
 							'basic-info': 'Información basica',
-							features: 'Amenidades',
+							amenities: 'Amenidades',
 							images: 'Imagenes',
 							listings: 'Anuncios',
 						},
@@ -213,11 +213,11 @@ export default {
 				},
 			},
 
-			features: {
+			amenities: {
 				index: {
 					title: 'Gestionar Amenidades',
-					'add-feature': 'Añadir una Amenidad',
-					'delete-feature-modal-title': 'Eliminar Amenidad',
+					'add-amenity': 'Añadir una Amenidad',
+					'delete-amenity-modal-title': 'Eliminar Amenidad',
 					'create-amenity-success': 'Amenidad creada con éxito',
 					'update-amenity-success': 'Amenidad actualizada con éxito',
 					'destroy-amenity-success': 'Amenidad eliminada con éxito',

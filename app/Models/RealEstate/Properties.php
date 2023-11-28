@@ -20,21 +20,21 @@ class Properties extends Model
 		return $this->hasMany(PropertyListings::class, 'property_id');
 	}
 
-	public function features()
+	public function amenities()
 	{
 		return $this->hasManyThrough(
-			Features::class,
-			PropertyFeatures::class,
+			Amenities::class,
+			PropertyAmenities::class,
 			'property_id',
 			'id',
 			'id',
-			'feature_id'
+			'amenity_id'
 		);
 	}
 
-	public function featuresPivot()
+	public function amenitiesPivot()
 	{
-		return $this->hasMany(PropertyFeatures::class, 'property_id');
+		return $this->hasMany(PropertyAmenities::class, 'property_id');
 	}
 
 	public function syncListings(array $listings)
@@ -62,16 +62,16 @@ class Properties extends Model
 		}
 	}
 
-	public function syncFeatures(array $featureIds)
+	public function syncAmenities(array $amenityIds)
 	{
-		$this->featuresPivot()->whereNotIn('feature_id', $featureIds)->delete();
+		$this->amenitiesPivot()->whereNotIn('amenity_id', $amenityIds)->delete();
 
 		$timestamp = now();
-		$dataToInsert = collect($featureIds)
-			->diff($this->featuresPivot()->pluck('feature_id'))
-			->map(function($featureId) use($timestamp) {
+		$dataToInsert = collect($amenityIds)
+			->diff($this->amenitiesPivot()->pluck('amenity_id'))
+			->map(function($amenityId) use($timestamp) {
 				return [
-					'feature_id' => $featureId,
+					'amenity_id' => $amenityId,
 					'property_id' => $this->id,
 					'created_at' => $timestamp,
 					'updated_at' => $timestamp
@@ -79,7 +79,7 @@ class Properties extends Model
 			})
 			->toArray();
 
-		$this->featuresPivot()->insert($dataToInsert);
+		$this->amenitiesPivot()->insert($dataToInsert);
 	}
 
 	public function scopeSearch(Builder $query, string $string)

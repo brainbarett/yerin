@@ -4,7 +4,7 @@ namespace App\Http\Resources\Api\Admin\RealEstate;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class FeaturesResource extends JsonResource
+class AmenitiesResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Enums\Permissions\RealEstate\Features as FeaturesPermissions;
+use App\Enums\Permissions\RealEstate\Amenities as AmenitiesPermissions;
 use App\Enums\Permissions\RealEstate\Properties as PropertiesPermissions;
 use App\Models\Permissions;
 use Illuminate\Database\Seeder;
@@ -22,7 +22,7 @@ class PermissionsSeeder extends Seeder
 			]);
 		}
 
-        foreach(FeaturesPermissions::values() as $permission) {
+        foreach(AmenitiesPermissions::values() as $permission) {
 			Permissions::firstOrCreate([
 				'name' => $permission
 			]);

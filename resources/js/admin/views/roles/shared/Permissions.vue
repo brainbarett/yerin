@@ -95,18 +95,18 @@
 							},
 						},
 
-						features: {
-							label: this.$tc('menu.features'),
+						amenities: {
+							label: this.$tc('menu.amenities'),
 							permissions: {
-								[permissions.realEstate.features.read]: this.$tc(
+								[permissions.realEstate.amenities.read]: this.$tc(
 									'routes.roles.shared.permissions.view',
 								),
 
-								[permissions.realEstate.features.write]: this.$tc(
+								[permissions.realEstate.amenities.write]: this.$tc(
 									'routes.roles.shared.permissions.write',
 								),
 
-								[permissions.realEstate.features.delete]: this.$tc(
+								[permissions.realEstate.amenities.delete]: this.$tc(
 									'routes.roles.shared.permissions.delete',
 								),
 							},

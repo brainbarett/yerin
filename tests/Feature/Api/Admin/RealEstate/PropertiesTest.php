@@ -7,7 +7,7 @@ use App\Http\Resources\Api\Admin\RealEstate\PropertiesResource;
 use App\Models\Admin;
 use App\Models\Images;
 use App\Models\ModelImages;
-use App\Models\RealEstate\Features;
+use App\Models\RealEstate\Amenities;
 use App\Models\RealEstate\Properties;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\Sanctum;
@@ -54,14 +54,14 @@ class PropertiesTest extends ApiTestCase
 						'order' => $index
 					];
 				})->toArray(),
-				'features' => Features::factory(3)->create()->pluck('id')->toArray(),
+				'amenities' => Amenities::factory(3)->create()->pluck('id')->toArray(),
 			]),
 
 			// only for sale
 			$this->payload([
 				'listings' => ['SALE' => $this->faker->randomNumber(3)],
 				'images' => [],
-				'features' => [],
+				'amenities' => [],
 			]),
 
 			// only for rent
@@ -75,7 +75,7 @@ class PropertiesTest extends ApiTestCase
 					],
 				],
 				'images' => [],
-				'features' => [],
+				'amenities' => [],
 			]),
 
 			// only images
@@ -87,14 +87,14 @@ class PropertiesTest extends ApiTestCase
 					];
 				})->toArray(),
 				'listings' => null,
-				'features' => [],
+				'amenities' => [],
 			]),
 
-			// only features
+			// only amenities
 			$this->payload([
 				'images' => [],
 				'listings' => null,
-				'features' => Features::factory(3)->create()->pluck('id')->toArray(),
+				'amenities' => Amenities::factory(3)->create()->pluck('id')->toArray(),
 			]),
 		];
 
@@ -105,7 +105,7 @@ class PropertiesTest extends ApiTestCase
 					'RENT' => [$term => $this->faker->randomNumber(3)],
 				],
 				'images' => [],
-				'features' => [],
+				'amenities' => [],
 			]);
 		}
 
@@ -159,10 +159,10 @@ class PropertiesTest extends ApiTestCase
 					);
 					break;
 
-				case 'features':
+				case 'amenities':
 					$this->assertEqualsCanonicalizing(
 						$value,
-						$property->features->pluck('id')->toArray()
+						$property->amenities->pluck('id')->toArray()
 					);
 					break;
 					

@@ -1,4 +1,4 @@
 import { propertiesRoutes } from './properties'
-import { featuresRoutes } from './features'
+import { amenitiesRoutes } from './amenities'
 
-export const realEstateRoutes = [...propertiesRoutes, ...featuresRoutes]
+export const realEstateRoutes = [...propertiesRoutes, ...amenitiesRoutes]

@@ -21,7 +21,7 @@ class PropertiesController extends Controller
     {
 		$data = $request->validated();
 
-		$properties = Properties::with(['listings', 'images', 'location', 'features'])
+		$properties = Properties::with(['listings', 'images', 'location', 'amenities'])
 			->when(isset($data['search']) && !is_null($data['search']), function(Builder $query) use($data) {
 				return $query->search($data['search']);
 			})
@@ -44,14 +44,14 @@ class PropertiesController extends Controller
 		$data = $request->validated();
 
 		$property = DB::transaction(function() use($data) {
-			$property = Properties::create(Arr::except($data, ['listings', 'images', 'features']));
+			$property = Properties::create(Arr::except($data, ['listings', 'images', 'amenities']));
 
 			if($data['listings']) {
 				$property->syncListings($data['listings']);
 			}
 
 			$property->syncImages($data['images']);
-			$property->syncFeatures($data['features']);
+			$property->syncAmenities($data['amenities']);
 
 			return $property;
 		});
@@ -64,10 +64,10 @@ class PropertiesController extends Controller
 		$data = $request->validated();
 
 		DB::transaction(function() use($property, $data) {
-			$property->update(Arr::except($data, ['listings', 'images', 'features']));
+			$property->update(Arr::except($data, ['listings', 'images', 'amenities']));
 			$property->syncListings($data['listings'] ?? []);
 			$property->syncImages($data['images']);
-			$property->syncFeatures($data['features']);
+			$property->syncAmenities($data['amenities']);
 		});
 
 		return PropertiesResource::make($property->refresh());

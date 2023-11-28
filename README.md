@@ -76,7 +76,7 @@ You can then run all the tests with
     -   ✅ Property management
 
         -   ✅ Create and modify properties
-        -   ✅ Manage and assign property features
+        -   ✅ Manage and assign property amenities
         -   ✅ Images
         -   ✅ Geographical locations
 

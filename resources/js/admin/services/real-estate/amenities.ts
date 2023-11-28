@@ -1,10 +1,10 @@
 import { http, Response } from '../http'
 import { AxiosPromise } from 'axios'
 
-const baseUrl: string = '/real-estate/features'
+const baseUrl: string = '/real-estate/amenities'
 
-export const FeaturesApi = {
-	index(): AxiosPromise<Response<Feature[]>> {
+export const AmenitiesApi = {
+	index(): AxiosPromise<Response<Amenity[]>> {
 		return http.get(baseUrl)
 	},
 
@@ -21,7 +21,7 @@ export const FeaturesApi = {
 	},
 }
 
-export type Feature = {
+export type Amenity = {
 	id: number
 	name: string
 }

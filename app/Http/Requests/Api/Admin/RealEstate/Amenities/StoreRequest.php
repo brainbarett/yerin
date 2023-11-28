@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Api\Admin\RealEstate\Features;
+namespace App\Http\Requests\Api\Admin\RealEstate\Amenities;
 
-use App\Enums\Permissions\RealEstate\Features as FeaturesPermissions;
-use App\Enums\Permissions\RealEstate\Properties as PropertiesPermissions;
+use App\Enums\Permissions\RealEstate\Amenities as AmenitiesPermissions;
+use App\Models\RealEstate\Amenities;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class IndexRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +16,7 @@ class IndexRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->canAny([FeaturesPermissions::READ(), PropertiesPermissions::WRITE()]);
+        return $this->user()->can(AmenitiesPermissions::WRITE());
     }
 
     /**
@@ -26,7 +27,7 @@ class IndexRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'string', Rule::unique(Amenities::class)]
         ];
     }
 }

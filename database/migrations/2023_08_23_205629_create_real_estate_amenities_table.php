@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('real_estate_property_features', function (Blueprint $table) {
+        Schema::create('real_estate_amenities', function (Blueprint $table) {
             $table->id();
-			$table->foreignId('property_id')->constrained('real_estate_properties')->cascadeOnDelete();
-			$table->foreignId('feature_id')->constrained('real_estate_features')->cascadeOnDelete();
+			$table->string('name')->unique();
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('real_estate_property_features');
+        Schema::dropIfExists('real_estate_amenities');
     }
 };
