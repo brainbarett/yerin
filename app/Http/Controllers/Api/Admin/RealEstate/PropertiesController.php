@@ -41,36 +41,16 @@ class PropertiesController extends Controller
 
     public function store(StoreRequest $request)
     {
-		$data = $request->validated();
-
-		$property = DB::transaction(function() use($data) {
-			$property = Properties::create(Arr::except($data, ['listings', 'images', 'amenities']));
-
-			if($data['listings']) {
-				$property->syncListings($data['listings']);
-			}
-
-			$property->syncImages($data['images']);
-			$property->syncAmenities($data['amenities']);
-
-			return $property;
-		});
+		$property = $this->upstore($request->validated());
 
         return PropertiesResource::make($property);
     }
 
 	public function update(UpdateRequest $request, Properties $property)
 	{
-		$data = $request->validated();
+		$property = $this->upstore($request->validated(), $property);
 
-		DB::transaction(function() use($property, $data) {
-			$property->update(Arr::except($data, ['listings', 'images', 'amenities']));
-			$property->syncListings($data['listings'] ?? []);
-			$property->syncImages($data['images']);
-			$property->syncAmenities($data['amenities']);
-		});
-
-		return PropertiesResource::make($property->refresh());
+		return PropertiesResource::make($property);
 	}
 
 	public function destroy(DestroyRequest $request, Properties $property)
@@ -79,4 +59,21 @@ class PropertiesController extends Controller
 
         return response()->json([], 204);
     }
+
+	private function upstore(array $data, Properties $property = null): Properties
+	{
+		if(is_null($property)) {
+			$property = new Properties();
+		}
+
+		return DB::transaction(function() use($data, $property) {
+			$property->fill(Arr::except($data, ['listings', 'images', 'amenities']))->save();
+			
+			$property->syncListings($data['listings'] ?? []);
+			$property->syncImages($data['images']);
+			$property->syncAmenities($data['amenities']);
+
+            return $property;
+        });
+	}
 }
