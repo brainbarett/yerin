@@ -3,7 +3,7 @@
 namespace Tests\Feature\Api\Admin;
 
 use App\Http\Resources\Api\Admin\GeoLocationsResource;
-use App\Models\Admin;
+use App\Models\Users;
 use App\Models\GeoLocation\Cities;
 use App\Models\GeoLocation\Countries;
 use App\Models\GeoLocation\Sectors;
@@ -19,7 +19,7 @@ class GeoLocationTest extends ApiTestCase
 	{
 		parent::setUp();
 		
-		Sanctum::actingAs(Admin::factory()->create(), ['*'], 'admin');
+		Sanctum::actingAs(Users::factory()->create(), ['*'], 'admin');
 	}
 
     /** @test */

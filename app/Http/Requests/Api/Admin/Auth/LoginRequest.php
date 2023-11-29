@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Api\Admin\Auth;
 
-use App\Models\Admin;
+use App\Models\Users;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -26,7 +26,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'string', 'email', Rule::exists(Admin::class)],
+            'email' => ['required', 'string', 'email', Rule::exists(Users::class)],
             'password' => ['required', 'string']
         ];
     }

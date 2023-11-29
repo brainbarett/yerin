@@ -92,7 +92,7 @@
 	import Button from '@/components/Button.vue'
 	import { useAuthStore } from '@/stores/auth'
 	import { mapActions, mapState } from 'pinia'
-	import { AdminApi, Language } from '@/services/admin'
+	import { UsersApi, Language } from '@/services/users'
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse } from '@/services/http'
 	import { useUiStore } from '@/stores/ui'
@@ -142,7 +142,7 @@
 				this.loading.accountInfo = true
 				this.$formulate.resetValidation('account-info')
 
-				await AdminApi.update(this.user!.id, form)
+				await UsersApi.update(this.user!.id, form)
 					.then(res => {
 						this.fireAlert({
 							title: this.$tc(
@@ -164,7 +164,7 @@
 				this.loading.changePassword = true
 				this.$formulate.resetValidation('change-password')
 
-				await AdminApi.updatePassword(this.user!.id, form)
+				await UsersApi.updatePassword(this.user!.id, form)
 					.then(() => {
 						this.fireAlert({
 							title: this.$tc(
@@ -192,3 +192,4 @@
 		},
 	})
 </script>
+@/services/users

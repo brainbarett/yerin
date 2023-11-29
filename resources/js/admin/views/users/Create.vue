@@ -1,6 +1,6 @@
 <template>
 	<Layout>
-		<Header :title="$t('routes.admin.create.title')" :back="{ name: 'admin.index' }" />
+		<Header :title="$t('routes.users.create.title')" :back="{ name: 'users.index' }" />
 
 		<formulate-form @submit="save" v-model="form" name="main" class="resource-form__section">
 			<div class="form__field-group md:grid-cols-3">
@@ -30,7 +30,7 @@
 					name="role"
 					type="select"
 					:options="roles"
-					:label="$t('routes.admin.shared.form.fields.role')"
+					:label="$t('routes.users.shared.form.fields.role')"
 				/>
 			</div>
 
@@ -38,13 +38,13 @@
 				<formulate-input
 					name="password"
 					type="password"
-					:label="$t('routes.admin.shared.form.fields.password')"
+					:label="$t('routes.users.shared.form.fields.password')"
 					validation="required"
 				/>
 				<formulate-input
 					name="password_confirm"
 					type="password"
-					:label="$t('routes.admin.shared.form.fields.password-confirmation')"
+					:label="$t('routes.users.shared.form.fields.password-confirmation')"
 					validation="required|confirm"
 				/>
 			</div>
@@ -65,7 +65,7 @@
 	import { Layout } from '@/layouts/main'
 	import Header from '@/components/Header.vue'
 	import Button from '@/components/Button.vue'
-	import { AdminApi, Language, StoreRequest } from '@/services/admin'
+	import { UsersApi, Language, StoreRequest } from '@/services/users'
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse } from '@/services/http'
 	import { RolesApi } from '@/services/roles'
@@ -104,8 +104,8 @@
 				this.$formulate.resetValidation('main')
 
 				const parsedFormData: StoreRequest = form
-				await AdminApi.store(parsedFormData)
-					.then(() => this.$router.push({ name: 'admin.index' }))
+				await UsersApi.store(parsedFormData)
+					.then(() => this.$router.push({ name: 'users.index' }))
 					.catch((res: AxiosResponse<ErrorResponse>) => {
 						this.$formulate.handleApi(res.data, 'main')
 					})
@@ -131,3 +131,4 @@
 		},
 	})
 </script>
+@/services/users

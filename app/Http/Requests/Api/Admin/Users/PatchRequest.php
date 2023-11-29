@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\Admin\Admin;
+namespace App\Http\Requests\Api\Admin\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +17,7 @@ class PatchRequest extends FormRequest
     {
         $user = $this->user();
 
-        return $user->roles()->where('super_admin', true)->exists() || $user->id == $this->route('admin')->id;
+        return $user->roles()->where('super_admin', true)->exists() || $user->id == $this->route('user')->id;
     }
 
     /**
@@ -29,7 +29,7 @@ class PatchRequest extends FormRequest
     {
         return [
 			'old_password' => [
-				Rule::requiredIf($this->route('admin')->id == $this->user()->id),
+				Rule::requiredIf($this->route('user')->id == $this->user()->id),
 				function ($attribute, $value, $fail) {
 					if(!Hash::check($value, $this->user()->password)) {
 						$fail(__('auth.password'));

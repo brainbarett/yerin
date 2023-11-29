@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Api\Admin\Admin;
+namespace App\Http\Requests\Api\Admin\Users;
 
-use App\Models\Admin;
 use App\Models\Roles;
+use App\Models\Users;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,9 +16,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
-		$user = $this->user();
-
-        return $user->roles()->where('super_admin', true)->exists() || $user->id == $this->route('admin')->id;
+        return $this->user()->roles()->where('super_admin', true)->exists();
     }
 
     /**
@@ -29,16 +27,11 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'string', 'email', Rule::unique(Admin::class)->ignore($this->route('admin')->id)],
+            'email' => ['required', 'string', 'email', Rule::unique(Users::class)],
             'name' => ['required', 'string'],
+            'password' => ['required', 'string'],
 			'language' => [Rule::in(config('app.accepted_languages'))],
-			'role' => [
-				Rule::when(
-					$this->route('admin')->id == $this->user()->id,
-					['missing'],
-					['present', 'nullable', Rule::exists(Roles::class, 'id')]
-				)
-			]
+			'role' => ['present', 'nullable', Rule::exists(Roles::class, 'id')]
         ];
     }
 }

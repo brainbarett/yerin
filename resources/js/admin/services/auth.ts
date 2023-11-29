@@ -1,15 +1,15 @@
-import { Admin } from './admin'
+import { User } from './users'
 import { http, Response } from './http'
 import { AxiosPromise } from 'axios'
 
 const baseUrl: string = '/auth'
 
 export const AuthApi = {
-	login(data: LoginRequest): AxiosPromise<Response<Admin>> {
+	login(data: LoginRequest): AxiosPromise<Response<User>> {
 		return http.post(`${baseUrl}/login`, data)
 	},
 
-	isAuthenticated(): AxiosPromise<Response<Admin>> {
+	isAuthenticated(): AxiosPromise<Response<User>> {
 		return http.get(`${baseUrl}/authenticated`)
 	},
 

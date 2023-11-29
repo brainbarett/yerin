@@ -4,18 +4,18 @@ namespace Tests\Feature\Api\Admin\RealEstate;
 
 use App\Enums\RealEstate\RentTerms;
 use App\Http\Resources\Api\Admin\RealEstate\PropertiesResource;
-use App\Models\Admin;
 use App\Models\Images;
 use App\Models\ModelImages;
 use App\Models\RealEstate\Amenities;
 use App\Models\RealEstate\Properties;
+use App\Models\Users;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\Sanctum;
 use Tests\Feature\Api\ApiTestCase;
 
 class PropertiesTest extends ApiTestCase
 {
-	private Admin $admin;
+	private Users $user;
 
 	protected string $baseRouteName = 'api.admin.real-estate.properties';
 
@@ -25,8 +25,8 @@ class PropertiesTest extends ApiTestCase
 		
 		Storage::fake('uploads');
 		
-		$this->admin = Admin::factory()->asSuperAdmin()->create();
-		Sanctum::actingAs($this->admin, ['*'], 'admin');
+		$this->user = Users::factory()->asSuperAdmin()->create();
+		Sanctum::actingAs($this->user, ['*'], 'admin');
 	}
 
 	private function payload(array $attributes = [])

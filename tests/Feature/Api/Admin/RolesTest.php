@@ -3,15 +3,15 @@
 namespace Tests\Feature\Api\Admin;
 
 use App\Http\Resources\Api\Admin\RolesResource;
-use App\Models\Admin;
 use App\Models\Permissions;
 use App\Models\Roles;
+use App\Models\Users;
 use Laravel\Sanctum\Sanctum;
 use Tests\Feature\Api\ApiTestCase;
 
 class RolesTest extends ApiTestCase
 {
-	private Admin $admin;
+	private Users $user;
 	
     protected string $baseRouteName = 'api.admin.roles';
 
@@ -19,9 +19,9 @@ class RolesTest extends ApiTestCase
 	{
 		parent::setUp();
 
-		$this->admin = Admin::factory()->asSuperAdmin()->create();
+		$this->user = Users::factory()->asSuperAdmin()->create();
 
-		Sanctum::actingAs($this->admin, ['*'], 'admin');
+		Sanctum::actingAs($this->user, ['*'], 'admin');
 	}
 
 	private function payload(array $attributes = [])

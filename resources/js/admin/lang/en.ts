@@ -36,7 +36,7 @@ export default {
 	},
 
 	menu: {
-		'admin-accounts': 'Admin Accounts',
+		users: 'Users',
 		properties: 'Properties',
 		'real-estate': 'Real Estate',
 		system: 'System',
@@ -101,19 +101,19 @@ export default {
 			},
 		},
 
-		admin: {
+		users: {
 			index: {
-				title: 'Manage Admin Accounts',
-				'add-admin': 'Add an Admin Account',
+				title: 'Manage Users',
+				'add-user': 'Add a User',
 			},
 
 			create: {
-				title: 'Create an Admin Account',
+				title: 'Create a User',
 			},
 
 			edit: {
-				title: 'Edit Admin Account',
-				'delete-account-modal-title': 'Delete Admin Account',
+				title: 'Edit User',
+				'delete-user-modal-title': 'Delete User',
 			},
 
 			shared: {

@@ -3,7 +3,7 @@
 namespace Tests\Feature\Api\Admin\RealEstate;
 
 use App\Http\Resources\Api\Admin\RealEstate\AmenitiesResource;
-use App\Models\Admin;
+use App\Models\Users;
 use App\Models\RealEstate\Amenities;
 use Laravel\Sanctum\Sanctum;
 use Tests\Feature\Api\ApiTestCase;
@@ -16,7 +16,7 @@ class AmenitiesTest extends ApiTestCase
 	{
 		parent::setUp();
 		
-		Sanctum::actingAs(Admin::factory()->asSuperAdmin()->create(), ['*'], 'admin');
+		Sanctum::actingAs(Users::factory()->asSuperAdmin()->create(), ['*'], 'admin');
 	}
 
 	private function payload(array $attributes = [])

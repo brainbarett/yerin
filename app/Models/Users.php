@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class Admin extends Authenticatable
+class Users extends Authenticatable
 {
     use HasApiTokens, HasFactory, HasRoles;
 
-	protected $table = 'admin';
+	protected $table = 'users';
     protected $guarded = [];
 
     protected $hidden = [

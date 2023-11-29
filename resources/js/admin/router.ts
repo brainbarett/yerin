@@ -2,7 +2,7 @@ import VueRouter from 'vue-router'
 import { AuthApi } from '@/services/auth'
 import Dashboard from '@/views/Dashboard.vue'
 import Login from '@/views/auth/Login.vue'
-import { adminRoutes } from '@/routes/admin'
+import { usersRoutes } from '@/routes/users'
 import { rolesRoutes } from '@/routes/roles'
 import { realEstateRoutes } from '@/routes/real-estate'
 import { useAuthStore } from '@/stores/auth'
@@ -31,7 +31,7 @@ const router = new VueRouter({
 			component: Profile,
 		},
 
-		...adminRoutes,
+		...usersRoutes,
 		...rolesRoutes,
 		...realEstateRoutes,
 	],

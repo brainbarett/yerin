@@ -3,7 +3,7 @@
 namespace Tests\Feature\Api\Admin;
 
 use App\Http\Resources\Api\Admin\ImagesResource;
-use App\Models\Admin;
+use App\Models\Users;
 use App\Models\Images;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\UploadedFile;
@@ -22,7 +22,7 @@ class ImagesTest extends ApiTestCase
         parent::setUp();
 		
 		$this->storage = Storage::fake('uploads');
-		Sanctum::actingAs(Admin::factory()->create(), ['*'], 'admin');
+		Sanctum::actingAs(Users::factory()->create(), ['*'], 'admin');
 	}
 
 	/** @test */

@@ -36,7 +36,7 @@ export default {
 	},
 
 	menu: {
-		'admin-accounts': 'Cuentas Admin',
+		users: 'Usuarios',
 		properties: 'Propiedades',
 		'real-estate': 'Bienes Raices',
 		system: 'Sistema',
@@ -85,7 +85,7 @@ export default {
 
 			profile: {
 				title: 'Mi Cuenta',
-				'account-info': 'Informacion de la cuenta',
+				'account-info': 'Información',
 				form: {
 					'update-password': 'Cambiar contraseña',
 					fields: {
@@ -101,19 +101,19 @@ export default {
 			},
 		},
 
-		admin: {
+		users: {
 			index: {
-				title: 'Gestionar Cuentas Admin',
-				'add-admin': 'Añadir una Cuenta Admin',
+				title: 'Gestionar Usuarios',
+				'add-user': 'Añadir Usuario',
 			},
 
 			create: {
-				title: 'Crear una Cuenta Admin',
+				title: 'Crear Usuario',
 			},
 
 			edit: {
-				title: 'Editar Cuenta Admin',
-				'delete-account-modal-title': 'Eliminar Cuenta Admin',
+				title: 'Editar Usuario',
+				'delete-user-modal-title': 'Eliminar Usuario',
 			},
 
 			shared: {
@@ -136,11 +136,11 @@ export default {
 		roles: {
 			index: {
 				title: 'Gestionar Roles y Permisos',
-				'add-role': 'Añadir un Rol',
+				'add-role': 'Añadir Rol',
 			},
 
 			create: {
-				title: 'Crear un Rol',
+				title: 'Crear Rol',
 			},
 
 			edit: {
@@ -166,11 +166,11 @@ export default {
 			properties: {
 				index: {
 					title: 'Gestionar Propiedades',
-					'add-property': 'Añadir una Propiedad',
+					'add-property': 'Añadir Propiedad',
 				},
 
 				create: {
-					title: 'Crear una Propiedad',
+					title: 'Crear Propiedad',
 				},
 
 				edit: {
@@ -216,7 +216,7 @@ export default {
 			amenities: {
 				index: {
 					title: 'Gestionar Amenidades',
-					'add-amenity': 'Añadir una Amenidad',
+					'add-amenity': 'Añadir Amenidad',
 					'delete-amenity-modal-title': 'Eliminar Amenidad',
 					'create-amenity-success': 'Amenidad creada con éxito',
 					'update-amenity-success': 'Amenidad actualizada con éxito',

@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Admin;
 use App\Models\Roles;
+use App\Models\Users;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class AdminFactory extends Factory
+class UsersFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -26,15 +26,15 @@ class AdminFactory extends Factory
 
 	public function configure()
     {
-        return $this->afterCreating(function(Admin $admin) {
-			$admin->syncRoles(Roles::factory()->create());
+        return $this->afterCreating(function(Users $user) {
+			$user->syncRoles(Roles::factory()->create());
         });
     }
 
 	public function asSuperAdmin()
     {
-        return $this->afterCreating(function(Admin $admin) {
-            $admin->syncRoles(Roles::where('super_admin', true)->firstOrFail());
+        return $this->afterCreating(function(Users $user) {
+            $user->syncRoles(Roles::where('super_admin', true)->firstOrFail());
         });
     }
 }

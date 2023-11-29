@@ -2,7 +2,7 @@
 	<Layout>
 		<DeleteResourceModal
 			v-if="showDestroyModal"
-			:title="$t('routes.admin.edit.delete-account-modal-title')"
+			:title="$t('routes.users.edit.delete-user-modal-title')"
 			@close="showDestroyModal = false"
 			@confirm="destroy()"
 			:loading="loading.destroy"
@@ -16,7 +16,7 @@
 			></p>
 		</DeleteResourceModal>
 
-		<Header :title="$t('routes.admin.edit.title')" :back="{ name: 'admin.index' }" />
+		<Header :title="$t('routes.users.edit.title')" :back="{ name: 'users.index' }" />
 
 		<formulate-form @submit="save" v-model="form" name="main" class="resource-form__section">
 			<div class="form__field-group md:grid-cols-3">
@@ -46,7 +46,7 @@
 					name="role"
 					type="select"
 					:options="roles"
-					:label="$t('routes.admin.shared.form.fields.role')"
+					:label="$t('routes.users.shared.form.fields.role')"
 				/>
 			</div>
 		</formulate-form>
@@ -74,7 +74,7 @@
 	import { Layout } from '@/layouts/main'
 	import Header from '@/components/Header.vue'
 	import Button from '@/components/Button.vue'
-	import { AdminApi, Admin, Language, UpdateRequest } from '@/services/admin'
+	import { UsersApi, User, Language, UpdateRequest } from '@/services/users'
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse } from '@/services/http'
 	import DeleteResourceModal from '@/components/modals/DeleteResourceModal.vue'
@@ -94,7 +94,7 @@
 
 		data() {
 			return {
-				resource: {} as Admin,
+				resource: {} as User,
 				loading: {
 					update: false,
 					destroy: false,
@@ -117,8 +117,8 @@
 				this.$formulate.resetValidation('main')
 
 				const parsedFormData: UpdateRequest = form
-				await AdminApi.update(this.resource.id, parsedFormData)
-					.then(() => this.$router.push({ name: 'admin.index' }))
+				await UsersApi.update(this.resource.id, parsedFormData)
+					.then(() => this.$router.push({ name: 'users.index' }))
 					.catch((res: AxiosResponse<ErrorResponse>) => {
 						this.$formulate.handleApi(res.data, 'main')
 					})
@@ -129,8 +129,8 @@
 			async destroy() {
 				this.loading.destroy = true
 
-				await AdminApi.destroy(this.resource.id)
-					.then(() => this.$router.push({ name: 'admin.index' }))
+				await UsersApi.destroy(this.resource.id)
+					.then(() => this.$router.push({ name: 'users.index' }))
 					.catch((res: AxiosResponse<ErrorResponse>) => {
 						this.fireAlert({
 							title: <string>this.$t('common.error-deleting-resource', {
@@ -162,13 +162,13 @@
 		},
 
 		async beforeRouteEnter(to, from, next) {
-			await AdminApi.show(to.params.id as unknown as number)
+			await UsersApi.show(to.params.id as unknown as number)
 				.then(res => {
 					next((vm: any) => {
-						const admin = res.data.data
-						const form: Form = { ...admin, role: admin.role.id }
+						const user = res.data.data
+						const form: Form = { ...user, role: user.role.id }
 
-						vm.resource = admin
+						vm.resource = user
 						vm.form = form
 					})
 				})
@@ -182,9 +182,10 @@
 							type: 'error',
 						})
 
-						vm.$router.push({ name: 'admin.index' })
+						vm.$router.push({ name: 'users.index' })
 					}),
 				)
 		},
 	})
 </script>
+@/services/users

@@ -29,9 +29,9 @@ Route::prefix('admin')
 
 		Route::apiResource('roles', 'RolesController');
 
-		Route::apiResource('admin', 'AdminController')->except('update');
-		Route::put('admin/{admin}', 'AdminController@update')->name('admin.update');
-		Route::patch('admin/{admin}', 'AdminController@patch')->name('admin.patch');
+		Route::apiResource('users', 'UsersController')->except('update');
+		Route::put('users/{user}', 'UsersController@update')->name('users.update');
+		Route::patch('users/{user}', 'UsersController@patch')->name('users.patch');
 
 		Route::post('images', 'ImagesController@upload')->name('images.upload');
 		Route::delete('images/{image}', 'ImagesController@destroy')->name('images.destroy');

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\Admin\Admin;
+namespace App\Http\Requests\Api\Admin\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -18,7 +18,7 @@ class DestroyRequest extends FormRequest
 
 	protected function prepareForValidation()
     {
-        abort_if($this->user()->id == $this->route('admin')->id, 403, __('messages.cant-delete-self'));
+        abort_if($this->user()->id == $this->route('user')->id, 403, __('messages.cant-delete-self'));
     }
 
     /**

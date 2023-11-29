@@ -2,22 +2,22 @@ import { http, Response } from './http'
 import { AxiosPromise } from 'axios'
 import { Role } from './roles'
 
-const baseUrl: string = '/admin'
+const baseUrl: string = '/users'
 
-export const AdminApi = {
-	index(): AxiosPromise<Response<Admin[]>> {
+export const UsersApi = {
+	index(): AxiosPromise<Response<User[]>> {
 		return http.get(baseUrl)
 	},
 
-	show(id: number): AxiosPromise<Response<Admin>> {
+	show(id: number): AxiosPromise<Response<User>> {
 		return http.get(`${baseUrl}/${id}`)
 	},
 
-	store(data: StoreRequest): AxiosPromise<Response<Admin>> {
+	store(data: StoreRequest): AxiosPromise<Response<User>> {
 		return http.post(baseUrl, data)
 	},
 
-	update(id: number, data: UpdateRequest): AxiosPromise<Response<Admin>> {
+	update(id: number, data: UpdateRequest): AxiosPromise<Response<User>> {
 		return http.put(`${baseUrl}/${id}`, data)
 	},
 
@@ -32,7 +32,7 @@ export const AdminApi = {
 
 export type Language = 'en' | 'es'
 
-export type Admin = {
+export type User = {
 	id: number
 	name: string
 	email: string

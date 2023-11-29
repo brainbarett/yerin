@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Api\Admin;
 
-use App\Http\Resources\Api\Admin\AdminResource;
-use App\Models\Admin;
+use App\Http\Resources\Api\Admin\UsersResource;
+use App\Models\Users;
 use Laravel\Sanctum\Sanctum;
 use Tests\Feature\Api\ApiTestCase;
 
@@ -14,15 +14,15 @@ class AuthTest extends ApiTestCase
 	/** @test */
     public function can_login()
     {
-        $admin = Admin::factory()->create(['password' => 'password']);
+        $user = Users::factory()->create(['password' => 'password']);
         
-        $response = $this->post($this->getRoute('login'), ['email' => $admin->email, 'password' => 'password'])
+        $response = $this->post($this->getRoute('login'), ['email' => $user->email, 'password' => 'password'])
             ->assertOk()
             ->json();
 
         $this->assertTrue(auth('admin')->check());
         $this->assertEquals(
-            AdminResource::make($admin)->resolve(),
+            UsersResource::make($user)->resolve(),
             $response['data']
         );
     }
@@ -30,9 +30,9 @@ class AuthTest extends ApiTestCase
 	/** @test */
 	public function can_verify_if_we_are_logged_in()
 	{
-		$admin = Admin::factory()->create();
+		$user = Users::factory()->create();
 
-		Sanctum::actingAs($admin, [], 'admin');
+		Sanctum::actingAs($user, [], 'admin');
 
 		$response = $this->get($this->getRoute('authenticated'))
 			->assertOk()
@@ -40,7 +40,7 @@ class AuthTest extends ApiTestCase
 
 		$this->assertTrue(auth('admin')->check());
 		$this->assertEquals(
-			AdminResource::make($admin)->resolve(),
+			UsersResource::make($user)->resolve(),
 			$response['data']
 		);
 	}
@@ -48,7 +48,7 @@ class AuthTest extends ApiTestCase
 	/** @test */
 	public function can_logout()
 	{
-		Sanctum::actingAs(Admin::factory()->create(), ['*'], 'admin');
+		Sanctum::actingAs(Users::factory()->create(), ['*'], 'admin');
 	
 		$this->post($this->getRoute('logout'))
 			->assertStatus(204);

@@ -2,7 +2,7 @@
 	<Layout vh>
 		<Modal
 			v-if="updatePasswordForm.visible"
-			:title="`${$t('common.form.updating')}: ${updatePasswordForm.admin.name}`"
+			:title="`${$t('common.form.updating')}: ${updatePasswordForm.user.name}`"
 			@close="closeUpdatePasswordForm"
 		>
 			<formulate-form @submit="updatePassword" name="update-password">
@@ -11,14 +11,14 @@
 						v-model="updatePasswordForm.password"
 						name="password"
 						type="password"
-						:label="$t('routes.admin.shared.form.fields.new-password')"
+						:label="$t('routes.users.shared.form.fields.new-password')"
 						validation="required"
 					/>
 					<formulate-input
 						v-model="updatePasswordForm.password_confirm"
 						name="password_confirm"
 						type="password"
-						:label="$t('routes.admin.shared.form.fields.new-password-confirmation')"
+						:label="$t('routes.users.shared.form.fields.new-password-confirmation')"
 						validation="required|confirm"
 					/>
 				</div>
@@ -40,11 +40,11 @@
 		</Modal>
 
 		<div class="flex flex-col h-full">
-			<Header :title="$t('routes.admin.index.title')">
+			<Header :title="$t('routes.users.index.title')">
 				<template #extra-content>
 					<Button
-						:to="{ name: 'admin.create' }"
-						:label="$t('routes.admin.index.add-admin')"
+						:to="{ name: 'users.create' }"
+						:label="$t('routes.users.index.add-user')"
 						class="ml-auto"
 					/>
 				</template>
@@ -59,7 +59,7 @@
 			>
 				<template #row="{ row, field }">
 					<router-link
-						:to="{ name: 'admin.edit', params: { id: row.id } }"
+						:to="{ name: 'users.edit', params: { id: row.id } }"
 						class="flex items-center"
 					>
 						{{ row[field] }}
@@ -81,7 +81,7 @@
 									showUpdatePasswordForm(row)
 								"
 							>
-								{{ $t('routes.admin.shared.form.update-password') }}
+								{{ $t('routes.users.shared.form.update-password') }}
 							</button>
 						</template>
 					</v-dropdown>
@@ -98,7 +98,7 @@
 	import Button from '@/components/Button.vue'
 	import { Column } from '@/components/data-table/types'
 	import { default as DataGrid } from '@/components/data-table/Table.vue'
-	import { AdminApi, Admin } from '@/services/admin'
+	import { UsersApi, User } from '@/services/users'
 	import { AxiosResponse } from 'axios'
 	import { ErrorResponse } from '@/services/http'
 	import Modal from '@/components/modals/Modal.vue'
@@ -109,7 +109,7 @@
 		components: { Layout, Header, Button, DataGrid, Modal },
 
 		data() {
-			const columns: Column<keyof Admin>[] = [
+			const columns: Column<keyof User>[] = [
 				{
 					label: this.$tc('common.form.fields.name'),
 					field: 'name',
@@ -125,10 +125,10 @@
 			return {
 				loading: false,
 				columns,
-				rows: [] as Admin[],
+				rows: [] as User[],
 				updatePasswordForm: {
 					visible: false,
-					admin: null as null | Admin,
+					user: null as null | User,
 					loading: false,
 					password: '' as string,
 					password_confirm: '' as string,
@@ -139,14 +139,14 @@
 		methods: {
 			...mapActions(useUiStore, ['fireAlert']),
 
-			showUpdatePasswordForm(admin: Admin) {
+			showUpdatePasswordForm(user: User) {
 				this.updatePasswordForm.visible = true
-				this.updatePasswordForm.admin = admin
+				this.updatePasswordForm.user = user
 			},
 
 			closeUpdatePasswordForm() {
 				this.updatePasswordForm.visible = false
-				this.updatePasswordForm.admin = null
+				this.updatePasswordForm.user = null
 				this.$formulate.reset('update-password')
 			},
 
@@ -154,14 +154,14 @@
 				this.updatePasswordForm.loading = true
 				this.$formulate.resetValidation('update-password')
 
-				AdminApi.updatePassword(this.updatePasswordForm.admin!.id, {
+				UsersApi.updatePassword(this.updatePasswordForm.user!.id, {
 					password: this.updatePasswordForm.password,
 				})
 					.then(() => {
 						this.closeUpdatePasswordForm()
 						this.fireAlert({
 							title: this.$tc(
-								'routes.admin.shared.form.messages.update-password-success',
+								'routes.users.shared.form.messages.update-password-success',
 							),
 							type: 'info',
 						})
@@ -176,7 +176,7 @@
 		created() {
 			this.loading = true
 
-			AdminApi.index()
+			UsersApi.index()
 				.then(res => (this.rows = res.data.data))
 				.catch((res: AxiosResponse<ErrorResponse>) =>
 					this.fireAlert({
@@ -189,3 +189,4 @@
 		},
 	})
 </script>
+@/services/users

@@ -2,7 +2,7 @@ import { RouteConfig } from 'vue-router'
 import Index from '@/views/real-estate/properties/Index.vue'
 import Create from '@/views/real-estate/properties/Create.vue'
 import Edit from '@/views/real-estate/properties/Edit.vue'
-import { User } from '@/stores/auth'
+import { AuthUser } from '@/stores/auth'
 import { permissions } from '@/permissions'
 
 const propertiesRoutes: RouteConfig[] = [
@@ -11,7 +11,7 @@ const propertiesRoutes: RouteConfig[] = [
 		name: 'real-estate.properties.index',
 		component: Index,
 		meta: {
-			authorize: (user: User) => user.can(permissions.realEstate.properties.read),
+			authorize: (user: AuthUser) => user.can(permissions.realEstate.properties.read),
 		},
 	},
 	{
@@ -19,7 +19,7 @@ const propertiesRoutes: RouteConfig[] = [
 		name: 'real-estate.properties.create',
 		component: Create,
 		meta: {
-			authorize: (user: User) => user.can(permissions.realEstate.properties.write),
+			authorize: (user: AuthUser) => user.can(permissions.realEstate.properties.write),
 		},
 	},
 	{
@@ -27,7 +27,7 @@ const propertiesRoutes: RouteConfig[] = [
 		name: 'real-estate.properties.edit',
 		component: Edit,
 		meta: {
-			authorize: (user: User) => user.can(permissions.realEstate.properties.write),
+			authorize: (user: AuthUser) => user.can(permissions.realEstate.properties.write),
 		},
 	},
 ]

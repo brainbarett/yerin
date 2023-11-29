@@ -56,10 +56,10 @@
 					show: user => user.isSuperAdmin,
 					items: [
 						{
-							label: this.$tc('menu.admin-accounts'),
-							routerLocation: { name: 'admin.index' },
+							label: this.$tc('menu.users'),
+							routerLocation: { name: 'users.index' },
 							icon: 'user-group',
-							active: this.$route.name?.startsWith('admin.'),
+							active: this.$route.name?.startsWith('users.'),
 						},
 						{
 							label: this.$tc('menu.roles'),

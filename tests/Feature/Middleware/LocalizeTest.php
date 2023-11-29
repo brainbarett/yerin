@@ -3,7 +3,7 @@
 namespace Tests\Feature\Middleware;
 
 use App\Http\Middleware\Localize;
-use App\Models\Admin;
+use App\Models\Users;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Request;
@@ -34,7 +34,7 @@ class LocalizeTest extends TestCase
 		$middleware = new Localize;
 		app()->setLocale('en');
 		
-        Sanctum::actingAs(Admin::factory()->create(['language' => 'es']), [], 'admin');
+        Sanctum::actingAs(Users::factory()->create(['language' => 'es']), [], 'admin');
         $request->headers->set('X-Language', 'en');
 
         $middleware->handle($request, function(Request $request) {

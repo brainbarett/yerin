@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Admin\Auth\LoginRequest;
-use App\Http\Resources\Api\Admin\AdminResource;
+use App\Http\Resources\Api\Admin\UsersResource;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -15,12 +15,12 @@ class AuthController extends Controller
 
 		abort_unless(auth('admin')->attempt($credentials), 400, __('auth.failed'));
 
-		return AdminResource::make(auth('admin')->user());
+		return UsersResource::make(auth('admin')->user());
     }
 
 	public function isAuthenticated()
     {
-        return AdminResource::make(auth('admin')->user());
+        return UsersResource::make(auth('admin')->user());
     }
 
 	public function logout()

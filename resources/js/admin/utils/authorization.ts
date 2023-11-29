@@ -1,11 +1,11 @@
-import { Admin } from '@/services/admin'
+import { User } from '@/services/users'
 
 export type Authorizable = {
 	isSuperAdmin: boolean
 	can: (permission: string) => boolean
 }
 
-export function makeAuthorizable(user: Admin): Admin & Authorizable {
+export function makeAuthorizable(user: User): User & Authorizable {
 	return {
 		...user,
 		isSuperAdmin: user.role.super_admin,

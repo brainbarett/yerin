@@ -1,4 +1,4 @@
-import { Language } from '@/services/admin'
+import { Language } from '@/services/users'
 import { app, i18n } from '@/app'
 import { defineStore } from 'pinia'
 import { default as AlertComponent } from '@/components/Alert.vue'
