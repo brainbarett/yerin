@@ -67,11 +67,11 @@ You can then run all the tests with
 
 -   v1.0.0
 
-    -   ⬜️ Account management
+    -   ✅ Account management
 
         -   ✅ Create and modify accounts
         -   ✅ Authentication
-        -   ⬜️ Manage and assign roles & permissions
+        -   ✅ Manage and assign roles & permissions
 
     -   ✅ Property management
 
@@ -81,6 +81,8 @@ You can then run all the tests with
         -   ✅ Geographical locations
 
     -   ✅ UI translations
+
+    -   ⬜️ Live demo
 
 -   Backlog
 
