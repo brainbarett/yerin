@@ -16,13 +16,7 @@ class PermissionsSeeder extends Seeder
      */
     public function run()
     {
-        foreach (PropertiesPermissions::values() as $permission) {
-            Permissions::firstOrCreate([
-                'name' => $permission,
-            ]);
-        }
-
-        foreach (AmenitiesPermissions::values() as $permission) {
+        foreach (array_merge(PropertiesPermissions::values(), AmenitiesPermissions::values()) as $permission) {
             Permissions::firstOrCreate([
                 'name' => $permission,
             ]);
