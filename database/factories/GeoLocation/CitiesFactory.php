@@ -20,9 +20,9 @@ class CitiesFactory extends Factory
         $state = States::factory()->create();
 
         return [
-			'name' => $this->faker->sentence(),
-			'country_id' => $state->country_id,
-			'state_id' => $state->id
+            'name' => $this->faker->sentence(),
+            'country_id' => $state->country_id,
+            'state_id' => $state->id,
         ];
     }
 }

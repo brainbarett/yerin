@@ -9,25 +9,25 @@ use Tests\TestCase;
 
 abstract class ApiTestCase extends TestCase
 {
-	use RefreshDatabase;
-	use WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
-	public function setUp(): void
+    protected string $baseRouteName;
+
+    public function setUp(): void
     {
         parent::setUp();
-		
-		$this->seed(RolesSeeder::class);
+
+        $this->seed(RolesSeeder::class);
 
         $this->withoutExceptionHandling()
-			->withHeaders(['Accept' => 'application/json']);
+            ->withHeaders(['Accept' => 'application/json']);
     }
-	
-	protected string $baseRouteName;
 
-    protected function getRoute(string $endpointName, string | array $parameters = [])
+    protected function getRoute(string $endpointName, string|array $parameters = [])
     {
         return route(
-            "{$this->baseRouteName}.$endpointName",
+            "{$this->baseRouteName}.{$endpointName}",
             is_array($parameters) ? $parameters : [$parameters]
         );
     }

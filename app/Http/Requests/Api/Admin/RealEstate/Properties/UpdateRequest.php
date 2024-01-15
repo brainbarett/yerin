@@ -33,55 +33,55 @@ class UpdateRequest extends FormRequest
     {
         return [
             'type' => ['required', 'string', Rule::in(PropertyTypes::names())],
-			'reference' => ['required', 'string', 'alpha_dash',
-				Rule::unique(Properties::class)->ignore($this->route('property')->id)
-			],
-			'name' => ['required', 'string'],
-			'description' => ['nullable', 'string'],
-			'available' => ['required', 'boolean'],
+            'reference' => ['required', 'string', 'alpha_dash',
+                Rule::unique(Properties::class)->ignore($this->route('property')),
+            ],
+            'name' => ['required', 'string'],
+            'description' => ['nullable', 'string'],
+            'available' => ['required', 'boolean'],
 
-			'bedrooms' => ['required', 'integer'],
-			'full_bathrooms' => ['required', 'integer'],
-			'half_bathrooms' => ['nullable', 'integer'],
+            'bedrooms' => ['required', 'integer'],
+            'full_bathrooms' => ['required', 'integer'],
+            'half_bathrooms' => ['nullable', 'integer'],
 
-			'lot_area' => ['nullable', 'integer'],
-			'construction_area' => ['nullable', 'integer'],
-			
-			'construction_year' => ['nullable', 'date_format:Y'],
+            'lot_area' => ['nullable', 'integer'],
+            'construction_area' => ['nullable', 'integer'],
 
-			'location_id' => ['required', 'integer', Rule::exists(Sectors::class, 'id')],
-			'latitude' => ['present', 'nullable', 'numeric', 'min:-90', 'max:90'],
+            'construction_year' => ['nullable', 'date_format:Y'],
+
+            'location_id' => ['required', 'integer', Rule::exists(Sectors::class, 'id')],
+            'latitude' => ['present', 'nullable', 'numeric', 'min:-90', 'max:90'],
             'longitude' => ['present', 'nullable', 'numeric', 'min:-180', 'max:180'],
 
-			'amenities' => ['present', 'array'],
-			'amenities.*' => ['required', 'integer', 'distinct', Rule::exists(Amenities::class, 'id')],
-			
-			'listings' => ['present', 'nullable', 'array', 'min:1'],
-			'listings.*' => ['required', 'string', Rule::in(['RENT', 'SALE'])],
+            'amenities' => ['present', 'array'],
+            'amenities.*' => ['required', 'integer', 'distinct', Rule::exists(Amenities::class, 'id')],
 
-			'listings.SALE' => ['integer', 'min:1'],
+            'listings' => ['present', 'nullable', 'array', 'min:1'],
+            'listings.*' => ['required', 'string', Rule::in(['RENT', 'SALE'])],
 
-			'listings.RENT' => ['array', 'min:1', function($attribute, $value, $fail) {
-				if(array_diff(array_keys($value), RentTerms::names())) {
-					$fail('Invalid rent term');
-				}
-			}],
-			'listings.RENT.*' => ['integer', 'min:1'],
+            'listings.SALE' => ['integer', 'min:1'],
 
-			'images' => ['present', 'array'],
-			'images.*.id' => ['required', 'integer', 'distinct', Rule::exists(Images::class, 'id')],
+            'listings.RENT' => ['array', 'min:1', function ($attribute, $value, $fail) {
+                if (array_diff(array_keys($value), RentTerms::names())) {
+                    $fail('Invalid rent term');
+                }
+            }],
+            'listings.RENT.*' => ['integer', 'min:1'],
+
+            'images' => ['present', 'array'],
+            'images.*.id' => ['required', 'integer', 'distinct', Rule::exists(Images::class, 'id')],
             'images.*.order' => ['required', 'integer', 'min:0', 'distinct'],
         ];
     }
 
-	public function validated($key = null, $default = null)
-	{
-		/**
-		 * for some reason using 'nullable' rule in a nested array field
-		 * and then sending null as the value
-		 * completely removes that field from the validated()
-		 * current solution is to re-introduce the field with the sent null value
-		 */
-		return parent::validated() + ['listings' => null];
-	}
+    public function validated($key = null, $default = null)
+    {
+        /**
+         * for some reason using 'nullable' rule in a nested array field
+         * and then sending null as the value
+         * completely removes that field from the validated()
+         * current solution is to re-introduce the field with the sent null value
+         */
+        return parent::validated() + ['listings' => null];
+    }
 }

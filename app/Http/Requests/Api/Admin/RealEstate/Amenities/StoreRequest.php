@@ -27,7 +27,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', Rule::unique(Amenities::class)]
+            'name' => ['required', 'string', Rule::unique(Amenities::class)],
         ];
     }
 }

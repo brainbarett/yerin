@@ -25,14 +25,14 @@ class IndexRequest extends FormRequest
     public function rules()
     {
         return [
-			'search' => ['nullable', 'string'],
+            'search' => ['nullable', 'string'],
             'paginate' => ['boolean'],
             'page' => ['required_if:paginate,true', 'integer', 'min:1'],
-			'per_page' => ['nullable', 'integer', 'min:1']
+            'per_page' => ['nullable', 'integer', 'min:1'],
         ];
     }
 
-	public function validated($key = null, $default = null)
+    public function validated($key = null, $default = null)
     {
         return parent::validated() + ['paginate' => false];
     }

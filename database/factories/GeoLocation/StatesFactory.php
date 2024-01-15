@@ -19,7 +19,7 @@ class StatesFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence(),
-			'country_id' => Countries::factory()->create()->id
+            'country_id' => Countries::factory()->create()->id,
         ];
     }
 }

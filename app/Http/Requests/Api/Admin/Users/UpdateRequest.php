@@ -9,6 +9,8 @@ use Illuminate\Validation\Rule;
 
 class UpdateRequest extends FormRequest
 {
+    private bool $updatingSelf;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -16,9 +18,13 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
-		$user = $this->user();
+        /** @var Users $routeUser */
+        $routeUser = $this->route('user');
+        $user = $this->user();
 
-        return $user->roles()->where('super_admin', true)->exists() || $user->id == $this->route('user')->id;
+        $this->updatingSelf = $user->id == $routeUser->id;
+
+        return $user->roles()->where('super_admin', true)->exists() || $this->updatingSelf;
     }
 
     /**
@@ -29,16 +35,16 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'string', 'email', Rule::unique(Users::class)->ignore($this->route('user')->id)],
+            'email' => ['required', 'string', 'email', Rule::unique(Users::class)->ignore($this->route('user'))],
             'name' => ['required', 'string'],
-			'language' => [Rule::in(config('app.accepted_languages'))],
-			'role' => [
-				Rule::when(
-					$this->route('user')->id == $this->user()->id,
-					['missing'],
-					['present', 'nullable', Rule::exists(Roles::class, 'id')]
-				)
-			]
+            'language' => [Rule::in(config('app.accepted_languages'))],
+            'role' => [
+                Rule::when(
+                    $this->updatingSelf,
+                    ['missing'],
+                    ['present', 'nullable', Rule::exists(Roles::class, 'id')]
+                ),
+            ],
         ];
     }
 }

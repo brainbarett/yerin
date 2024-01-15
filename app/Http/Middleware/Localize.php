@@ -9,12 +9,12 @@ class Localize
 {
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->check()) {
+        if (auth()->check()) {
             $language = auth()->user()->language;
         } else {
             $language = $request->headers->get('X-Language');
-    
-            if(!in_array($language, config('app.accepted_languages'))) {
+
+            if (! in_array($language, config('app.accepted_languages'))) {
                 $language = config('app.locale');
             }
         }

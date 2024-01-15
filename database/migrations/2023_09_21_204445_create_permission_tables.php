@@ -7,11 +7,6 @@ use Spatie\Permission\PermissionRegistrar;
 
 class CreatePermissionTables extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         $tableNames = config('permission.table_names');
@@ -42,11 +37,11 @@ class CreatePermissionTables extends Migration
             }
             $table->string('name');       // For MySQL 8.0 use string('name', 125);
             $table->string('guard_name')->default('admin'); // For MySQL 8.0 use string('guard_name', 125);
-            
+
             $table->boolean('system_role')->default(false);
             $table->boolean('super_admin')->default(false);
 
-			$table->timestamps();
+            $table->timestamps();
             if ($teams || config('permission.testing')) {
                 $table->unique([$columnNames['team_foreign_key'], 'name', 'guard_name']);
             } else {
@@ -123,11 +118,6 @@ class CreatePermissionTables extends Migration
             ->forget(config('permission.cache.key'));
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         $tableNames = config('permission.table_names');

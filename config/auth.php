@@ -38,7 +38,7 @@ return [
     */
 
     'guards' => [
-		'admin' => [
+        'admin' => [
             'driver' => 'session',
             'provider' => 'admin',
         ],
@@ -63,9 +63,9 @@ return [
 
     'providers' => [
         'admin' => [
-			'driver' => 'eloquent',
-			'model' => Users::class,
-		],
+            'driver' => 'eloquent',
+            'model' => Users::class,
+        ],
     ],
 
     /*

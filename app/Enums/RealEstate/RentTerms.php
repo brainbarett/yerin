@@ -9,10 +9,10 @@ use ArchTech\Enums\Values;
 
 enum RentTerms
 {
-	use InvokableCases, Options, Values, Names;
-	
-	case DAY;
-	case WEEK;
-	case MONTH;
-	case YEAR;
+    use InvokableCases, Names, Options, Values;
+
+    case DAY;
+    case WEEK;
+    case MONTH;
+    case YEAR;
 }

@@ -7,19 +7,18 @@ use App\Models\GeoLocation\Cities;
 use App\Models\GeoLocation\Countries;
 use App\Models\GeoLocation\Sectors;
 use App\Models\GeoLocation\States;
-use Illuminate\Http\Request;
 
 class GeoLocationsController extends Controller
 {
     public function index()
-	{
-		return response()->json([
-			'data' => [
-				'countries' => Countries::all(),
-				'cities' => Cities::all(),
-				'states' => States::all(),
-				'sectors' => Sectors::all()
-			]
-		]);
-	}
+    {
+        return response()->json([
+            'data' => [
+                'countries' => Countries::all(),
+                'cities' => Cities::all(),
+                'states' => States::all(),
+                'sectors' => Sectors::all(),
+            ],
+        ]);
+    }
 }

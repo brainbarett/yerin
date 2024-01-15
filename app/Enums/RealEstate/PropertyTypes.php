@@ -9,10 +9,10 @@ use ArchTech\Enums\Values;
 
 enum PropertyTypes
 {
-	use InvokableCases, Options, Values, Names;
-	
-	case HOUSE;
-	case VILLA;
-	case APARTMENT;
-	case PENTHOUSE;
+    use InvokableCases, Names, Options, Values;
+
+    case HOUSE;
+    case VILLA;
+    case APARTMENT;
+    case PENTHOUSE;
 }

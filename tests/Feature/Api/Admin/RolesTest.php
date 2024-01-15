@@ -11,44 +11,36 @@ use Tests\Feature\Api\ApiTestCase;
 
 class RolesTest extends ApiTestCase
 {
-	private Users $user;
-	
     protected string $baseRouteName = 'api.admin.roles';
 
-	public function setUp(): void
-	{
-		parent::setUp();
+    private Users $user;
 
-		$this->user = Users::factory()->asSuperAdmin()->create();
-
-		Sanctum::actingAs($this->user, ['*'], 'admin');
-	}
-
-	private function payload(array $attributes = [])
+    public function setUp(): void
     {
-        return $attributes + [
-            'name' => $this->faker->unique()->name,
-            'permissions' => Permissions::factory(3)->create()->pluck('name')->toArray()
-        ];
+        parent::setUp();
+
+        $this->user = Users::factory()->asSuperAdmin()->create();
+
+        Sanctum::actingAs($this->user, ['*'], 'admin');
     }
 
-	/** @test */
+    /** @test */
     public function can_get_roles_index()
     {
-		$roles = Roles::all()
-			->merge(Roles::factory(3)->create());
-			
-		$response = $this->get($this->getRoute('index'))
+        $roles = Roles::all()
+            ->merge(Roles::factory(3)->create());
+
+        $response = $this->get($this->getRoute('index'))
             ->assertOk()
             ->json();
-			
+
         $this->assertEqualsCanonicalizing(
             RolesResource::collection($roles)->resolve(),
             $response['data']
         );
     }
 
-	/** @test */
+    /** @test */
     public function can_get_specific_role()
     {
         $role = Roles::factory()->create();
@@ -60,24 +52,24 @@ class RolesTest extends ApiTestCase
         $this->assertEquals(RolesResource::make($role)->resolve(), $response['data']);
     }
 
-	/** @test */
-	public function can_create_new_roles()
-	{
-		$payload = $this->payload();
-		
-		$response = $this->post($this->getRoute('store'), $payload)
-			->assertStatus(201)
-			->json();
+    /** @test */
+    public function can_create_new_roles()
+    {
+        $payload = $this->payload();
 
-		$role = Roles::findOrFail($response['data']['id']);
-		$this->assertEquals($payload['name'], $role->name);
-		$this->assertEqualsCanonicalizing(
-			$payload['permissions'],
-			$role->permissions()->pluck('name')->toArray()
-		);
-	}
+        $response = $this->post($this->getRoute('store'), $payload)
+            ->assertStatus(201)
+            ->json();
 
-	/** @test */
+        $role = Roles::findOrFail($response['data']['id']);
+        $this->assertEquals($payload['name'], $role->name);
+        $this->assertEqualsCanonicalizing(
+            $payload['permissions'],
+            $role->permissions()->pluck('name')->toArray()
+        );
+    }
+
+    /** @test */
     public function can_update_a_role()
     {
         $role = Roles::factory()->create();
@@ -95,7 +87,7 @@ class RolesTest extends ApiTestCase
         );
     }
 
-	/** @test */
+    /** @test */
     public function can_destroy_a_role()
     {
         $roleId = Roles::factory()->create()->id;
@@ -104,5 +96,13 @@ class RolesTest extends ApiTestCase
             ->assertStatus(204);
 
         $this->assertNull(Roles::find($roleId));
+    }
+
+    private function payload(array $attributes = [])
+    {
+        return $attributes + [
+            'name' => $this->faker->unique()->name,
+            'permissions' => Permissions::factory(3)->create()->pluck('name')->toArray(),
+        ];
     }
 }

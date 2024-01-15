@@ -14,11 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-		DB::transaction(function() {
-			$this->call([
-				PermissionsSeeder::class,
-				RolesSeeder::class,
-			]);
-		});
+        DB::transaction(function () {
+            $this->call([
+                PermissionsSeeder::class,
+                RolesSeeder::class,
+            ]);
+        });
     }
 }

@@ -15,9 +15,9 @@ class RolesSeeder extends Seeder
     public function run()
     {
         Roles::firstOrCreate([
-			'name' => 'Super Admin',
-			'system_role' => true,
-			'super_admin' => true,
-		]);
+            'name' => 'Super Admin',
+            'system_role' => true,
+            'super_admin' => true,
+        ]);
     }
 }

@@ -2,12 +2,15 @@
 
 namespace App\Http\Requests\Api\Admin\Users;
 
+use App\Models\Users;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class PatchRequest extends FormRequest
 {
+    private bool $updatingSelf;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -15,9 +18,13 @@ class PatchRequest extends FormRequest
      */
     public function authorize()
     {
+        /** @var Users $routeUser */
+        $routeUser = $this->route('user');
         $user = $this->user();
 
-        return $user->roles()->where('super_admin', true)->exists() || $user->id == $this->route('user')->id;
+        $this->updatingSelf = $user->id == $routeUser->id;
+
+        return $user->roles()->where('super_admin', true)->exists() || $this->updatingSelf;
     }
 
     /**
@@ -28,15 +35,15 @@ class PatchRequest extends FormRequest
     public function rules()
     {
         return [
-			'old_password' => [
-				Rule::requiredIf($this->route('user')->id == $this->user()->id),
-				function ($attribute, $value, $fail) {
-					if(!Hash::check($value, $this->user()->password)) {
-						$fail(__('auth.password'));
-					}
-				},
-				'exclude'
-			],
+            'old_password' => [
+                Rule::requiredIf($this->updatingSelf),
+                function ($attribute, $value, $fail) {
+                    if (! Hash::check($value, $this->user()->password)) {
+                        $fail(__('auth.password'));
+                    }
+                },
+                'exclude',
+            ],
             'password' => ['string'],
         ];
     }

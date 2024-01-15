@@ -16,19 +16,19 @@ class DemoSeeder extends Seeder
      */
     public function run()
     {
-		DB::transaction(function () {
-			$user = Users::create([
-				'email' => 'admin@test.com',
-				'password' => 'password',
-				'language' => 'en',
-				'name' => 'Test Admin'
-			]);
-	
-			$this->call([
-				DatabaseSeeder::class,
-			]);
-	
-			$user->assignRole(Roles::where('super_admin', true)->firstOrFail());
-		});
+        DB::transaction(function () {
+            $user = Users::create([
+                'email' => 'admin@test.com',
+                'password' => 'password',
+                'language' => 'en',
+                'name' => 'Test Admin',
+            ]);
+
+            $this->call([
+                DatabaseSeeder::class,
+            ]);
+
+            $user->assignRole(Roles::where('super_admin', true)->firstOrFail());
+        });
     }
 }

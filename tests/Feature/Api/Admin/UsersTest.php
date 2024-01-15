@@ -12,44 +12,20 @@ use Tests\Feature\Api\ApiTestCase;
 
 class UsersTest extends ApiTestCase
 {
-	private Users $user;
+    protected string $baseRouteName = 'api.admin.users';
 
-	protected string $baseRouteName = 'api.admin.users';
+    private Users $user;
 
-	public function setUp(): void
-	{
-		parent::setUp();
-
-		$this->user = Users::factory()->asSuperAdmin()->create();
-
-		Sanctum::actingAs($this->user, ['*'], 'admin');
-	}
-
-	private function payload(array $attributes = [])
+    public function setUp(): void
     {
-        return $attributes + Users::factory()->raw() + ['role' => Roles::factory()->create()->id];
+        parent::setUp();
+
+        $this->user = Users::factory()->asSuperAdmin()->create();
+
+        Sanctum::actingAs($this->user, ['*'], 'admin');
     }
 
-	private function assertModelAttributes(Users $user, array $attributes)
-    {
-        foreach($attributes as $attribute => $value) {
-            switch($attribute) {
-                case 'password':
-                    $this->assertTrue(Hash::check($value, $user->{$attribute}));
-                    break;
-
-				case 'role':
-					$this->assertTrue($user->roles()->where('id', $value)->exists());
-					break;
-                
-                default:
-                    $this->assertEquals($value, $user->{$attribute});
-                    break;
-            }
-        }
-    }
-
-	/** @test */
+    /** @test */
     public function can_get_users_index()
     {
         $users = Users::factory(5)->create();
@@ -65,7 +41,7 @@ class UsersTest extends ApiTestCase
         );
     }
 
-	/** @test */
+    /** @test */
     public function can_get_specific_a_user()
     {
         $response = $this->get($this->getRoute('show', $this->user->id))
@@ -75,7 +51,7 @@ class UsersTest extends ApiTestCase
         $this->assertEquals(UsersResource::make($this->user)->resolve(), $response['data']);
     }
 
-	/** @test */
+    /** @test */
     public function can_create_a_new_user()
     {
         $payload = $this->payload();
@@ -88,7 +64,7 @@ class UsersTest extends ApiTestCase
         $this->assertModelAttributes($user, $payload);
     }
 
-	/** @test */
+    /** @test */
     public function can_update_an_user()
     {
         $user = Users::factory()->create();
@@ -96,23 +72,23 @@ class UsersTest extends ApiTestCase
 
         $this->put($this->getRoute('update', $user->id), $payload)
             ->assertOk();
-			
+
         $this->assertModelAttributes($user->refresh(), $payload);
     }
 
-	/** @test */
-	public function can_update_a_user_password()
-	{
-		$user = Users::factory()->create();
-		$payload = ['password' => $this->faker->sentence];
+    /** @test */
+    public function can_update_a_user_password()
+    {
+        $user = Users::factory()->create();
+        $payload = ['password' => $this->faker->sentence];
 
-		$this->patch($this->getRoute('patch', $user->id), $payload)
-			->assertOk();
+        $this->patch($this->getRoute('patch', $user->id), $payload)
+            ->assertOk();
 
-		$this->assertModelAttributes($user->refresh(), $payload);
-	}
+        $this->assertModelAttributes($user->refresh(), $payload);
+    }
 
-	/** @test */
+    /** @test */
     public function can_destroy_a_user()
     {
         $userId = Users::factory()->create()->id;
@@ -123,14 +99,38 @@ class UsersTest extends ApiTestCase
         $this->assertNull(Users::find($userId));
     }
 
-	/** @test */
+    /** @test */
     public function user_cannot_destroy_self()
-	{
-		$this->withExceptionHandling();
+    {
+        $this->withExceptionHandling();
 
-		$this->delete($this->getRoute('destroy', $this->user->id))
-			->assertStatus(403);
+        $this->delete($this->getRoute('destroy', $this->user->id))
+            ->assertStatus(403);
 
-		$this->assertTrue(Users::where('id', $this->user->id)->exists());
-	}
+        $this->assertTrue(Users::where('id', $this->user->id)->exists());
+    }
+
+    private function payload(array $attributes = [])
+    {
+        return $attributes + Users::factory()->raw() + ['role' => Roles::factory()->create()->id];
+    }
+
+    private function assertModelAttributes(Users $user, array $attributes)
+    {
+        foreach ($attributes as $attribute => $value) {
+            switch ($attribute) {
+                case 'password':
+                    $this->assertTrue(Hash::check($value, $user->{$attribute}));
+                    break;
+
+                case 'role':
+                    $this->assertTrue($user->roles()->where('id', $value)->exists());
+                    break;
+
+                default:
+                    $this->assertEquals($value, $user->{$attribute});
+                    break;
+            }
+        }
+    }
 }

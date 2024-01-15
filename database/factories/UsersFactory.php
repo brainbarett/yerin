@@ -5,8 +5,10 @@ namespace Database\Factories;
 use App\Models\Roles;
 use App\Models\Users;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Users>
+ */
 class UsersFactory extends Factory
 {
     /**
@@ -20,20 +22,20 @@ class UsersFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'password' => $this->faker->unique()->word,
-			'language' => 'en'
+            'language' => 'en',
         ];
     }
 
-	public function configure()
+    public function configure()
     {
-        return $this->afterCreating(function(Users $user) {
-			$user->syncRoles(Roles::factory()->create());
+        return $this->afterCreating(function (Users $user) {
+            $user->syncRoles(Roles::factory()->create());
         });
     }
 
-	public function asSuperAdmin()
+    public function asSuperAdmin()
     {
-        return $this->afterCreating(function(Users $user) {
+        return $this->afterCreating(function (Users $user) {
             $user->syncRoles(Roles::where('super_admin', true)->firstOrFail());
         });
     }

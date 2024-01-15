@@ -84,7 +84,7 @@ return [
 
     'locale' => 'en',
 
-	'accepted_languages' => [
+    'accepted_languages' => [
         'en',
         'es',
     ],
@@ -172,7 +172,7 @@ return [
         /*
          * Package Service Providers...
          */
-		Intervention\Image\ImageServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...

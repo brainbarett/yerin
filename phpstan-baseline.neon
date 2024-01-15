@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\Api\\\\Admin\\\\ModelImagesResource\\:\\:\\$filename\\.$#"
+			count: 1
+			path: app/Http/Resources/Api/Admin/ModelImagesResource.php
+
+		-
+			message: "#^PHPDoc tag @return contains generic type Illuminate\\\\Database\\\\Eloquent\\\\Casts\\\\Attribute\\<string, never\\> but class Illuminate\\\\Database\\\\Eloquent\\\\Casts\\\\Attribute is not generic\\.$#"
+			count: 1
+			path: app/Models/ModelImages.php

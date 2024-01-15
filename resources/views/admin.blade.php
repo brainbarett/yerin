@@ -11,7 +11,7 @@
 <body>
     <div id="app">
     </div>
-    
+
     <script src="{{ mix('admin_panel/app.js') }}"></script>
 </body>
 </html>

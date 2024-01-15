@@ -17,13 +17,13 @@ class SectorsFactory extends Factory
      */
     public function definition()
     {
-		$city = Cities::factory()->create();
+        $city = Cities::factory()->create();
 
         return [
             'name' => $this->faker->sentence(),
-			'country_id' => $city->country_id,
-			'state_id' => $city->state_id,
-			'city_id' => $city->id
+            'country_id' => $city->country_id,
+            'state_id' => $city->state_id,
+            'city_id' => $city->id,
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\Admin\Users;
 
+use App\Models\Users;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DestroyRequest extends FormRequest
@@ -16,11 +17,6 @@ class DestroyRequest extends FormRequest
         return $this->user()->roles()->where('super_admin', true)->exists();
     }
 
-	protected function prepareForValidation()
-    {
-        abort_if($this->user()->id == $this->route('user')->id, 403, __('messages.cant-delete-self'));
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -31,5 +27,13 @@ class DestroyRequest extends FormRequest
         return [
             //
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        /** @var Users $routeUser */
+        $routeUser = $this->route('user');
+
+        abort_if($this->user()->id == $routeUser->id, 403, __('messages.cant-delete-self'));
     }
 }

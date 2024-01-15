@@ -12,32 +12,34 @@ use Tests\TestCase;
 
 class LocalizeTest extends TestCase
 {
-	use RefreshDatabase;
-	use WithFaker;
-	
-	public function testHandle()
-	{
-		$request = new Request;
-		$middleware = new Localize;
+    use RefreshDatabase;
+    use WithFaker;
+
+    /** @test */
+    public function handle()
+    {
+        $request = new Request;
+        $middleware = new Localize;
         app()->setLocale('en');
 
         $request->headers->set('X-Language', 'es');
-        $middleware->handle($request, function(Request $request) {
+        $middleware->handle($request, function (Request $request) {
             $this->assertEquals('es', $request->headers->get('Content-Language'));
         });
         $this->assertEquals('es', app()->getLocale());
-	}
+    }
 
-    public function testHandlePrioritizesUserSavedPreference()
+    /** @test */
+    public function handle_prioritizes_user_saved_preference()
     {
         $request = new Request;
-		$middleware = new Localize;
-		app()->setLocale('en');
-		
+        $middleware = new Localize;
+        app()->setLocale('en');
+
         Sanctum::actingAs(Users::factory()->create(['language' => 'es']), [], 'admin');
         $request->headers->set('X-Language', 'en');
 
-        $middleware->handle($request, function(Request $request) {
+        $middleware->handle($request, function (Request $request) {
             $this->assertEquals('es', $request->headers->get('Content-Language'));
         });
         $this->assertEquals('es', app()->getLocale());

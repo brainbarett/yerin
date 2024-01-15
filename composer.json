@@ -19,12 +19,15 @@
 		"spatie/laravel-permission": "^5.11"
 	},
 	"require-dev": {
+		"barryvdh/laravel-ide-helper": "^2.13",
 		"fakerphp/faker": "^1.9.1",
+		"larastan/larastan": "2",
 		"laravel/sail": "^1.0.1",
 		"mockery/mockery": "^1.4.4",
 		"nunomaduro/collision": "^6.1",
 		"phpunit/phpunit": "^9.5.10",
-		"spatie/laravel-ignition": "^1.0"
+		"spatie/laravel-ignition": "^1.0",
+		"tightenco/duster": "^2.7"
 	},
 	"autoload": {
 		"psr-4": {
@@ -44,7 +47,8 @@
 			"@php artisan package:discover --ansi"
 		],
 		"post-update-cmd": [
-			"@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+			"@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+			"@php artisan ide-helper:generate"
 		],
 		"post-root-package-install": [
 			"@php -r \"file_exists('.env') || copy('.env.example', '.env');\""

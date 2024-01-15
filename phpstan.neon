@@ -1,0 +1,14 @@
+includes:
+	- vendor/larastan/larastan/extension.neon
+	- vendor/archtechx/enums/extension.neon
+	- phpstan-baseline.neon
+
+parameters:
+	paths:
+		- app/
+		- database/seeders/
+		- database/migrations/
+		
+	level: 5
+
+	treatPhpDocTypesAsCertain: false

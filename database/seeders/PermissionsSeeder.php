@@ -16,16 +16,16 @@ class PermissionsSeeder extends Seeder
      */
     public function run()
     {
-        foreach(PropertiesPermissions::values() as $permission) {
-			Permissions::firstOrCreate([
-				'name' => $permission
-			]);
-		}
+        foreach (PropertiesPermissions::values() as $permission) {
+            Permissions::firstOrCreate([
+                'name' => $permission,
+            ]);
+        }
 
-        foreach(AmenitiesPermissions::values() as $permission) {
-			Permissions::firstOrCreate([
-				'name' => $permission
-			]);
-		}
+        foreach (AmenitiesPermissions::values() as $permission) {
+            Permissions::firstOrCreate([
+                'name' => $permission,
+            ]);
+        }
     }
 }

@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/{any?}', '/admin')->where('any', '^(?!admin\/?).*');
+Route::redirect('{any?}', '/admin')->where('any', '^(?!admin\/?).*');
 
-Route::get('/admin/{any?}', fn() => view('admin'))->where('any', '.*');
+Route::get('admin/{any?}', fn () => view('admin'))->where('any', '.*');

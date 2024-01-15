@@ -19,14 +19,14 @@ class ImagesFactory extends Factory
     public function definition()
     {
         return [
-            'filename' => "{$this->faker->unique()->uuid}.jpg"
+            'filename' => "{$this->faker->unique()->uuid}.jpg",
         ];
     }
 
-	public function configure()
+    public function configure()
     {
-        return $this->afterCreating(function(Images $image) {
-			$image->associateFile(UploadedFile::fake()->image($image->filename));
-		});
+        return $this->afterCreating(function (Images $image) {
+            $image->associateFile(UploadedFile::fake()->image($image->filename));
+        });
     }
 }
