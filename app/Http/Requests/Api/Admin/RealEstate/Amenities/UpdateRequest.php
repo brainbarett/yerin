@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Api\Admin\RealEstate\Amenities;
 
-use App\Enums\Permissions\RealEstate\Amenities as AmenitiesPermissions;
+use App\Enums\RealEstate\Permissions\AmenitiesPermissions;
 use App\Models\RealEstate\Amenities;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;

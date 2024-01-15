@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Api\Admin\RealEstate\Amenities;
 
-use App\Enums\Permissions\RealEstate\Amenities as AmenitiesPermissions;
+use App\Enums\RealEstate\Permissions\AmenitiesPermissions;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DestroyRequest extends FormRequest

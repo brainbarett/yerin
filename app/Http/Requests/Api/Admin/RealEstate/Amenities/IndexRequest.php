@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Api\Admin\RealEstate\Amenities;
 
-use App\Enums\Permissions\RealEstate\Amenities as AmenitiesPermissions;
-use App\Enums\Permissions\RealEstate\Properties as PropertiesPermissions;
+use App\Enums\RealEstate\Permissions\AmenitiesPermissions;
+use App\Enums\RealEstate\Permissions\PropertiesPermissions;
 use Illuminate\Foundation\Http\FormRequest;
 
 class IndexRequest extends FormRequest

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Enums\Permissions\RealEstate;
+namespace App\Enums\RealEstate\Permissions;
 
 use ArchTech\Enums\InvokableCases;
 use ArchTech\Enums\Values;
 
-enum Properties: string
+enum PropertiesPermissions: string
 {
     use InvokableCases, Values;
 

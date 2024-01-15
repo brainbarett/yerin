@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Enums\Permissions\RealEstate\Amenities as AmenitiesPermissions;
-use App\Enums\Permissions\RealEstate\Properties as PropertiesPermissions;
+use App\Enums\RealEstate\Permissions\AmenitiesPermissions;
+use App\Enums\RealEstate\Permissions\PropertiesPermissions;
 use App\Models\Permissions;
 use Illuminate\Database\Seeder;
 

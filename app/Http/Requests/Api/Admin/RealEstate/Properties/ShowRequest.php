@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Api\Admin\RealEstate\Properties;
 
-use App\Enums\Permissions\RealEstate\Properties as PropertiesPermissions;
+use App\Enums\RealEstate\Permissions\PropertiesPermissions;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ShowRequest extends FormRequest
