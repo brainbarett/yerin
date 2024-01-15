@@ -18,7 +18,7 @@
 ## Requirements
 
 -   php >= 8.1
--   mysql
+-   mysql >= 5.7
 -   composer (see http://getcomposer.org/download)
 
 ## Installation
