@@ -268,4 +268,3 @@
 		},
 	})
 </script>
-@/services/real-estate/amenities
