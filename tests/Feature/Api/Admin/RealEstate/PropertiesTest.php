@@ -111,12 +111,19 @@ class PropertiesTest extends ApiTestCase
 
     private function payload(array $attributes = [])
     {
-        return $attributes + Properties::factory()->raw();
+        return $attributes + Properties::factory()->raw() + [
+            'images' => [],
+            'listings' => null,
+            'amenities' => [],
+        ];
     }
 
     private function payloadVariations()
     {
         $payloadVariations = [
+            // minimum
+            $this->payload(),
+
             // all
             $this->payload([
                 'listings' => [
@@ -140,8 +147,6 @@ class PropertiesTest extends ApiTestCase
             // only for sale
             $this->payload([
                 'listings' => ['SALE' => $this->faker->randomNumber(3)],
-                'images' => [],
-                'amenities' => [],
             ]),
 
             // only for rent
@@ -154,27 +159,6 @@ class PropertiesTest extends ApiTestCase
                         'YEAR' => $this->faker->randomNumber(3),
                     ],
                 ],
-                'images' => [],
-                'amenities' => [],
-            ]),
-
-            // only images
-            $this->payload([
-                'images' => Images::factory(3)->create()->map(function ($image, $index) {
-                    return [
-                        'id' => $image->id,
-                        'order' => $index,
-                    ];
-                })->toArray(),
-                'listings' => null,
-                'amenities' => [],
-            ]),
-
-            // only amenities
-            $this->payload([
-                'images' => [],
-                'listings' => null,
-                'amenities' => Amenities::factory(3)->create()->pluck('id')->toArray(),
             ]),
         ];
 
@@ -184,8 +168,6 @@ class PropertiesTest extends ApiTestCase
                 'listings' => [
                     'RENT' => [$term => $this->faker->randomNumber(3)],
                 ],
-                'images' => [],
-                'amenities' => [],
             ]);
         }
 
